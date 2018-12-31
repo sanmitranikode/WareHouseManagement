@@ -52,7 +52,7 @@ namespace WareHouseManagement.PCL.Helper
                 var sendContent = new StringContent(json, Encoding.UTF8, "application/json");
                 if (!string.IsNullOrEmpty(GlobalConstant.AccessToken))
                 {
-                    client.DefaultRequestHeaders.Add("Authorization", GlobalConstant.AccessToken);
+                    client.DefaultRequestHeaders.Add("Authorization", "bearer"+" " + GlobalConstant.AccessToken);
                 }
                 else
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WareHouseManagement.Views.PalletMaintainancePage"
+             Title="PALLET MAINTAINANCE">
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                 
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="Bar Code" FontAttributes="Bold" VerticalOptions="Center"/>
+                    <Entry Grid.Row="0" Grid.Column="1" VerticalOptions="Center"/>
+                    <Button Grid.Row="0" Grid.Column="2" Text="Add" BackgroundColor="#0B9E75" BorderRadius="7" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40"/>
+
+
+
+                </Grid>
+                <StackLayout Grid.Row="1" BackgroundColor="#b6dcfe">
+                    <Grid  >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackLayout Grid.Row="0" Grid.Column="0" >
+                            <Label  Text="Item Code" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" />
+                        </StackLayout>
+                        <StackLayout Grid.Row="0" Grid.Column="1" >
+                            <Label  Text="Name" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" />
+
+                        </StackLayout>
+                        <StackLayout Grid.Row="0" Grid.Column="2"  >
+                            <Label Text="Add" TextColor="Black"  VerticalOptions="CenterAndExpand" HorizontalOptions="Center" />
+
+                        </StackLayout>
+                        <StackLayout Grid.Row="1"  Grid.ColumnSpan="3" >
+                            <ListView   HorizontalOptions="CenterAndExpand">
+
+                            </ListView>
+
+                        </StackLayout>
+                        <StackLayout Grid.Row="2" Grid.Column="2" >
+                            <Label  Text="Total"  VerticalOptions="Center" HorizontalOptions="Center" />
+
+
+                        </StackLayout>
+
+
+
+
+
+
+
+                    </Grid>
+
+
+                </StackLayout>
+               
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                       
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="Tag" VerticalOptions="Center" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    <Entry Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Fill" />
+                    <Label Grid.Row="0" Grid.Column="2" Text="Read Tag" VerticalOptions="Center" HorizontalOptions="Center"/>
+
+
+                </Grid>
+                <Grid Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Row="0" Grid.Column="0" Text="Save" BackgroundColor="#0B9E75" BorderRadius="7"   VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40"/>
+                    <Button Grid.Row="0" Grid.Column="1" Text="Update" VerticalOptions="Center" BackgroundColor="#0B9E75" BorderRadius="7" HorizontalOptions="Center" HeightRequest="40"/>
+                    <Button Grid.Row="0" Grid.Column="2" Text="Delete" BackgroundColor="#0B9E75" BorderRadius="7" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40"/>
+                    <Button Grid.Row="0" Grid.Column="3" Text="Close" BackgroundColor="#0B9E75" BorderRadius="7" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40"/>
+                </Grid>
+
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

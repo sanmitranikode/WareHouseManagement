@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WareHouseManagement.Views.ClearPalletTagPage">
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="*"/>
+
+
+
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+
+                </Grid.ColumnDefinitions>
+                <StackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Spacing="40">
+                    <Label Text="Pallet Tag  :" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"></Label>
+                    <Entry VerticalOptions="Center" HorizontalOptions="FillAndExpand"  ></Entry>
+
+                </StackLayout>
+
+                <StackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="#b6dcfe" >
+                    <Label Text="item details"/>
+
+                </StackLayout>
+                <StackLayout Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" >
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="30">
+                        <Button Text="Save"  BackgroundColor="#0B9E75" BorderRadius="7" HeightRequest="40" ></Button>
+                        <Button Text="Close" BackgroundColor="#0B9E75" BorderRadius="7" HeightRequest="40"></Button>
+                        
+                    </StackLayout>
+
+                </StackLayout>
+
+            </Grid>
+            <!--<StackLayout VerticalOptions="Center" Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="30">
+                <Label Text="Pallet Tag" VerticalOptions="Center" HorizontalOptions="StartAndExpand"></Label>
+                <Entry VerticalOptions="Center" HorizontalOptions="FillAndExpand" ></Entry>
+            </StackLayout>-->
+          
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

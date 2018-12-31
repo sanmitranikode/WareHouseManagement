@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WareHouseManagement.Views.StockInPage"
+             Title="STOCK IN">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout VerticalOptions="Center" Padding="20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="Pallet Tag"   VerticalOptions="Center"  FontSize="Small" FontAttributes="Bold"/>
+                    <Entry Grid.Row ="0" Grid.Column="1" HorizontalOptions="FillAndExpand"  VerticalOptions="Center" />
+                    <Label Grid.Row="1" Grid.Column="0" Text="Quantity"   VerticalOptions="Center"  FontSize="Small" FontAttributes="Bold"/>
+                    <Entry Grid.Row ="1" Grid.Column="1" HorizontalOptions="FillAndExpand"  VerticalOptions="Center" />
+                    <Label Grid.Row="2" Grid.Column="0" Text="Bin Tag"   VerticalOptions="Center"  FontSize="Small" FontAttributes="Bold"/>
+                    <Entry Grid.Row ="2" Grid.Column="1" HorizontalOptions="FillAndExpand"  VerticalOptions="Center" />
+
+
+
+                </Grid>
+
+
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="Center">
+                <Button Text="Save"  BackgroundColor="#0B9E75" BorderRadius="7" HeightRequest="40"/>
+                <Button Text="Clear" BackgroundColor="#0B9E75" BorderRadius="7" HeightRequest="40" />
+                <Button Text="Close" BackgroundColor="#0B9E75" BorderRadius="7"  HeightRequest="40"/>
+
+            </StackLayout>
+
+        </StackLayout>
+       
+    </ContentPage.Content>
+</ContentPage>

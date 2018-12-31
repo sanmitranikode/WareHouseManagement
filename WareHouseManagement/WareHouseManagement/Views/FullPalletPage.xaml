@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WareHouseManagement.Views.FullPalletPage">
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <StackLayout Padding="10" VerticalOptions="Center" HeightRequest="400" BackgroundColor="#b6dcfe">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="3*"/>
+
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Row="0" Grid.Column="0" >
+                        <Label  Text="Item Code" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" />
+                    </StackLayout>
+                    <StackLayout Grid.Row="0" Grid.Column="1" >
+                        <Label  Text="Name" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" />
+
+                    </StackLayout>
+                    <StackLayout Grid.Row="0" Grid.Column="2"  >
+                        <Label Text="Add" TextColor="Black"  VerticalOptions="CenterAndExpand" HorizontalOptions="Center" />
+
+                    </StackLayout>
+                    <StackLayout Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1">
+                        <Label  Text="Item description" HorizontalOptions="Center"  VerticalOptions="CenterAndExpand"></Label>
+                    </StackLayout>
+
+                </Grid>
+
+            </StackLayout>
+            <StackLayout Padding="10" Spacing="15" VerticalOptions="End">
+                
+                <StackLayout Orientation="Horizontal" Padding="30,0,60,0" >
+                    <Label Text="Bin Tag" FontAttributes="Bold" HorizontalOptions="Center"></Label>
+                    <Label Text=" binding tag" HorizontalOptions="EndAndExpand"></Label>
+                    
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Padding="30,0,60,0" >
+                    <Label Text="Bin Name" FontAttributes="Bold" HorizontalOptions="Center"></Label>
+                    <Label Text=" binding name" HorizontalOptions="EndAndExpand"></Label>
+
+                </StackLayout>
+                <StackLayout>
+                    <Button Text="Stock Out" HorizontalOptions="EndAndExpand" BackgroundColor="#0b9e75" BorderRadius="7" HeightRequest="40"/>
+
+                </StackLayout>
+
+
+                <!--<Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Row="0" Grid.Column="0"></StackLayout>
+                </Grid>-->
+            </StackLayout>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

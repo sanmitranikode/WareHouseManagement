@@ -6,9 +6,7 @@ namespace WareHouseManagement.PCL.Model
 {
     public class PalletBarcodeModel
     {
-        /// <summary>
-        /// Gets or sets the Pallet Id
-        /// </summary>
+        
         public int PalletId { get; set; }
 
         /// <summary>

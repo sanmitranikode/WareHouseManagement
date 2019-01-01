@@ -6,9 +6,9 @@ namespace WareHouseManagement.PCL.Common
 {
     public class GlobalConstant
     {
-        public static string BaseUrl = "http://34.238.83.165:8071/api/";
-        public static string BaseUrlSignalR = "http://34.238.83.165:8071";
-        public static string TokenURL = "http://34.238.83.165:8071/token";
+        public static string BaseUrl = "http://97.74.238.15:8029/";
+        public static string BaseUrlSignalR = "http://97.74.238.15:8029";
+        public static string TokenURL = "http://97.74.238.15:8029/token";
 
         public static string AWS_ACCESS_KEY = "AWS_ACCESS_KEY";
         public static string AWS_SECRET_KEY = "AWS_SECRET_KEY";
@@ -22,5 +22,11 @@ namespace WareHouseManagement.PCL.Common
         public static string Usertype { get; set; }
         public static string GoogleMapApiKey = "AIzaSyC50XshkjneoleOy4CTQxRmWAv-qYGhd8Q";
 
+    }
+
+    public struct PalletMaintainanceServiceUrl
+    {
+        public static string GetPalletMaintainanceDetai = "PalletBarcode";
+        public static string GetUserLoginDetail = "Users/Authenticate";
     }
 }

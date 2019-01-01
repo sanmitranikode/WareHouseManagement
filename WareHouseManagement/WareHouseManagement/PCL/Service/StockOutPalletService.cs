@@ -46,13 +46,6 @@ namespace WareHouseManagement.PCL.Service
                 return resp;
             }
         }
-
-
-
-
-
-
-
-
+        
     }
 }

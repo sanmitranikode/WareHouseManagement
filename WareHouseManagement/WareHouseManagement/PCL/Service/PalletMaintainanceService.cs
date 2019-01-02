@@ -49,7 +49,7 @@ namespace WareHouseManagement.PCL.Service
                 return _User;
             }
         }
-        public async Task<ResultModel> GetPalletByBarcode(string Url)
+        public async Task<ResultModel> GetPalletLog(string Url)
         {
             ResultModel resp = null;
             try

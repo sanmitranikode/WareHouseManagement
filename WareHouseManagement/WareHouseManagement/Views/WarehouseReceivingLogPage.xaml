@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WareHouseManagement.Views.WarehouseReceivingLogPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="headerTablet" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="BackgroundColor" Value="Silver" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+            <Style x:Key="detailTablet" TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout Padding="10" VerticalOptions="Center">
+
+        <StackLayout VerticalOptions="CenterAndExpand">
+            <Label Text="Receiving Log Detail" VerticalOptions="Center" Font="Bold"></Label>
+        </StackLayout>
+        <Grid VerticalOptions="CenterAndExpand" Grid.Row="1" Margin="7" Padding="1"  RowSpacing="1" ColumnSpacing="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="3*" />
+                
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Customer"  Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+            <Label Text="LotNo" Grid.Column="1" Grid.Row="0"  Style="{DynamicResource headerTablet}"/>
+            <Label Text="Status" Grid.Column="2" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+           
+            <ListView x:Name="PalletList" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Items}"   HorizontalOptions="CenterAndExpand">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="3" ColumnSpacing="1" RowSpacing="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"></RowDefinition>
+
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label x:Name="txt_Customer" Grid.Row="0" Grid.Column="0"  Style="{DynamicResource detailTablet}" Text="{Binding Customer} "/>
+                                <Label x:Name="txt_LotNo" Grid.Row="0" Grid.Column="1"  Style="{DynamicResource detailTablet}"  Text="{Binding LotNo}"/>
+                                <Label x:Name="txt_Active" Grid.Row="0" Grid.Column="2" Style="{DynamicResource detailTablet}"  Text="{Binding Active}"/>
+                               
+
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+
+        </Grid>
+    </StackLayout>
+</ContentPage>

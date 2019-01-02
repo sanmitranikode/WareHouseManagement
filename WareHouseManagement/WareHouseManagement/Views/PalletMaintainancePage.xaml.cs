@@ -19,7 +19,8 @@ namespace WareHouseManagement.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PalletMaintainancePage : ContentPage
     {
-        ProductBarcodeResponseModel _model = new ProductBarcodeResponseModel();
+      
+       List< ProductBarcodeResponseModel> _model = new List<ProductBarcodeResponseModel> ();
         private ObservableCollection<ProductBarcodeResponseModel> _myObservableCollection;
         public PalletMaintainancePage()
         {
@@ -30,7 +31,7 @@ namespace WareHouseManagement.Views
             base.OnAppearing();
             BindingContext = new ProductBarcodeResponseModel();
             GetUserLoginAsync();
-
+            PalletList.ItemsSource = _model;
         }
         public async Task GetUserLoginAsync()
         {
@@ -60,12 +61,12 @@ namespace WareHouseManagement.Views
                 if (PalletDetail.Status == 1)
                 {
                     var PalletData = JsonConvert.DeserializeObject<ProductBarcodeResponseModel>(PalletDetail.Response.ToString());
-                    PalletList.ItemsSource = new List<ProductBarcodeResponseModel>
-                    {
-                       new ProductBarcodeResponseModel{Barcode=PalletData.Barcode,ProductName=PalletData.ProductName,Quantity=PalletData.Quantity, LotNo=PalletData.LotNo }
-                    };
                    
+                      _model.Add( new ProductBarcodeResponseModel{Barcode=PalletData.Barcode,ProductName=PalletData.ProductName,Quantity=(( PalletData.Quantity==null)?"0": PalletData.Quantity), LotNo=PalletData.LotNo });
+                 
                 }
+                PalletList.ItemsSource = null;
+                PalletList.ItemsSource = _model;
             }
         }
     }

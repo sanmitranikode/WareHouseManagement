@@ -29,5 +29,6 @@ namespace WareHouseManagement.PCL.Common
         public static string GetPalletMaintainanceDetai = "PalletBarcode";
         public static string GetUserLoginDetail = "Users/Authenticate";
         public static string GetPalletreceivinglog = "WarehouseReceiveLog";
+        public static string PostPalletreceivinglog = "PostPalletBarcode";
     }
 }

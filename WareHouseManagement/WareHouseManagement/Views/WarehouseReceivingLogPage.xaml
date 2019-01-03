@@ -47,6 +47,7 @@
                     <DataTemplate>
                         
                         <ViewCell>
+                            
                             <Grid Padding="3" ColumnSpacing="1" RowSpacing="1">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="40"></RowDefinition>

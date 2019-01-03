@@ -22,7 +22,7 @@ namespace WareHouseManagement
 
         private async void btn_PalletMaintainance_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new WarehouseReceivingLogPage());
+            await Navigation.PushAsync(new PalletMaintainancePage());
         }
 
         private async void btn_ClrPalletTag_Clicked(object sender, EventArgs e)

@@ -69,5 +69,25 @@ namespace WareHouseManagement.Views
                 PalletList.ItemsSource = _model;
             }
         }
+
+        public async void PostPalletMaintainanceDetailAsync()
+        {
+            PalletMaintainanceRequestModel PalletMaintainanceRequest = new PalletMaintainanceRequestModel
+            {
+                PalletRFID = "12345",
+
+            };
+           var RFID= int.Parse(txt_Barcode.Text);
+            var PostDetails = await new PalletMaintainanceService().PostPalletMaintainanceDetail(PalletMaintainanceRequest, PalletMaintainanceServiceUrl.PostPalletreceivinglog);
+            if (PostDetails.Status == 1)
+            {
+
+
+            }
+        }
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            var test = e;
+        }
     }
 }

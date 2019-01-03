@@ -49,6 +49,25 @@ namespace WareHouseManagement.PCL.Service
                 return _User;
             }
         }
+
+        public async Task<ResultModel> PostPalletMaintainanceDetail(PalletMaintainanceRequestModel model, string Url)
+        {
+            ResultModel _User = new ResultModel();
+            try
+            {
+
+                _User = await _helper.PostData<PalletMaintainanceRequestModel>(model, Url);
+
+                return _User;
+            }
+            catch (Exception ex)
+            {
+                // Crashes.TrackError(ex);
+                return _User;
+            }
+        }
+
+
         public async Task<ResultModel> GetPalletLog(string Url)
         {
             ResultModel resp = null;

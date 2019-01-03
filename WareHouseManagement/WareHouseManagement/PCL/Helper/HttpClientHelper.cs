@@ -81,5 +81,46 @@ namespace WareHouseManagement.PCL.Helper
             }
         }
 
+
+        public async Task<ResultModel> PostData<T>(T obj, string url)
+        {
+            ResultModel resp = new ResultModel { Status = 0, Message = "", Response = null };
+            using (var client = new HttpClient(new NativeMessageHandler()))
+            {
+                client.BaseAddress = new Uri(GlobalConstant.BaseUrl);
+
+                var json = JsonConvert.SerializeObject(obj);
+                var sendContent = new StringContent(json, Encoding.UTF8, "application/json");
+                if (!string.IsNullOrEmpty(GlobalConstant.AccessToken))
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "bearer" + " " + GlobalConstant.AccessToken);
+                }
+                else
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+                HttpResponseMessage response = new HttpResponseMessage();
+                try
+                {
+                    response = await client.PostAsync(client.BaseAddress + url, sendContent);
+                }
+                catch (Exception ex)
+                {
+                    resp.Message = ex.Message;
+                }
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<ResultModel>(content);
+                }
+                else
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<ResultModel>(content);
+                }
+            }
+        }
+
     }
 }

@@ -12,11 +12,10 @@
                 <Setter Property="VerticalTextAlignment" Value="Center" />
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
             </Style>
-            <Style x:Key="detailTablet" TargetType="Label">
+            <Style x:Key="detailTablet" TargetType="Entry">
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="BackgroundColor" Value="White" />
-                <Setter Property="VerticalTextAlignment" Value="Center" />
-                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="7"/>
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -35,13 +34,13 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                   
+                    <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Text="Bar Code" FontAttributes="Bold" VerticalOptions="Center"/>
-                <Entry Grid.Row="0" x:Name="txt_Barcode"  Grid.Column="1" VerticalOptions="Center" TextChanged="txt_Barcode_TextChanged"/>
-                <Button Grid.Row="0" Grid.Column="2" Text="Add" BackgroundColor="#0B9E75" BorderRadius="7" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40"/>
+
+                    <Entry Grid.Row="0" x:Name="txt_Barcode"  Grid.Column="0" VerticalOptions="Center" TextChanged="txt_Barcode_TextChanged" Placeholder="Bar Code" HorizontalOptions="Fill"/>
+                <Button Grid.Row="0" Grid.Column="1" Text="Add" BackgroundColor="#0B9E75" BorderRadius="7" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40"/>
 
 
 
@@ -134,17 +133,21 @@
                         <ColumnDefinition Width="3*" />
                         <ColumnDefinition Width="2*" />
                         <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
 
                     <Label Text="Item Code"  Grid.Row="0" Style="{DynamicResource headerTablet}"/>
                     <Label Text="Name" Grid.Column="1" Grid.Row="0"  Style="{DynamicResource headerTablet}"/>
                     <Label Text="Qty" Grid.Column="2" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
                     <Label Text="Pallet No" Grid.Column="3" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
-                    <ListView x:Name="PalletList" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" ItemsSource="{Binding MyObservableCollectionList}"   HorizontalOptions="CenterAndExpand">
+                    <ListView x:Name="PalletList" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" ItemsSource="{Binding MyObservableCollectionList}"   HorizontalOptions="CenterAndExpand">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <Grid Padding="4" ColumnSpacing="1" RowSpacing="1">
+                                    <Grid Padding="4" ColumnSpacing="1" RowSpacing="1" >
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                                        </Grid.GestureRecognizers>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="40"></RowDefinition>
                                           
@@ -154,12 +157,14 @@
                                             <ColumnDefinition Width="3*"></ColumnDefinition>
                                             <ColumnDefinition Width="2*"></ColumnDefinition>
                                             <ColumnDefinition Width="2*"></ColumnDefinition>
+                                            <ColumnDefinition Width="1*"></ColumnDefinition>
+
                                         </Grid.ColumnDefinitions>
-                                        <Label x:Name="txt_ItemCode" Grid.Row="0" Grid.Column="0"  Style="{DynamicResource detailTablet}" Text="{Binding Barcode} "/>
-                                        <Label x:Name="txt_Name" Grid.Row="0" Grid.Column="1"  Style="{DynamicResource detailTablet}"  Text="{Binding ProductName}"/>
-                                        <Label x:Name="txt_Quantity" Grid.Row="0" Grid.Column="2" Style="{DynamicResource detailTablet}"  Text="{Binding Quantity}"/>
-                                        <Label x:Name="txt_PalletNo" Grid.Row="0" Grid.Column="3" Style="{DynamicResource detailTablet}"  Text="{Binding LotNo}"/>
-                                       
+                                        <Entry x:Name="txt_ItemCode" Grid.Row="0" Grid.Column="0"  Style="{DynamicResource detailTablet}" Text="{Binding Barcode} "/>
+                                        <Entry x:Name="txt_Name" Grid.Row="0" Grid.Column="1"   Style="{DynamicResource detailTablet}"  Text="{Binding ProductName}"/>
+                                        <Entry x:Name="txt_Quantity" Grid.Row="0" Grid.Column="2" Style="{DynamicResource detailTablet}"  Text="{Binding Quantity}"/>
+                                        <Entry x:Name="txt_PalletNo" Grid.Row="0" Grid.Column="3" Style="{DynamicResource detailTablet}"  Text="{Binding LotNo}"/>
+                                        <Image Source="deleteitem.png" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="1" HorizontalOptions="End"/>
                                     </Grid>
                                 </ViewCell>
                             </DataTemplate>
@@ -176,13 +181,13 @@
 
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="1*"/>
+            
+                    <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Text="Tag" VerticalOptions="Center" FontAttributes="Bold" HorizontalOptions="Center"/>
-                <Entry Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Fill" />
-                <Label Grid.Row="0" Grid.Column="2" Text="Read Tag" VerticalOptions="Center" HorizontalOptions="Center"/>
+                   
+                    <Entry Grid.Row="0" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Fill" Placeholder="Tag" />
+                <Label Grid.Row="0" Grid.Column="1" Text="Read Tag" VerticalOptions="Center" HorizontalOptions="Center"/>
 
 
             </Grid>

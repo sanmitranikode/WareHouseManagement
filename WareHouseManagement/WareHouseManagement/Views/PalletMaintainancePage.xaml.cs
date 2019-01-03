@@ -20,7 +20,9 @@ namespace WareHouseManagement.Views
     public partial class PalletMaintainancePage : ContentPage
     {
         ProductBarcodeResponseModel _model = new ProductBarcodeResponseModel();
-        private ObservableCollection<ProductBarcodeResponseModel> _myObservableCollection;
+        PalletMaintainanceRequestModel PalletMaintainanceRequest = new PalletMaintainanceRequestModel();
+        public ObservableCollection<ProductBarcodeResponseModel> _myObservableCollection;
+       
         public PalletMaintainancePage()
         {
             InitializeComponent();
@@ -30,6 +32,7 @@ namespace WareHouseManagement.Views
             base.OnAppearing();
             BindingContext = new ProductBarcodeResponseModel();
             GetUserLoginAsync();
+          //  PostPalletMaintainanceDetailAsync();
 
         }
         public async Task GetUserLoginAsync()
@@ -67,6 +70,26 @@ namespace WareHouseManagement.Views
                    
                 }
             }
+        }
+
+        public async void PostPalletMaintainanceDetailAsync()
+        {
+            PalletMaintainanceRequestModel PalletMaintainanceRequest = new PalletMaintainanceRequestModel
+            {
+                PalletRFID = "12345",
+
+            };
+           var RFID= int.Parse(txt_Barcode.Text);
+            var PostDetails = await new PalletMaintainanceService().PostPalletMaintainanceDetail(PalletMaintainanceRequest, PalletMaintainanceServiceUrl.PostPalletreceivinglog);
+            if (PostDetails.Status == 1)
+            {
+
+
+            }
+        }
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            var test = e;
         }
     }
 }

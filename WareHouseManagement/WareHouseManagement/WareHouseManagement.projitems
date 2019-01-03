@@ -24,6 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ErrorViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\Pallet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\PalletBarcodeModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\PalletMaintainanceRequestModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\PalletModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ReaderItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ReaderModel.cs" />
@@ -135,9 +136,6 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\LocateTag.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)NewFolder\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\WarehouseReceivingLogPage.xaml">

@@ -43,7 +43,9 @@
            
             <ListView x:Name="PalletList" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Items}"   HorizontalOptions="CenterAndExpand">
                 <ListView.ItemTemplate>
+                   
                     <DataTemplate>
+                        
                         <ViewCell>
                             
                             <Grid Padding="3" ColumnSpacing="1" RowSpacing="1">
@@ -56,6 +58,9 @@
                                     <ColumnDefinition Width="3*"></ColumnDefinition>
                                     <ColumnDefinition Width="3*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="1"/>
+                                </Grid.GestureRecognizers>
                                 <Label x:Name="txt_Customer" Grid.Row="0" Grid.Column="0"  Style="{DynamicResource detailTablet}" Text="{Binding Customer} "/>
                                 <Label x:Name="txt_LotNo" Grid.Row="0" Grid.Column="1"  Style="{DynamicResource detailTablet}"  Text="{Binding LotNo}"/>
                                 <Label x:Name="txt_Active" Grid.Row="0" Grid.Column="2" Style="{DynamicResource detailTablet}"  Text="{Binding Active}"/>

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace WareHouseManagement.PCL.Model
 {
-    class TagItem : INotifyPropertyChanged
+   public class TagItem : INotifyPropertyChanged
     {
         private int _count;
         private int _rssi;

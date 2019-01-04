@@ -66,38 +66,42 @@ namespace WareHouseManagement.Views
                 if (PalletDetail.Status == 1)
                 {
                     var PalletData = JsonConvert.DeserializeObject<ProductBarcodeResponseModel>(PalletDetail.Response.ToString());
-                    _model.Add(PalletData);
-                    items = new PalletMaintanancedataBindingModel(_model);
-                    PalletList.ItemsSource = null;
-                    PalletList.ItemsSource = items.Items;
+                    try
+                    {
+                        var selected = _model.Where(x => x.Barcode == PalletData.Barcode).First();
+                        if (selected != null)
+                        {
+                            await Application.Current.MainPage.DisplayAlert("Message", "Your have Already added This Item", "OK");
+                        }
+                        else
+                        {
+                            _model.Add(PalletData);
+                            items = new PalletMaintanancedataBindingModel(_model);
+                            PalletList.ItemsSource = null;
+                            PalletList.ItemsSource = items.Items;
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        _model.Add(PalletData);
+                        items = new PalletMaintanancedataBindingModel(_model);
+                        PalletList.ItemsSource = null;
+                        PalletList.ItemsSource = items.Items;
+                    }
+                    
                 }
               
                
             }
         }
-        public ICommand OnDownloadClicked
-        {
-            get
-            {
-                if (onDownloadClicked == null)
-                {
-                    onDownloadClicked = new Command(() => DownloadRun(Id));
-                }
+       
 
-                return onDownloadClicked;
-            }
-        }
-
-        public void DownloadRun(object parameter)
-        {
-
-            //Debug.WriteLine(parameter)  ;
-        }
+       
         public async void PostPalletMaintainanceDetailAsync()
         {
             
             PalletMaintainanceRequestModel PalletMaintainanceRequest = new PalletMaintainanceRequestModel();
-            PalletMaintainanceRequest.PalletRFID = "12345";
+            PalletMaintainanceRequest.PalletRFID = txt_PalletTagNo.Text;
             PalletProductsModel productmodel=new PalletProductsModel();
             List<PalletProductsModel> listproductmodel = new List<PalletProductsModel>();
 
@@ -130,27 +134,21 @@ namespace WareHouseManagement.Views
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-           
+            if (_model != null && txt_PalletTagNo.Text!="")
+            {
+                PostPalletMaintainanceDetailAsync();
+            }
         }
 
         private void Img_deleteRow_Clicked(object sender, EventArgs e)
         {
-            var item = (Xamarin.Forms.Button)sender;
+            var item = (Xamarin.Forms.ImageButton)sender;
             ProductBarcodeResponseModel listitem = (from itm in items.Items where itm.Barcode == item.CommandParameter.ToString() select itm).FirstOrDefault<ProductBarcodeResponseModel>();
             items.Items.Remove(listitem);
+            _model.Remove(listitem);
         }
 
-
-
-
-        //private void PalletList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        //{
-        //    //var Val = (ProductBarcodeResponseModel)e.SelectedItem;
-        //    //LotNo = Val.LotNo;
-        //    //var data = _model.Single(s => s.LotNo == LotNo);
-        //    //_model.Remove(data);
-        //}
-
+        
 
     }
 }

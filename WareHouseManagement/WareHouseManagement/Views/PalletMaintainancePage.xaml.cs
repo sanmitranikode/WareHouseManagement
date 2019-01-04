@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using WareHouseManagement.PCL.Common;
 using WareHouseManagement.PCL.Model;
 using WareHouseManagement.PCL.Service;
@@ -19,9 +20,10 @@ namespace WareHouseManagement.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PalletMaintainancePage : ContentPage
     {
-      
-       List< ProductBarcodeResponseModel> _model = new List<ProductBarcodeResponseModel> ();
-        private ObservableCollection<ProductBarcodeResponseModel> _myObservableCollection;
+        private Command onDownloadClicked;
+        List< ProductBarcodeResponseModel> _model = new List<ProductBarcodeResponseModel> ();
+        public List<ProductBarcodeResponseModel> allItems;
+        PalletMaintanancedataBindingModel items;
         string LotNo = "";
         public PalletMaintainancePage()
         {
@@ -30,7 +32,8 @@ namespace WareHouseManagement.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            BindingContext = new ProductBarcodeResponseModel();
+           
+        BindingContext = new ProductBarcodeResponseModel();
             GetUserLoginAsync();
             PalletList.ItemsSource = _model;
           //  PostPalletMaintainanceDetailAsync();
@@ -63,15 +66,33 @@ namespace WareHouseManagement.Views
                 if (PalletDetail.Status == 1)
                 {
                     var PalletData = JsonConvert.DeserializeObject<ProductBarcodeResponseModel>(PalletDetail.Response.ToString());
-                   
-                      _model.Add( new ProductBarcodeResponseModel{Barcode=PalletData.Barcode,ProductName=PalletData.ProductName,Quantity=(( PalletData.Quantity==null)?"0": PalletData.Quantity), LotNo=PalletData.LotNo,ProductId=PalletData.ProductId });
-                 
+                    _model.Add(PalletData);
+                    items = new PalletMaintanancedataBindingModel(_model);
+                    PalletList.ItemsSource = null;
+                    PalletList.ItemsSource = items.Items;
                 }
-                PalletList.ItemsSource = null;
-                PalletList.ItemsSource = _model;
+              
+               
+            }
+        }
+        public ICommand OnDownloadClicked
+        {
+            get
+            {
+                if (onDownloadClicked == null)
+                {
+                    onDownloadClicked = new Command(() => DownloadRun(Id));
+                }
+
+                return onDownloadClicked;
             }
         }
 
+        public void DownloadRun(object parameter)
+        {
+
+            //Debug.WriteLine(parameter)  ;
+        }
         public async void PostPalletMaintainanceDetailAsync()
         {
             
@@ -109,26 +130,26 @@ namespace WareHouseManagement.Views
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            var item = (Xamarin.Forms.Button)sender;
-            ProductBarcodeResponseModel listitem = (from itm in _model
-                             where itm.LotNo == item.TabIndex.ToString()
-                             select itm)
-                            .FirstOrDefault<ProductBarcodeResponseModel>();
-            _model.Remove(listitem);
-            PalletList.ItemsSource = null;
-            PalletList.ItemsSource = _model;
+           
         }
 
-
-
-
-        private void PalletList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void Img_deleteRow_Clicked(object sender, EventArgs e)
         {
-            var Val = (ProductBarcodeResponseModel)e.SelectedItem;
-            LotNo = Val.LotNo;
-            var data = _model.Single(s => s.LotNo == LotNo);
-            _model.Remove(data);
+            var item = (Xamarin.Forms.Button)sender;
+            ProductBarcodeResponseModel listitem = (from itm in items.Items where itm.Barcode == item.CommandParameter.ToString() select itm).FirstOrDefault<ProductBarcodeResponseModel>();
+            items.Items.Remove(listitem);
         }
+
+
+
+
+        //private void PalletList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        //{
+        //    //var Val = (ProductBarcodeResponseModel)e.SelectedItem;
+        //    //LotNo = Val.LotNo;
+        //    //var data = _model.Single(s => s.LotNo == LotNo);
+        //    //_model.Remove(data);
+        //}
 
 
     }

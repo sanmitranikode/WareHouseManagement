@@ -1,34 +1,46 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using WareHouseManagement.PCL.Common;
+using WareHouseManagement.PCL.Service;
+using Xamarin.Forms;
 
 namespace WareHouseManagement.ViewModels
 {
-    class PalletMaintanancedataBindingModel
+    class PalletMaintanancedataBindingModel: INotifyPropertyChanged
     {
-        private ObservableCollection<List<WRReceivingLogResponseViewModel>> _myObservableCollection { get; set; }
-
-        public PalletMaintanancedataBindingModel()
+       
+        public event PropertyChangedEventHandler PropertyChanged;
+        public ObservableCollection<ProductBarcodeResponseModel> _items;
+        public ObservableCollection<ProductBarcodeResponseModel> Items
         {
-            MyObservableCollection = _myObservableCollection;
+            get { return _items; }
+            set { _items = value; OnPropertyChanged("Items"); }
         }
 
-        public ObservableCollection<List<WRReceivingLogResponseViewModel>> MyObservableCollection
+        protected virtual void OnPropertyChanged(string propertyName)
         {
-            get { return _myObservableCollection; }
-            set
+            if (PropertyChanged == null)
+                return;
+            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+
+
+        public PalletMaintanancedataBindingModel(List< ProductBarcodeResponseModel> itemList)
+        {
+            Items = new ObservableCollection<ProductBarcodeResponseModel>();
+            foreach (ProductBarcodeResponseModel itm in itemList)
             {
-                _myObservableCollection = value;
-                OnPropertyChanged();
+                Items.Add(itm);
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
     }
 }

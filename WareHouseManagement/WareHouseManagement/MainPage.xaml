@@ -5,46 +5,54 @@
              x:Class="WareHouseManagement.MainPage"  
              BackgroundColor="#D1CFCF"
              Title="MANAGEMENT"  >
-    
-            
-     
 
-    <StackLayout HorizontalOptions="Center" Padding="10" VerticalOptions="Fill" >
-     
-        <StackLayout  >
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Logout" Clicked="OnLogoutButtonClicked" />
+    </ContentPage.ToolbarItems>
 
-            <Grid VerticalOptions="Center">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                  
-                </Grid.ColumnDefinitions>
-                <Button x:Name="btn_StockIn" Grid.Row="0" BorderRadius="5" Grid.Column="0" Image="warehouse" BackgroundColor="White" ContentLayout="Top,30" Text="Stock In" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Clicked="btn_StockIn_Clicked">
-                    
-                </Button>
-                <Button x:Name="btn_PalletMaintainance"  BorderRadius="5"  Grid.Row="0" Grid.Column="1" BackgroundColor="White" ContentLayout="Top,10"  Text="Pallet MainTainance" Image="storage" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" Clicked="btn_PalletMaintainance_Clicked">
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="Center" Padding="10" VerticalOptions="Fill" >
 
-                </Button>
-                <Button x:Name="btn_ClrPalletTag"  BorderRadius="5" Grid.Row="1" Grid.Column="0" BackgroundColor="White" ContentLayout="Top,20" Image="price_tag" Text="Clear Pallet Tag" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" Clicked="btn_ClrPalletTag_Clicked">
+            <StackLayout  >
 
-                </Button>
-                <Button x:Name="btn_StockOut"  BorderRadius="5"  Grid.Row="1" Grid.Column="1" BackgroundColor="White" ContentLayout="Top,30"  Image="delivery_truck" Text="Stock Out" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" Clicked="btn_StockOut_Clicked">
+                <Grid VerticalOptions="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
 
-                </Button>
-                <Button x:Name="btn_ReaderList" Text="ReaderList"  Grid.Row="2"  BorderRadius="5" Grid.Column="0" BackgroundColor="White"  HorizontalOptions="FillAndExpand" Clicked="btn_ReaderList_Clicked">
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btn_StockIn" Grid.Row="0" BorderRadius="5" Grid.Column="0" Image="warehouse" BackgroundColor="White" ContentLayout="Top,30" Text="Stock In" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Clicked="btn_StockIn_Clicked">
 
-                </Button>
-                <Button  Grid.Row="2"  BorderRadius="5" BackgroundColor="White" Grid.Column="1" >
+                    </Button>
+                    <Button x:Name="btn_PalletMaintainance"  BorderRadius="5"  Grid.Row="0" Grid.Column="1" BackgroundColor="White" ContentLayout="Top,10"  Text="Pallet MainTainance" Image="storage" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" Clicked="btn_PalletMaintainance_Clicked">
 
-                </Button>
-            </Grid>
-            
+                    </Button>
+                    <Button x:Name="btn_ClrPalletTag"  BorderRadius="5" Grid.Row="1" Grid.Column="0" BackgroundColor="White" ContentLayout="Top,20" Image="price_tag" Text="Clear Pallet Tag" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" Clicked="btn_ClrPalletTag_Clicked">
+
+                    </Button>
+                    <Button x:Name="btn_StockOut"  BorderRadius="5"  Grid.Row="1" Grid.Column="1" BackgroundColor="White" ContentLayout="Top,30"  Image="delivery_truck" Text="Stock Out" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" Clicked="btn_StockOut_Clicked">
+
+                    </Button>
+                    <Button x:Name="btn_ReaderList" Text="ReaderList"  Grid.Row="2"  BorderRadius="5" Grid.Column="0" BackgroundColor="White"  HorizontalOptions="FillAndExpand" Clicked="btn_ReaderList_Clicked">
+
+                    </Button>
+                    <Button  Grid.Row="2"  BorderRadius="5" BackgroundColor="White" Grid.Column="1" >
+
+                    </Button>
+                </Grid>
+
+
+
+
+
+
+            </StackLayout>
         </StackLayout>
-    </StackLayout>
 
+    </ContentPage.Content>
 </ContentPage>

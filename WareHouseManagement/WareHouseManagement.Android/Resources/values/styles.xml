@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
-
+  <style name="Theme.Splash"
+           parent="android:Theme">
+    <item name="android:windowBackground">@drawable/waresplashscreen1</item>
+    <item name="android:windowNoTitle">true</item>
+  </style>
   <style name="MainTheme" parent="MainTheme.Base">
   </style>
   <!-- Base theme applied no matter what API -->
@@ -11,12 +15,12 @@
     <item name="windowActionBar">false</item>
     <!-- Set theme colors from http://www.google.com/design/spec/style/color.html#color-color-palette -->
     <!-- colorPrimary is used for the default action bar background -->
-    <item name="colorPrimary">#525251</item>
+    <item name="colorPrimary">#3C495A</item>
     <!-- colorPrimaryDark is used for the status bar -->
-    <item name="colorPrimaryDark">#353434</item>
+    <item name="colorPrimaryDark">#3C495A</item>
     <!-- colorAccent is used as the default value for colorControlActivated
          which is used to tint widgets -->
-    <item name="colorAccent">#606268</item>
+    <item name="colorAccent">#3C495A</item>
     <!-- You can also set colorControlNormal, colorControlActivated
          colorControlHighlight and colorSwitchThumbNormal. -->
     <item name="windowActionModeOverlay">true</item>

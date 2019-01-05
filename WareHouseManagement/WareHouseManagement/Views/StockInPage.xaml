@@ -17,11 +17,11 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" Text="Pallet Tag"   VerticalOptions="Center"  FontSize="Small" FontAttributes="Bold"/>
-                    <Entry Grid.Row ="0" Grid.Column="1" HorizontalOptions="FillAndExpand"  VerticalOptions="Center" />
+                    <Entry x:Name="PalletTag" Grid.Row ="0" Grid.Column="1" HorizontalOptions="FillAndExpand"  VerticalOptions="Center" />
                     <Label Grid.Row="1" Grid.Column="0" Text="Quantity"   VerticalOptions="Center"  FontSize="Small" FontAttributes="Bold"/>
-                    <Entry Grid.Row ="1" Grid.Column="1" HorizontalOptions="FillAndExpand"  VerticalOptions="Center" />
+                    <Entry x:Name="Quantity" Grid.Row ="1" Grid.Column="1" HorizontalOptions="FillAndExpand"  VerticalOptions="Center" />
                     <Label Grid.Row="2" Grid.Column="0" Text="Bin Tag"   VerticalOptions="Center"  FontSize="Small" FontAttributes="Bold"/>
-                    <Entry Grid.Row ="2" Grid.Column="1" HorizontalOptions="FillAndExpand"  VerticalOptions="Center" />
+                    <Entry x:Name="BinTag" Grid.Row ="2" Grid.Column="1" HorizontalOptions="FillAndExpand"  VerticalOptions="Center" />
 
 
 

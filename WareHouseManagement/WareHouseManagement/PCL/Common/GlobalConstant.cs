@@ -32,9 +32,12 @@ namespace WareHouseManagement.PCL.Common
         public static string PostPalletreceivinglog = "PalletBarcode/PostPalletData";
         public static string GetlotNoreceive = "PalletBarcode/GetLotNoList";
     }
-    public class constantsharedPreperance
+
+
+    public struct StockInServiceUrl
     {
-        public string Email { get; set; }
-        public string password { get; set; }
+
+        public static string PostStockIn = "StockInPallet";
     }
+
 }

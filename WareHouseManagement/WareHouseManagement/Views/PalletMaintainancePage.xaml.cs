@@ -35,7 +35,7 @@ namespace WareHouseManagement.Views
 
 
      
-        List< ProductBarcodeResponseModel> _model = new List<ProductBarcodeResponseModel> ();
+        List<ProductBarcodeResponseModel> _model = new List<ProductBarcodeResponseModel> ();
         public List<ProductBarcodeResponseModel> allItems;
         PalletMaintanancedataBindingModel items;
         public bool isConnected { get => isConnected; set => OnPropertyChanged(); }
@@ -219,7 +219,7 @@ namespace WareHouseManagement.Views
                     var PalletData = JsonConvert.DeserializeObject<ProductBarcodeResponseModel>(PalletDetail.Response.ToString());
                     try
                     {
-                        var selected = _model.Where(x => x.Barcode == PalletData.Barcode).First();
+                        var selected = _model.Where(x => x.ProductId == PalletData.ProductId).First();
                         if (selected != null)
                         {
                             await Application.Current.MainPage.DisplayAlert("Message", "Your have Already added This Item", "OK");
@@ -251,41 +251,57 @@ namespace WareHouseManagement.Views
         public async void PostPalletMaintainanceDetailAsync()
         {
             
-            PalletMaintainanceRequestModel PalletMaintainanceRequest = new PalletMaintainanceRequestModel();
-            PalletMaintainanceRequest.PalletRFID = lbl_PalletTag.Text;
-            PalletProductsModel productmodel=new PalletProductsModel();
-            List<PalletProductsModel> listproductmodel = new List<PalletProductsModel>();
+            PalletModel PalletMaintainanceRequest = new PalletModel();
+            PalletMaintainanceRequest.Tag = txt_PalletTagNo.Text;
+         
+
+
+            PalletBarcodes productmodel =new PalletBarcodes();
+            List<PalletBarcodes> PalletBarcodes = new List<PalletBarcodes>();
 
             try
             {
 
                 foreach (var item in _model)
                 {
-                    productmodel.WRReceivedLogId = Convert.ToInt32(item.LotNo);
-                    productmodel.WRReceivedProductId = Convert.ToInt32(item.ProductId);
-                    listproductmodel.Add(productmodel);
+                    productmodel.LotNo =(item.LotNo);
+                    productmodel.ProductId = Convert.ToInt32(item.ProductId);
+                    productmodel.Quantity =Convert.ToInt32( item.Quantity);
+                    PalletBarcodes.Add(productmodel);
                 }
-                PalletMaintainanceRequest.PalletProductsModel = listproductmodel;
+                PalletMaintainanceRequest.PalletBarcodes = PalletBarcodes;
 
 
                 // var RFID= int.Parse(txt_Barcode.Text);
                 var PostDetails = await new PalletMaintainanceService().PostPalletMaintainanceDetail(PalletMaintainanceRequest, PalletMaintainanceServiceUrl.PostPalletreceivinglog);
                 if (PostDetails.Status == 1)
                 {
-
-
+                    await Application.Current.MainPage.DisplayAlert("Message", "Success", "OK");
+                    ClearData();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
         }
 
 
+
+        public void ClearData()
+        {
+
+            txt_PalletTagNo.Text = "";
+            txt_Barcode.Text = "";
+            _model = null;
+            items.Items = null;
+            PalletList.ItemsSource = items.Items;
+        }
+
+
         private void Button_Clicked(object sender, EventArgs e)
         {
-            if (_model != null && lbl_PalletTag.Text!="")
+            if (_model != null && txt_PalletTagNo.Text!="" && txt_PalletTagNo.Text !=null)
             {
                 PostPalletMaintainanceDetailAsync();
             }

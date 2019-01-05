@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Threading.Tasks;
+using WareHouseManagement.PCL.Common;
+using WareHouseManagement.PCL.Helper;
+using WareHouseManagement.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -7,12 +11,41 @@ namespace WareHouseManagement
 {
     public partial class App : Application
     {
+        public static bool IsUserLoggedIn { get; set; }
+      
+        constantsharedPreperance sharedconstatnt = new constantsharedPreperance();
         public App()
         {
+           
             InitializeComponent();
+            bool isLoggedIn = LoadApplicationPropertyAsync<bool>("isLoggedIn");
 
-            MainPage =new NavigationPage(new MainPage());
+
+            if (!isLoggedIn )
+            {
+                MainPage =new LogInPage();
+            }
+            else
+            {
+                MainPage = new NavigationPage(new WareHouseManagement.MainPage());
+            }
+
+           // MainPage =new NavigationPage(new MainPage());
         }
+        private T LoadApplicationPropertyAsync<T>(string key)
+        {
+            try
+            {
+                return (T)Xamarin.Forms.Application.Current.Properties[key];
+            }
+            catch
+            {
+                Xamarin.Forms.Application.Current.Properties[key] = false;
+                return (T)Xamarin.Forms.Application.Current.Properties[key];
+            }
+          
+        }
+      
 
         protected override void OnStart()
         {

@@ -40,6 +40,11 @@ namespace WareHouseManagement.Views
 
         }
 
+        private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new PalletMaintainancePage());
+        }
+
         //async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         //{
         //    if (e.Item == null)

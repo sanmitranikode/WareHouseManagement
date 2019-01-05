@@ -50,7 +50,7 @@
 
                 </StackLayout>
                 <StackLayout>
-                    <Button Text="Stock Out" HorizontalOptions="EndAndExpand" BackgroundColor="#0b9e75" BorderRadius="7" HeightRequest="40"/>
+                    <Button Text="Stock Out" HorizontalOptions="EndAndExpand" BackgroundColor="#3C495A" TextColor="White" BorderRadius="7" HeightRequest="40"/>
 
                 </StackLayout>
 

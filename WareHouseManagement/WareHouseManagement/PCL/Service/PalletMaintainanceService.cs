@@ -66,20 +66,7 @@ namespace WareHouseManagement.PCL.Service
                 return _User;
             }
         }
-        public async Task<ResultModel> GetLotNoList(string Url)
-        {
-            ResultModel resp = null;
-            try
-            {
-                resp = await _helper.Get<ResultModel>(Url);
-                return resp;
-            }
-            catch (Exception ex)
-            {
-                //Crashes.TrackError(ex);
-                return resp;
-            }
-        }
+       
 
 
         public async Task<ResultModel> GetPalletLog(string Url)

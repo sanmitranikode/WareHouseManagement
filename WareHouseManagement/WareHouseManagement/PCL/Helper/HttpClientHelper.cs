@@ -24,7 +24,7 @@ namespace WareHouseManagement.PCL.Helper
                 client.BaseAddress = new Uri(GlobalConstant.BaseUrl);
                 if (!string.IsNullOrEmpty(GlobalConstant.AccessToken))
                 {
-                    client.DefaultRequestHeaders.Add("Authorization", GlobalConstant.AccessToken);
+                    client.DefaultRequestHeaders.Add("Authorization", "bearer" + " " + GlobalConstant.AccessToken);
                 }
 
                 else

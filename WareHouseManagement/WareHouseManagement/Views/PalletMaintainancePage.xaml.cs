@@ -24,7 +24,9 @@ namespace WareHouseManagement.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PalletMaintainancePage : ContentPage
     {
-        
+        public List<PCL.Model.WRReceivingLogResponseViewModel> _logresponse=new List<PCL.Model.WRReceivingLogResponseViewModel>();
+
+
         public event PropertyChangedEventHandler PropertyChanged;
           ReaderModel rfidModel = ReaderModel.readerModel;
         public List<TagItem> Tags=new List<TagItem>();
@@ -65,14 +67,18 @@ namespace WareHouseManagement.Views
         }
      
 
-        protected override void OnAppearing()
+        protected async override void OnAppearing()
         {
             base.OnAppearing();
            
     
             GetUserLoginAsync();
             PalletList.ItemsSource = _model;
+
             UpdateIn();
+           
+
+
 
 
         }
@@ -205,7 +211,7 @@ namespace WareHouseManagement.Views
                 ProductBarcodeRequestModel _User = new ProductBarcodeRequestModel
                 {
                     Barcode = txt_Barcode.Text,
-                    LotNo = "001285"
+                    LotNo = txt_lotNo.Text
                 };
                 var PalletDetail = await new PalletMaintainanceService().GetPalletMaintainanceDetail(_User, PalletMaintainanceServiceUrl.GetPalletMaintainanceDetai);
                 if (PalletDetail.Status == 1)
@@ -294,12 +300,19 @@ namespace WareHouseManagement.Views
         }
         private void srchbox_carret_QuerySubmitted(object sender, dotMorten.Xamarin.Forms.AutoSuggestBoxQuerySubmittedEventArgs e)
         {
-           
+            var data = (PCL.Model.WRReceivingLogResponseViewModel)e.ChosenSuggestion;
+            txt_lotNo.Text = data.LotNo;
+
         }
         private async void srchbox_carret_TextChanged(object sender, dotMorten.Xamarin.Forms.AutoSuggestBoxTextChangedEventArgs e)
         {
+           var data = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetlotNoreceive);
+            if (data.Status == 1)
+            {
+                var getlot = JsonConvert.DeserializeObject<List<PCL.Model.WRReceivingLogResponseViewModel>>(data.Response.ToString());
+                txt_lotNo.ItemsSource = string.IsNullOrWhiteSpace(txt_lotNo.Text) ? null : getlot.Where(x => x.LotNo.StartsWith(txt_lotNo.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            }
            
-
 
         }
 

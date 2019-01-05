@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WareHouseManagement.PCL.Common;
+using WareHouseManagement.PCL.Helper;
 using WareHouseManagement.Views;
 using Xamarin.Forms;
 
@@ -10,9 +12,28 @@ namespace WareHouseManagement
 {
     public partial class MainPage : ContentPage
     {
+        constantsharedPreperance sharedconstatnt = new constantsharedPreperance();
+        
         public MainPage()
         {
             InitializeComponent();
+        }
+        async void OnLogoutButtonClicked(object sender, EventArgs e)
+        {
+
+
+            //Application.Current.Properties.Remove("UserEmail");
+            //Application.Current.Properties.Remove("Password");
+            //Application.Current.Properties.Clear();
+            await SaveApplicationProperty("isLoggedIn", false);
+            App.IsUserLoggedIn = false;
+            Navigation.InsertPageBefore(new LogInPage(), this);
+            await Navigation.PopAsync();
+        }
+        private async Task SaveApplicationProperty<T>(string key, T value)
+        {
+            Xamarin.Forms.Application.Current.Properties[key] = value;
+            await Xamarin.Forms.Application.Current.SavePropertiesAsync();
         }
 
         private async void btn_StockIn_Clicked(object sender, EventArgs e)

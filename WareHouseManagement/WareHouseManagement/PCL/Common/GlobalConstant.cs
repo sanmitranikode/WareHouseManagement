@@ -30,4 +30,9 @@ namespace WareHouseManagement.PCL.Common
         public static string GetUserLoginDetail = "Users/Authenticate";
         public static string GetPalletreceivinglog = "WarehouseReceiveLog";
     }
+    public class constantsharedPreperance
+    {
+        public string Email { get; set; }
+        public string password { get; set; }
+    }
 }

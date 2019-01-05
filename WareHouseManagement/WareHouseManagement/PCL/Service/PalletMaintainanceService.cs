@@ -66,6 +66,7 @@ namespace WareHouseManagement.PCL.Service
                 return _User;
             }
         }
+       
 
 
         public async Task<ResultModel> GetPalletLog(string Url)

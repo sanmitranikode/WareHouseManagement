@@ -30,8 +30,8 @@
                 </StackLayout>
                 <StackLayout Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" >
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="30">
-                        <Button Text="Save"  BackgroundColor="#0B9E75" BorderRadius="7" HeightRequest="40" ></Button>
-                        <Button Text="Close" BackgroundColor="#0B9E75" BorderRadius="7" HeightRequest="40"></Button>
+                        <Button Text="Save"  BackgroundColor="#3C495A" TextColor="White" BorderRadius="7" HeightRequest="40" ></Button>
+                        <Button Text="Close" BackgroundColor="#3C495A" TextColor="White" BorderRadius="7" HeightRequest="40"></Button>
                         
                     </StackLayout>
 

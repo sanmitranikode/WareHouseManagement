@@ -29,11 +29,16 @@ namespace WareHouseManagement.PCL.Common
         public static string GetPalletMaintainanceDetai = "PalletBarcode/PostDetail";
         public static string GetUserLoginDetail = "Users/Authenticate";
         public static string GetPalletreceivinglog = "WarehouseReceiveLog";
-        public static string PostPalletreceivinglog = "PalletBarcode/PostPalletData";
+        public static string PostPalletreceivinglog = "Pallet";
+      
+
     }
-    public class constantsharedPreperance
+
+
+    public struct StockInServiceUrl
     {
-        public string Email { get; set; }
-        public string password { get; set; }
+
+        public static string PostStockIn = "StockInPallet";
     }
+
 }

@@ -292,8 +292,17 @@ namespace WareHouseManagement.Views
             items.Items.Remove(listitem);
             _model.Remove(listitem);
         }
+        private void srchbox_carret_QuerySubmitted(object sender, dotMorten.Xamarin.Forms.AutoSuggestBoxQuerySubmittedEventArgs e)
+        {
+           
+        }
+        private async void srchbox_carret_TextChanged(object sender, dotMorten.Xamarin.Forms.AutoSuggestBoxTextChangedEventArgs e)
+        {
+           
 
-        
+
+        }
+
 
     }
 }

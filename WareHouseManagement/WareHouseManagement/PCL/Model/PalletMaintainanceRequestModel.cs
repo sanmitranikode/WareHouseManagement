@@ -4,15 +4,20 @@ using System.Text;
 
 namespace WareHouseManagement.PCL.Model
 {
-    public class PalletMaintainanceRequestModel
+    public class PalletModel
     {
-        public string PalletRFID { get; set; }
-        public List<PalletProductsModel> PalletProductsModel { get; set; }
-    }
-    public class PalletProductsModel
-    {
-        public int WRReceivedProductId { get; set; }
-        public int WRReceivedLogId { get; set; }
+        public string Tag { get; set; }
 
+
+     
+        public List<PalletBarcodes> PalletBarcodes { get; set; }
     }
+    public class PalletBarcodes
+    {
+      
+        public string LotNo { get; set; }
+        public int ProductId { get; set; }
+        public int Quantity { get; set; }
+      
+}
 }

@@ -25,7 +25,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\Pallet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\PalletBarcodeModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\PalletMaintainanceRequestModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\PalletModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ReaderItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ReaderModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ResultModel.cs" />
@@ -35,6 +34,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\UserModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ValidationMessages.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\PalletMaintainanceService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\StockInPalletService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\StockOutPalletService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HeatMapConverter.cs" />

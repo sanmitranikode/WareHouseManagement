@@ -24,8 +24,7 @@ namespace WareHouseManagement.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PalletMaintainancePage : ContentPage
     {
-        public List<PCL.Model.WRReceivingLogResponseViewModel> _logresponse=new List<PCL.Model.WRReceivingLogResponseViewModel>();
-
+       
 
         public event PropertyChangedEventHandler PropertyChanged;
           ReaderModel rfidModel = ReaderModel.readerModel;
@@ -296,6 +295,7 @@ namespace WareHouseManagement.Views
             _model = null;
             items.Items = null;
             PalletList.ItemsSource = items.Items;
+            txt_lotNo.Text = "";
         }
 
 
@@ -322,13 +322,15 @@ namespace WareHouseManagement.Views
         }
         private async void srchbox_carret_TextChanged(object sender, dotMorten.Xamarin.Forms.AutoSuggestBoxTextChangedEventArgs e)
         {
-           var data = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetlotNoreceive);
-            if (data.Status == 1)
+            if (txt_lotNo.Text != "" && txt_lotNo.Text != null)
             {
-                var getlot = JsonConvert.DeserializeObject<List<PCL.Model.WRReceivingLogResponseViewModel>>(data.Response.ToString());
-                txt_lotNo.ItemsSource = string.IsNullOrWhiteSpace(txt_lotNo.Text) ? null : getlot.Where(x => x.LotNo.StartsWith(txt_lotNo.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
+                var data = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetlotNoreceive);
+                if (data.Status == 1)
+                {
+                    var getlot = JsonConvert.DeserializeObject<List<PCL.Model.WRReceivingLogResponseViewModel>>(data.Response.ToString());
+                    txt_lotNo.ItemsSource = string.IsNullOrWhiteSpace(txt_lotNo.Text) ? null : getlot.Where(x => x.LotNo.StartsWith(txt_lotNo.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
+                }
             }
-           
 
         }
 

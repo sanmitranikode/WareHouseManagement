@@ -1,4 +1,5 @@
 ﻿using Com.Zebra.Rfid.Api3;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 using WareHouseManagement.PCL.Common;
 using WareHouseManagement.PCL.Model;
 using WareHouseManagement.PCL.Service;
+using WareHouseManagement.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

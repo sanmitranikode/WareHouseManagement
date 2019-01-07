@@ -33,7 +33,7 @@
                    
             </StackLayout>
             <StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="Center">
-                <Button Text="Save"  BackgroundColor="#3C495A" TextColor="White" BorderRadius="7" HeightRequest="40"/>
+                <Button Text="Save"  BackgroundColor="#3C495A" TextColor="White" BorderRadius="7" HeightRequest="40" Clicked="btnSave_ClickedAsync"/>
                 <Button Text="Clear" BackgroundColor="#3C495A" TextColor="White" BorderRadius="7" HeightRequest="40" />
                 <Button Text="Close" BackgroundColor="#3C495A" TextColor="White" BorderRadius="7"  HeightRequest="40"/>
 

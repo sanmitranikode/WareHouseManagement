@@ -12,7 +12,7 @@ namespace WareHouseManagement
 {
     public partial class MainPage : ContentPage
     {
-        constantsharedPreperance sharedconstatnt = new constantsharedPreperance();
+      
         
         public MainPage()
         {

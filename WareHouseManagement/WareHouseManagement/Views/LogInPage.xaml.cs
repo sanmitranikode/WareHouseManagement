@@ -56,8 +56,8 @@ namespace WareHouseManagement.Views
             {
                 var UserData = JsonConvert.DeserializeObject<UserLoginViewModel>(UserDetail.Response.ToString());
                 GlobalConstant.AccessToken = UserData.Token;
-                
-               await SaveApplicationProperty("isLoggedIn", true);
+                Application.Current.Properties["AccessToken"] = UserData.Token;
+                await SaveApplicationProperty("isLoggedIn", true);
                 //Application.Current.Properties["UserEmail"] = userEmailEntry.Text;
                 //Application.Current.Properties["Password"] = passwordEntry.Text;
 
@@ -65,8 +65,9 @@ namespace WareHouseManagement.Views
 
 
                 App.IsUserLoggedIn = true;
-                Navigation.InsertPageBefore(new MainPage(), Navigation.NavigationStack.First());
-                await Navigation.PopToRootAsync();
+
+                Navigation.InsertPageBefore(new MainPage(), this);
+                await Navigation.PopAsync();
                 btn_login.IsEnabled = true;
                 activity.IsRunning = false;
             }

@@ -18,6 +18,11 @@ namespace WareHouseManagement
         {
             InitializeComponent();
         }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            GlobalConstant.AccessToken = Application.Current.Properties["AccessToken"].ToString();
+        }
         async void OnLogoutButtonClicked(object sender, EventArgs e)
         {
 
@@ -27,8 +32,12 @@ namespace WareHouseManagement
             //Application.Current.Properties.Clear();
             await SaveApplicationProperty("isLoggedIn", false);
             App.IsUserLoggedIn = false;
-            Navigation.InsertPageBefore(new LogInPage(), this);
-            await Navigation.PopAsync();
+            
+                Navigation.InsertPageBefore(new LogInPage(), this);
+                await Navigation.PopAsync();
+            
+            
+            
         }
         private async Task SaveApplicationProperty<T>(string key, T value)
         {

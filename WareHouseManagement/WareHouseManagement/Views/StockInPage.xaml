@@ -6,30 +6,14 @@
     <ContentPage.Content>
         <StackLayout>
 
-          <StackLayout VerticalOptions="Center" Padding="20">
+            <StackLayout VerticalOptions="Center" Padding="20" Spacing="20">
               
-                        <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
+                 
+                    <Entry Grid.Row="0" x:Name="PalletTag"   VerticalOptions="Center"  Placeholder="Pallet Tag" HorizontalOptions="Fill" TextChanged="PalletTag_TextChanged"/>
+                    <Entry Grid.Row="1" x:Name="Quantity"   VerticalOptions="Center"  Placeholder="Quantity" HorizontalOptions="Fill"/>
+                <Entry Grid.Row="2" x:Name="BinTag"   VerticalOptions="Center"  Placeholder="Bin Tag" HorizontalOptions="Fill"/>
+                    
 
-                       
-                                <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Text="Pallet Tag"   VerticalOptions="Center"  FontSize="Small" FontAttributes="Bold"/>
-                    <Entry x:Name="PalletTag" Grid.Row ="0" Grid.Column="1" HorizontalOptions="FillAndExpand"  VerticalOptions="Center" />
-                    <Label Grid.Row="1" Grid.Column="0" Text="Quantity"   VerticalOptions="Center"  FontSize="Small" FontAttributes="Bold"/>
-                    <Entry x:Name="Quantity" Grid.Row ="1" Grid.Column="1" HorizontalOptions="FillAndExpand"  VerticalOptions="Center" />
-                    <Label Grid.Row="2" Grid.Column="0" Text="Bin Tag"   VerticalOptions="Center"  FontSize="Small" FontAttributes="Bold"/>
-                    <Entry x:Name="BinTag" Grid.Row ="2" Grid.Column="1" HorizontalOptions="FillAndExpand"  VerticalOptions="Center" />
-
-
-
-                </Grid>
                    
             </StackLayout>
             <StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="Center">

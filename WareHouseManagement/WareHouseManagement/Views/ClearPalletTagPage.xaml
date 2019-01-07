@@ -34,9 +34,9 @@
                     <ColumnDefinition Width="*"/>
 
                 </Grid.ColumnDefinitions>
-                <StackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" >
-                   
-                    <Entry VerticalOptions="Center" HorizontalOptions="FillAndExpand" Placeholder="Pallet Tag"  ></Entry>
+                <StackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Spacing="40">
+                    <Label Text="Pallet Tag  :" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"></Label>
+                    <Entry  VerticalOptions="Center" x:Name="ReadPalletTag" HorizontalOptions="FillAndExpand"  ></Entry>
 
                 </StackLayout>
 

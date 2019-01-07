@@ -1,7 +1,12 @@
-﻿using System;
+﻿using ModernHttpClient;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using WareHouseManagement.PCL.Common;
 using WareHouseManagement.PCL.Helper;
 using WareHouseManagement.PCL.Model;
 
@@ -33,6 +38,9 @@ namespace WareHouseManagement.PCL.Service
                 return _User;
             }
         }
+       
+
+
 
 
     }

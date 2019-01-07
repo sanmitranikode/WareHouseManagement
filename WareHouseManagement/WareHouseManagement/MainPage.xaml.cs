@@ -12,8 +12,8 @@ namespace WareHouseManagement
 {
     public partial class MainPage : ContentPage
     {
-      
-        
+
+        SharedPreference _objShared = new SharedPreference();
         public MainPage()
         {
             InitializeComponent();
@@ -21,7 +21,7 @@ namespace WareHouseManagement
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            GlobalConstant.AccessToken = Application.Current.Properties["AccessToken"].ToString();
+            GlobalConstant.AccessToken = _objShared.LoadApplicationProperty<string>("AccessToken");
         }
         async void OnLogoutButtonClicked(object sender, EventArgs e)
         {
@@ -30,20 +30,18 @@ namespace WareHouseManagement
             //Application.Current.Properties.Remove("UserEmail");
             //Application.Current.Properties.Remove("Password");
             //Application.Current.Properties.Clear();
-            await SaveApplicationProperty("isLoggedIn", false);
-            App.IsUserLoggedIn = false;
-            
-                Navigation.InsertPageBefore(new LogInPage(), this);
+            GlobalConstant.AccessToken = null;
+            _objShared.SaveApplicationProperty("AccessToken", GlobalConstant.AccessToken);
+
+
+
+            Navigation.InsertPageBefore(new LogInPage(), this);
                 await Navigation.PopAsync();
             
             
             
         }
-        private async Task SaveApplicationProperty<T>(string key, T value)
-        {
-            Xamarin.Forms.Application.Current.Properties[key] = value;
-            await Xamarin.Forms.Application.Current.SavePropertiesAsync();
-        }
+       
 
         private async void btn_StockIn_Clicked(object sender, EventArgs e)
         {

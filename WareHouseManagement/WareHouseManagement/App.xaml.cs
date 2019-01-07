@@ -11,17 +11,19 @@ namespace WareHouseManagement
 {
     public partial class App : Application
     {
-        public static bool IsUserLoggedIn { get; set; }
-      
-      
+
+
+        SharedPreference _objShared = new SharedPreference();
         public App()
         {
            
             InitializeComponent();
-            bool isLoggedIn = LoadApplicationPropertyAsync<bool>("isLoggedIn");
+            GlobalConstant.AccessToken= _objShared.LoadApplicationProperty<string>("AccessToken");
 
 
-            if (!isLoggedIn )
+
+
+            if (GlobalConstant.AccessToken==null)
             {
                 MainPage =new LogInPage();
             }
@@ -32,19 +34,7 @@ namespace WareHouseManagement
 
            // MainPage =new NavigationPage(new MainPage());
         }
-        private T LoadApplicationPropertyAsync<T>(string key)
-        {
-            try
-            {
-                return (T)Xamarin.Forms.Application.Current.Properties[key];
-            }
-            catch
-            {
-                Xamarin.Forms.Application.Current.Properties[key] = false;
-                return (T)Xamarin.Forms.Application.Current.Properties[key];
-            }
-          
-        }
+       
       
 
         protected override void OnStart()

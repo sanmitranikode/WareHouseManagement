@@ -253,14 +253,11 @@ namespace WareHouseManagement.Views
             PalletModel PalletMaintainanceRequest = new PalletModel();
             PalletMaintainanceRequest.Tag = txt_PalletTagNo.Text;
          
-
-
             PalletBarcodes productmodel =new PalletBarcodes();
             List<PalletBarcodes> PalletBarcodes = new List<PalletBarcodes>();
 
             try
             {
-
                 foreach (var item in _model)
                 {
                     productmodel.LotNo =(item.LotNo);
@@ -269,14 +266,16 @@ namespace WareHouseManagement.Views
                     PalletBarcodes.Add(productmodel);
                 }
                 PalletMaintainanceRequest.PalletBarcodes = PalletBarcodes;
-
-
                 // var RFID= int.Parse(txt_Barcode.Text);
                 var PostDetails = await new PalletMaintainanceService().PostPalletMaintainanceDetail(PalletMaintainanceRequest, PalletMaintainanceServiceUrl.PostPalletreceivinglog);
                 if (PostDetails.Status == 1)
                 {
                     await Application.Current.MainPage.DisplayAlert("Message", "Success", "OK");
                     ClearData();
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Message", "Insert Fail", "OK");
                 }
             }
             catch (Exception ex)
@@ -299,16 +298,21 @@ namespace WareHouseManagement.Views
         }
 
 
-        private void Button_Clicked(object sender, EventArgs e)
+        private async void Button_Clicked(object sender, EventArgs e)
         {
             if (_model != null && txt_PalletTagNo.Text!="" && txt_PalletTagNo.Text !=null)
             {
                 PostPalletMaintainanceDetailAsync();
             }
-            
+
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("Message", "Fill All Detail", "OK");
+            }
+
         }
 
-        private void Img_deleteRow_Clicked(object sender, EventArgs e)
+        private async void Img_deleteRow_Clicked(object sender, EventArgs e)
         {
             // Img_deleteRow.ClassId = "imageId";
 

@@ -304,18 +304,34 @@ namespace WareHouseManagement.Views
             {
                 PostPalletMaintainanceDetailAsync();
             }
+
             else
             {
                 await Application.Current.MainPage.DisplayAlert("Message", "Fill All Detail", "OK");
             }
+
         }
 
         private async void Img_deleteRow_Clicked(object sender, EventArgs e)
         {
-            var item = (Xamarin.Forms.ImageButton)sender;
-            ProductBarcodeResponseModel listitem = (from itm in items.Items where itm.Barcode == item.CommandParameter.ToString() select itm).FirstOrDefault<ProductBarcodeResponseModel>();
-            items.Items.Remove(listitem);
-            _model.Remove(listitem);
+            // Img_deleteRow.ClassId = "imageId";
+
+           
+
+            var item = ((TappedEventArgs)e).Parameter;
+            try
+            {
+
+                ProductBarcodeResponseModel listitem = (from itm in items.Items where itm.Barcode == item.ToString() select itm).FirstOrDefault<ProductBarcodeResponseModel>();
+                items.Items.Remove(listitem);
+                _model.Remove(listitem);
+
+            }
+            catch
+            {
+                Console.WriteLine("Select Item " );
+            }
+    
         }
         private void srchbox_carret_QuerySubmitted(object sender, dotMorten.Xamarin.Forms.AutoSuggestBoxQuerySubmittedEventArgs e)
         {

@@ -18,6 +18,11 @@ namespace WareHouseManagement
         {
             InitializeComponent();
         }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            GlobalConstant.AccessToken = Application.Current.Properties["AccessToken"].ToString();
+        }
         async void OnLogoutButtonClicked(object sender, EventArgs e)
         {
 

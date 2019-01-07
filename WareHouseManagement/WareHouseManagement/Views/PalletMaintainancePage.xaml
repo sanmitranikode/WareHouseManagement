@@ -103,7 +103,14 @@
                                         <Label x:Name="txt_Name" Grid.Row="0" Grid.Column="1"   Style="{DynamicResource detailTablet}"  Text="{Binding ProductName}"/>
                                         <Label x:Name="txt_Quantity" Grid.Row="0" Grid.Column="2" Style="{DynamicResource detailTablet}"  Text="{Binding Quantity}"/>
                                         <Label x:Name="txt_LotNo" Grid.Row="0" Grid.Column="3" Style="{DynamicResource detailTablet}"  Text="{Binding LotNo}"/>
-                                        <ImageButton x:Name="Img_deleteRow" Source="deleteitem.png"  Grid.Row="0" Grid.Column="4" CommandParameter="{Binding Barcode}" Grid.ColumnSpan="1" Clicked="Img_deleteRow_Clicked" HorizontalOptions="End"  />
+                                        <Image x:Name="Img_deleteRow" Source="deleteitem.png"  Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="1"  HorizontalOptions="End"  >
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                         Tapped="Img_deleteRow_Clicked"
+                                                         NumberOfTapsRequired="1"
+                                                     CommandParameter="{Binding Barcode}"/>
+                                            </Image.GestureRecognizers>
+                                        </Image>
                                      
                                     </Grid>
                                 </ViewCell>

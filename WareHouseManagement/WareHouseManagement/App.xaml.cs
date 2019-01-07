@@ -13,7 +13,7 @@ namespace WareHouseManagement
     {
         public static bool IsUserLoggedIn { get; set; }
       
-        constantsharedPreperance sharedconstatnt = new constantsharedPreperance();
+      
         public App()
         {
            

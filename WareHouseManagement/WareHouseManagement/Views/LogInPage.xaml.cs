@@ -19,7 +19,8 @@ namespace WareHouseManagement.Views
     {
         
         bool isValid =false;
-      
+        SharedPreference _objShared = new SharedPreference();
+
         public LogInPage()
         {
             InitializeComponent();
@@ -56,15 +57,16 @@ namespace WareHouseManagement.Views
             {
                 var UserData = JsonConvert.DeserializeObject<UserLoginViewModel>(UserDetail.Response.ToString());
                 GlobalConstant.AccessToken = UserData.Token;
-                Application.Current.Properties["AccessToken"] = UserData.Token;
-                await SaveApplicationProperty("isLoggedIn", true);
+                _objShared.SaveApplicationProperty("AccessToken", GlobalConstant.AccessToken);
+
                 //Application.Current.Properties["UserEmail"] = userEmailEntry.Text;
                 //Application.Current.Properties["Password"] = passwordEntry.Text;
 
 
 
 
-                App.IsUserLoggedIn = true;
+
+
 
                 Navigation.InsertPageBefore(new MainPage(), this);
                 await Navigation.PopAsync();
@@ -80,11 +82,7 @@ namespace WareHouseManagement.Views
 
             }
         }
-        private async Task SaveApplicationProperty<T>(string key, T value)
-        {
-            Xamarin.Forms.Application.Current.Properties[key] = value;
-            await Xamarin.Forms.Application.Current.SavePropertiesAsync();
-        }
+       
 
 
     }

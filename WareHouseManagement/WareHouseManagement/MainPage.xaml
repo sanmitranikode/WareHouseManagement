@@ -12,8 +12,8 @@
 
     <ContentPage.Content>
         <StackLayout HorizontalOptions="Center" Padding="10" VerticalOptions="Fill" >
-
-            <StackLayout  >
+          
+                <StackLayout  >
 
                 <Grid VerticalOptions="Center">
                     <Grid.RowDefinitions>

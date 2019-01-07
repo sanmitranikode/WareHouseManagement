@@ -207,6 +207,23 @@ namespace WareHouseManagement.Views
         }
 
 
+        public async void GetQuantityByPalletId()
+        {
+            try
+            {
+
+                var GetData = await new PalletMaintainanceService().GetPalletLog(StockInServiceUrl.GetQuantity + PalletTag.Text);
+                if (GetData.Status == 1)
+                {
+                    var PalletData = JsonConvert.DeserializeObject<ProductBarcodeResponseModel>(GetData.Response.ToString());
+                }
+            }catch(Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Message", "Server Not Found", "OK");
+            }
+        }
+
+
         public void clearData()
         {
 
@@ -215,6 +232,9 @@ namespace WareHouseManagement.Views
             Quantity.Text = "";
         }
 
-      
+        private void PalletTag_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            GetQuantityByPalletId();
+        }
     }
 }

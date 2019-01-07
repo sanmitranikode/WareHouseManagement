@@ -30,6 +30,8 @@ namespace WareHouseManagement.ViewModels
                                       "Used for Item count or stock count\nPerforms inventory operation"),
                   new PageDataViewModel(typeof(RelativeDistance), "Relative Distance",
                                       "Shows the relative proximity of multiple tags"),
+                   new PageDataViewModel(typeof(TestDesign), "Test",
+                                      "Shows the relative proximity of multiple tags"),
             };
         }
 

@@ -5,15 +5,19 @@
              Title="STOCK IN">
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout VerticalOptions="Center" Padding="20">
-                <Grid>
+
+          <StackLayout VerticalOptions="Center" Padding="20">
+              
+                        <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
+
+                       
+                                <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" Text="Pallet Tag"   VerticalOptions="Center"  FontSize="Small" FontAttributes="Bold"/>
@@ -26,8 +30,7 @@
 
 
                 </Grid>
-
-
+                   
             </StackLayout>
             <StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="Center">
                 <Button Text="Save"  BackgroundColor="#3C495A" TextColor="White" BorderRadius="7" HeightRequest="40"/>
@@ -35,7 +38,7 @@
                 <Button Text="Close" BackgroundColor="#3C495A" TextColor="White" BorderRadius="7"  HeightRequest="40"/>
 
             </StackLayout>
-
+          
         </StackLayout>
        
     </ContentPage.Content>

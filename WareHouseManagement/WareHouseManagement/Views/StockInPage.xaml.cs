@@ -195,18 +195,21 @@ namespace WareHouseManagement.Views
                 Quantity = int.Parse(Quantity.Text)
 
         };
-
-
+            
             var PostDetails = await new StockInPalletService().PostStockInDetail(_model, StockInServiceUrl.PostStockIn);
             if (PostDetails.Status == 1)
             {
                 await Application.Current.MainPage.DisplayAlert("Message", "Success", "OK");
                 clearData();
             }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("Message", "Inser Fail"+"("+ PostDetails.Response.ToString()+")", "OK");
+            }
+           
 
         }
-
-
+        
         public void clearData()
         {
 
@@ -214,7 +217,6 @@ namespace WareHouseManagement.Views
             BinTag.Text = "";
             Quantity.Text = "";
         }
-
-      
+        
     }
 }

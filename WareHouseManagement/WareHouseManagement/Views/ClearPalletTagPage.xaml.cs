@@ -1,4 +1,5 @@
 ﻿using Com.Zebra.Rfid.Api3;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,7 +8,10 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using WareHouseManagement.PCL.Common;
 using WareHouseManagement.PCL.Model;
+using WareHouseManagement.PCL.Service;
+using WareHouseManagement.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -22,6 +26,9 @@ namespace WareHouseManagement.Views
         private Object tagreadlock = new object();
         private static Dictionary<String, int> tagListDict = new Dictionary<string, int>();
 
+        List<ProductBarcodeResponseModel> _model = new List<ProductBarcodeResponseModel>();
+        public List<ProductBarcodeResponseModel> allItems;
+        PalletMaintanancedataBindingModel items;
 
         public bool isConnected { get => isConnected; set => OnPropertyChanged(); }
 
@@ -39,20 +46,14 @@ namespace WareHouseManagement.Views
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-
-
             UpdateIn();
-
-
-
-
-
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
             UpdateOut();
+            PalletList.ItemsSource = _model;
         }
 
 
@@ -175,6 +176,79 @@ namespace WareHouseManagement.Views
         public virtual void StatusEvent(Com.Zebra.Rfid.Api3.Events.StatusEventData statusEvent)
         {
 
+        }
+
+
+        public async void ClearPalletTagAsync()
+        {
+            try
+            {
+                StockInPalletResponseModel _model = new StockInPalletResponseModel();
+                {
+                    _model.Tag = "E28011700000020A3E00415C";
+
+                };
+                var ClearPalletTag = await new ClearPalletTagService().ClearPalletTag(_model, ClearPalletTagUrl.ClearPalletTag);
+                if (ClearPalletTag.Status == 1)
+                {
+                    var PalletData = JsonConvert.DeserializeObject<StockInPalletModel>(ClearPalletTag.Response.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+
+
+            }
+
+        }
+
+        private async void ReadPalletTag_TextChangedAsync(object sender, TextChangedEventArgs e)
+        {
+
+            //if (ReadPalletTag.Text != "")
+            //{
+            //    ProductBarcodeRequestModel _User = new ProductBarcodeRequestModel
+            //    {
+            //        Barcode = ReadPalletTag.Text,
+                   
+            //    };
+            //    var PalletDetail = await new PalletMaintainanceService().GetPalletMaintainanceDetail(_User, PalletMaintainanceServiceUrl.GetPalletMaintainanceDetai);
+            //    if (PalletDetail.Status == 1)
+            //    {
+            //        var PalletData = JsonConvert.DeserializeObject<ProductBarcodeResponseModel>(PalletDetail.Response.ToString());
+            //        try
+            //        {
+            //            var selected = _model.Where(x => x.ProductId == PalletData.ProductId).First();
+            //            if (selected != null)
+            //            {
+            //                await Application.Current.MainPage.DisplayAlert("Message", "Your have Already added This Item", "OK");
+            //            }
+            //            else
+            //            {
+            //                _model.Add(PalletData);
+            //                items = new PalletMaintanancedataBindingModel(_model);
+            //                PalletList.ItemsSource = null;
+            //                PalletList.ItemsSource = items.Items;
+            //            }
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            _model.Add(PalletData);
+            //            items = new PalletMaintanancedataBindingModel(_model);
+            //            PalletList.ItemsSource = null;
+            //            PalletList.ItemsSource = items.Items;
+            //        }
+
+            //    }
+
+
+            //}
+
+        }
+
+        private void BtnSave_Clicked(object sender, EventArgs e)
+        {
+            ClearPalletTagAsync();
         }
     }
 }

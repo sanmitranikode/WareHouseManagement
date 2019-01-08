@@ -21,6 +21,7 @@
     <ContentPage.Content>
         <StackLayout Padding="10">
             <StackLayout Padding="10" VerticalOptions="Center" >
+                
                 <Grid VerticalOptions="CenterAndExpand"  Margin="7" Padding="1"  RowSpacing="1" ColumnSpacing="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40" />
@@ -82,18 +83,29 @@
 
 
             </StackLayout>
-            <StackLayout Padding="10" Spacing="15" VerticalOptions="End">
-                
-                <StackLayout Orientation="Horizontal" Padding="30,0,60,0" >
-                    <Label Text="Bin Tag" FontAttributes="Bold" HorizontalOptions="Center"></Label>
-                    <Label Text=" binding tag" HorizontalOptions="EndAndExpand"></Label>
-                    
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" Padding="30,0,60,0" >
-                    <Label Text="Bin Name" FontAttributes="Bold" HorizontalOptions="Center"></Label>
-                    <Label Text=" binding name" HorizontalOptions="EndAndExpand"></Label>
 
-                </StackLayout>
+            <StackLayout Padding="10" Spacing="15" VerticalOptions="End">
+                <Frame>
+                    <StackLayout Spacing="15">
+
+                        <StackLayout Orientation="Horizontal" Padding="30,0,60,0" >
+                            <Label Text="Bin Tag" FontAttributes="Bold" HorizontalOptions="Center"></Label>
+                            <Label Text=" binding tag" HorizontalOptions="EndAndExpand"></Label>
+
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" Padding="30,0,60,0" >
+                            <Label Text="Bin Name" FontAttributes="Bold" HorizontalOptions="Center"></Label>
+                            <Label Text=" binding name" HorizontalOptions="EndAndExpand"></Label>
+
+                        </StackLayout>
+
+                    </StackLayout>
+
+
+                </Frame>
+               
+                
+               
                 <StackLayout>
                     <Button Text="Stock Out"  HorizontalOptions="EndAndExpand" BackgroundColor="#3C495A" TextColor="White" BorderRadius="7" HeightRequest="40"/>
 

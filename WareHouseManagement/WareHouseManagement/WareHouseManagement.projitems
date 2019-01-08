@@ -20,6 +20,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Common\GlobalConstant.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PCL\Common\SharedPreference.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Helper\HttpClientHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ErrorViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\Pallet.cs" />
@@ -29,10 +30,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ReaderModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ResultModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\StockInPalletModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\StockInPalletResponseModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\StockOutPalletModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\TagItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\UserModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ValidationMessages.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\ClearPalletTagService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\PalletMaintainanceService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\StockInPalletService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\StockOutPalletService.cs" />

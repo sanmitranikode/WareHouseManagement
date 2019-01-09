@@ -33,7 +33,7 @@ namespace WareHouseManagement
             GlobalConstant.AccessToken = null;
             _objShared.SaveApplicationProperty("AccessToken", GlobalConstant.AccessToken);
 
-
+          
 
             Navigation.InsertPageBefore(new LogInPage(), this);
                 await Navigation.PopAsync();

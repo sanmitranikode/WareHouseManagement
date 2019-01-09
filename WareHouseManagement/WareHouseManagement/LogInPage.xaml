@@ -1,29 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="WareHouseManagement.Views.LogInPage"
-             xmlns:local="clr-namespace:WareHouseManagement;assembly=WareHouseManagement"
-           BackgroundImage="wareback13.jpg" >
-            
- 
-            
+             x:Class="WareHouseManagement.LogInPage"  
+             BackgroundImage="wareback13.jpg">
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-            
+
                 <RowDefinition Height="2*"/>
 
 
             </Grid.RowDefinitions>
-            
-            
+
+
             <StackLayout Padding="80"  Grid.Row="0"  VerticalOptions="End" HorizontalOptions="Center">
                 <BoxView HeightRequest="40" >
-                    
-                    
+
+
                 </BoxView>
-                
+
                 <Image Source="Logo.png" VerticalOptions="End"  HorizontalOptions="Center"  />
 
 
@@ -51,8 +47,8 @@
                            Keyboard="Email"  />
                             <Image  Source="key.png"  VerticalOptions="Center" Grid.Row="1" Grid.Column="0"></Image>
                             <Entry x:Name="passwordEntry" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="White" PlaceholderColor="White"  Placeholder="Password"  FontSize="Medium" 
-                            IsPassword="True" Keyboard="Default"  /> 
-                          
+                            IsPassword="True" Keyboard="Default"  />
+
 
 
 
@@ -76,10 +72,5 @@
 
             </StackLayout>
         </Grid>
-
-      
-     
-
-        
     </ContentPage.Content>
 </ContentPage>

@@ -255,13 +255,14 @@ namespace WareHouseManagement.Views
             PalletModel PalletMaintainanceRequest = new PalletModel();
             PalletMaintainanceRequest.Tag = txt_PalletTagNo.Text;
          
-            PalletBarcodes productmodel =new PalletBarcodes();
+           
             List<PalletBarcodes> PalletBarcodes = new List<PalletBarcodes>();
 
             try
             {
                 foreach (var item in _model)
                 {
+                    PalletBarcodes productmodel = new PalletBarcodes();
                     productmodel.LotNo =(item.LotNo);
                     productmodel.ProductId = Convert.ToInt32(item.ProductId);
                     productmodel.Quantity =Convert.ToInt32( item.Quantity);
@@ -321,6 +322,7 @@ namespace WareHouseManagement.Views
            
 
             var item = ((TappedEventArgs)e).Parameter;
+            
             try
             {
 

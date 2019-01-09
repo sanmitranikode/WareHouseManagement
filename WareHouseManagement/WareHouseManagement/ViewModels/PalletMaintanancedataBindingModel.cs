@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using WareHouseManagement.PCL.Common;
+using WareHouseManagement.PCL.Model;
 using WareHouseManagement.PCL.Service;
 using Xamarin.Forms;
 
@@ -43,4 +44,6 @@ namespace WareHouseManagement.ViewModels
 
 
     }
+
+   
 }

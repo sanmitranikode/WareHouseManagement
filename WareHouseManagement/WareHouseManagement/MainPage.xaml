@@ -38,12 +38,13 @@
                     <Button x:Name="btn_StockOut"  BorderRadius="5"  Grid.Row="1" Grid.Column="1" BackgroundColor="White" ContentLayout="Top,30"  Image="delivery_truck" Text="Stock Out" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" Clicked="btn_StockOut_Clicked">
 
                     </Button>
-                    <Button x:Name="btn_ReaderList" Text="ReaderList"  Grid.Row="2"  BorderRadius="5" Grid.Column="0" BackgroundColor="White"  HorizontalOptions="FillAndExpand" Clicked="btn_ReaderList_Clicked">
+                    <Button  x:Name="btn_PickUpList" Grid.Row="2" BorderRadius="5" BackgroundColor="White" Grid.Column="0" Image="PickUpList" Clicked="Btn_PickUpList_Clicked">
 
                     </Button>
-                    <Button  Grid.Row="2"  BorderRadius="5" BackgroundColor="White" Grid.Column="1" >
+                    <Button x:Name="btn_ReaderList" Text="ReaderList"  Grid.Row="2"  BorderRadius="5" Grid.Column="1" BackgroundColor="White"  HorizontalOptions="FillAndExpand" Clicked="btn_ReaderList_Clicked">
 
                     </Button>
+                   
                 </Grid>
 
 

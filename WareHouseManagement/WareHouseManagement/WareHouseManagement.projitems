@@ -35,6 +35,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\TagItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\UserModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ValidationMessages.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\WrPickupListModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\ClearPalletTagService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\PalletMaintainanceService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\StockInPalletService.cs" />
@@ -77,7 +78,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\PickUpLogList.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\PiclUpLogSelection.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Views\PickUpLogSelection.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\ReaderList.xaml.cs">
@@ -178,7 +179,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PiclUpLogSelection.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PickUpLogSelection.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>

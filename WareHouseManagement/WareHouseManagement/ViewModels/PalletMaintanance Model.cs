@@ -14,7 +14,7 @@ namespace WareHouseManagement.ViewModels
     {
         public string LotNo { get; set; }
         public string Barcode { get; set; }
-        public string ProductId { get; set; }
+        public string WrReceivingProductId { get; set; }
         public string ProductName { get; set; }
         public string Quantity { get; set; }
     }

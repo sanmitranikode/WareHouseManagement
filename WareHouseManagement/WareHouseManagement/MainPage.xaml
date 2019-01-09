@@ -7,7 +7,7 @@
              Title="MANAGEMENT"  >
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Logout" Clicked="OnLogoutButtonClicked" />
+        <ToolbarItem Icon="power_1.PNG" Clicked="OnLogoutButtonClicked" />
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
@@ -38,10 +38,10 @@
                     <Button x:Name="btn_StockOut"  BorderRadius="5"  Grid.Row="1" Grid.Column="1" BackgroundColor="White" ContentLayout="Top,30"  Image="delivery_truck" Text="Stock Out" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" Clicked="btn_StockOut_Clicked">
 
                     </Button>
-                    <Button  x:Name="btn_PickUpList" Grid.Row="2" BorderRadius="5" BackgroundColor="White" Grid.Column="0" Image="PickUpList" Clicked="Btn_PickUpList_Clicked">
+                    <Button  Image="checklist.png"   Grid.Row="2"  BorderRadius="5" Grid.Column="0" BackgroundColor="White"  ContentLayout="Top,30" Text="Pickup List " HorizontalOptions="FillAndExpand" >
 
                     </Button>
-                    <Button x:Name="btn_ReaderList" Text="ReaderList"  Grid.Row="2"  BorderRadius="5" Grid.Column="1" BackgroundColor="White"  HorizontalOptions="FillAndExpand" Clicked="btn_ReaderList_Clicked">
+                    <Button x:Name="btn_ReaderList" Text="ReaderList" Image="smartphone.png" ContentLayout="Top,30" Grid.Row="2"  BorderRadius="5" BackgroundColor="White" Grid.Column="1" Clicked="btn_ReaderList_Clicked" >
 
                     </Button>
                    

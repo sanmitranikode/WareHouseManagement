@@ -325,6 +325,7 @@ namespace WareHouseManagement.Views
            
 
             var item = ((TappedEventArgs)e).Parameter;
+            
             try
             {
 

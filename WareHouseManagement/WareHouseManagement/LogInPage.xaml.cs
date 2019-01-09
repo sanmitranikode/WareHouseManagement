@@ -5,32 +5,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WareHouseManagement.PCL.Common;
-using WareHouseManagement.PCL.Helper;
 using WareHouseManagement.PCL.Model;
 using WareHouseManagement.PCL.Service;
 using WareHouseManagement.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace WareHouseManagement.Views
+namespace WareHouseManagement
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LogInPage : ContentPage
-    {
-        
-        bool isValid =false;
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class LogInPage : ContentPage
+	{
         SharedPreference _objShared = new SharedPreference();
-
-        public LogInPage()
-        {
-            InitializeComponent();
-           
-        }
+        public LogInPage ()
+		{
+			InitializeComponent ();
+		}
         protected override void OnAppearing()
         {
             base.OnAppearing();
             try { NavigationPage.SetHasNavigationBar(this, false); } catch { }
-           
+
 
         }
         async void OnLoginButtonClicked(object sender, EventArgs e)
@@ -43,7 +38,7 @@ namespace WareHouseManagement.Views
             btn_login.IsEnabled = false;
             GetUserLoginAsync();
 
-            
+
         }
         public async void GetUserLoginAsync()
         {
@@ -57,7 +52,7 @@ namespace WareHouseManagement.Views
             {
                 var UserData = JsonConvert.DeserializeObject<UserLoginViewModel>(UserDetail.Response.ToString());
                 GlobalConstant.AccessToken = UserData.Token;
-                _objShared.SaveApplicationProperty("IpAddress", GlobalConstant.AccessToken);
+                _objShared.SaveApplicationProperty("AccessToken", GlobalConstant.AccessToken);
 
                 //Application.Current.Properties["UserEmail"] = userEmailEntry.Text;
                 //Application.Current.Properties["Password"] = passwordEntry.Text;
@@ -66,10 +61,10 @@ namespace WareHouseManagement.Views
 
 
 
+                App.Current.MainPage = new NavigationPage(new WareHouseManagement.MainPage());
 
-
-                Navigation.InsertPageBefore(new MainPage(), this);
-                await Navigation.PopAsync();
+                //Navigation.InsertPageBefore(new MainPage(), this);
+                //await Navigation.PopAsync();
                 btn_login.IsEnabled = true;
                 activity.IsRunning = false;
             }
@@ -82,8 +77,5 @@ namespace WareHouseManagement.Views
 
             }
         }
-       
-
-
     }
 }

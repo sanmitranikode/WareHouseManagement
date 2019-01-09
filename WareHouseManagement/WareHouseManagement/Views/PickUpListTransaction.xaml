@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="WareHouseManagement.Views.ClearPalletTagPage">
+              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms" 
+             x:Class="WareHouseManagement.Views.PickUpListTransaction">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="headerTablet" TargetType="Label">
@@ -34,12 +35,7 @@
                     <ColumnDefinition Width="*"/>
 
                 </Grid.ColumnDefinitions>
-                <StackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Spacing="40">
-                    <Label Text="Pallet Tag  :" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"></Label>
-                    <Entry  VerticalOptions="Center" x:Name="ReadPalletTag" HorizontalOptions="FillAndExpand"   ></Entry>
-
-                </StackLayout>
-
+       
                 <StackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  >
                     <Grid VerticalOptions="CenterAndExpand"  Margin="7" Padding="1"  RowSpacing="1" ColumnSpacing="1">
                         <Grid.RowDefinitions>
@@ -48,18 +44,18 @@
                         </Grid.RowDefinitions>
 
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*" />
-                            <ColumnDefinition Width="3*" />
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
+                        <Label Text="Check"  Grid.Column="0" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+                        <Label Text="Log"  Grid.Column="1" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+                        <Label Text="BIN" Grid.Column="2" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+                        <Label Text="Exp Date" Grid.Column="3" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+                        <Label Text="Available" Grid.Column="4" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
 
-                        <Label Text="Item Code"  Grid.Row="0" Style="{DynamicResource headerTablet}"/>
-                        <Label Text="Name" Grid.Column="1" Grid.Row="0"  Style="{DynamicResource headerTablet}"/>
-                        <Label Text="Qty" Grid.Column="2" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
-                        <Label Text="Lot No" Grid.Column="3" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
-                        <Label Text="X" Grid.Column="4" Grid.Row="0" BackgroundColor="#FF0000" Style="{DynamicResource headerTablet}"/>
                         <ListView x:Name="PalletList" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" ItemsSource="{Binding MyObservableCollectionList}"     HorizontalOptions="CenterAndExpand"   >
 
                             <ListView.ItemTemplate >
@@ -82,21 +78,22 @@
                                                 <ColumnDefinition Width="3*"></ColumnDefinition>
                                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                                                 <ColumnDefinition Width="2*"></ColumnDefinition>
-                                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                                <ColumnDefinition Width="2*"></ColumnDefinition>
 
                                             </Grid.ColumnDefinitions>
-                                            <Label x:Name="txt_ItemCode" Grid.Row="0" Grid.Column="0"  Style="{DynamicResource detailTablet}" Text="{Binding Barcode}  "/>
-                                            <Label x:Name="txt_Name" Grid.Row="0" Grid.Column="1"   Style="{DynamicResource detailTablet}"  Text="{Binding ProductName}"/>
-                                            <Label x:Name="txt_Quantity" Grid.Row="0" Grid.Column="2" Style="{DynamicResource detailTablet}"  Text="{Binding Quantity}"/>
-                                            <Label x:Name="txt_LotNo" Grid.Row="0" Grid.Column="3" Style="{DynamicResource detailTablet}"  Text="{Binding LotNo}"/>
-                                            <Image x:Name="Img_deleteRow" Source="deleteitem.png"  Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="1"  HorizontalOptions="End"  >
-                                                <!--<Image.GestureRecognizers>
+                                            <controls:CheckBox   Grid.Row="0" Grid.Column="0" HorizontalOptions="FillAndExpand"/>
+                                            <Label x:Name="txt_CodeLog" Grid.Row="0" Grid.Column="1"  Style="{DynamicResource detailTablet}" Text="{Binding Barcode}  "/>
+                                            <Label x:Name="txt_BIN" Grid.Row="0" Grid.Column="2" Style="{DynamicResource detailTablet}"  Text="{Binding Quantity}"/>
+                                            <Label x:Name="txt_ExPDate" Grid.Row="0" Grid.Column="3" Style="{DynamicResource detailTablet}"  Text="{Binding Quantity}"/>
+                                            <Label x:Name="txt_Available" Grid.Row="0" Grid.Column="4" Style="{DynamicResource detailTablet}"  Text="{Binding LotNo}"/>
+                                                                                         <!--<Image.GestureRecognizers>
                                                     <TapGestureRecognizer
                                                          Tapped="Img_deleteRow_Clicked"
                                                          NumberOfTapsRequired="1"
                                                      CommandParameter="{Binding Barcode}"/>
                                                 </Image.GestureRecognizers>-->
-                                            </Image>
+                                            <!--</Image>-->
                                         </Grid>
                                     </ViewCell>
                                 </DataTemplate>
@@ -110,8 +107,8 @@
                 </StackLayout>
                 <StackLayout Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" >
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="30">
-                        <Button Text="Save" x:Name="btnSave" BackgroundColor="#3C495A" TextColor="White" BorderRadius="7" HeightRequest="40" Clicked="BtnSave_Clicked"></Button>
-                        <Button Text="Close" BackgroundColor="#3C495A" TextColor="White" BorderRadius="7" HeightRequest="40"></Button>
+                        <Button Text="PickUp" x:Name="BtnPickUp" BackgroundColor="#3C495A" TextColor="White" BorderRadius="7" HeightRequest="40" ></Button>
+                        <Button Text="StockOut" BackgroundColor="#3C495A" TextColor="White" BorderRadius="7" HeightRequest="40"></Button>
 
                     </StackLayout>
 

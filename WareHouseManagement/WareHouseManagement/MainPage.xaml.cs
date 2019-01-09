@@ -67,5 +67,10 @@ namespace WareHouseManagement
         {
             await Navigation.PushAsync(new ReaderListMainPage());
         }
+
+        private async void Btn_PickUpList_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new PickUpLogList());
+        }
     }
 }

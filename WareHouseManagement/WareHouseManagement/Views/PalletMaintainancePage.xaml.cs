@@ -220,7 +220,7 @@ namespace WareHouseManagement.Views
                     var PalletData = JsonConvert.DeserializeObject<ProductBarcodeResponseModel>(PalletDetail.Response.ToString());
                     try
                     {
-                        var selected = _model.Where(x => x.ProductId == PalletData.ProductId).First();
+                        var selected = _model.Where(x => x.WrReceivingProductId == PalletData.WrReceivingProductId).First();
                         if (selected != null)
                         {
                             await Application.Current.MainPage.DisplayAlert("Message", "Your have Already added This Item", "OK");
@@ -264,11 +264,14 @@ namespace WareHouseManagement.Views
                 {
                     PalletBarcodes productmodel = new PalletBarcodes();
                     productmodel.LotNo =(item.LotNo);
-                    productmodel.ProductId = Convert.ToInt32(item.ProductId);
+                    productmodel.WrReceivingProductId = Convert.ToInt32(item.WrReceivingProductId);
                     productmodel.Quantity =Convert.ToInt32( item.Quantity);
                     PalletBarcodes.Add(productmodel);
+                 
                 }
+
                 PalletMaintainanceRequest.PalletBarcodes = PalletBarcodes;
+
                 // var RFID= int.Parse(txt_Barcode.Text);
                 var PostDetails = await new PalletMaintainanceService().PostPalletMaintainanceDetail(PalletMaintainanceRequest, PalletMaintainanceServiceUrl.PostPalletreceivinglog);
                 if (PostDetails.Status == 1)

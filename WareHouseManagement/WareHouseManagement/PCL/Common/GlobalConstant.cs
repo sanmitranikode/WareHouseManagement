@@ -48,4 +48,11 @@ namespace WareHouseManagement.PCL.Common
 
     }
 
+
+    public struct GetPickUpListUrl
+    {
+        public static string GetPickUpList = "PickUpList";
+
     }
+
+}

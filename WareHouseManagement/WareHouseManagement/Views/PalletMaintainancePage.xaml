@@ -23,7 +23,7 @@
     <ContentPage.Content>
         <StackLayout >
             <StackLayout>
-                <StackLayout Padding="10">
+                <StackLayout Padding="10,10,10,0">
                     <forms:AutoSuggestBox x:Name="txt_lotNo" HeightRequest="40"  PlaceholderText="Lot No"  BackgroundColor="Silver" HorizontalOptions="FillAndExpand"
                                             DisplayMemberPath="LotNo"
                                   TextMemberPath="LotNo"
@@ -39,8 +39,9 @@
 
 
                 </StackLayout>
-                <BoxView HeightRequest="0.6" BackgroundColor="Silver"></BoxView>
+               
             </StackLayout>
+            <!--<BoxView HeightRequest="2" BackgroundColor="#3C495A"></BoxView>-->
             <StackLayout>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -60,7 +61,7 @@
 
 
 
-                    <Grid VerticalOptions="CenterAndExpand" Grid.Row="0" Margin="7" Padding="1"  RowSpacing="1" ColumnSpacing="1">
+                    <Grid VerticalOptions="CenterAndExpand" Grid.Row="0" Margin="7,0,7,7" Padding="1"  RowSpacing="1" ColumnSpacing="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40" />
                             <RowDefinition Height="*" />
@@ -130,34 +131,7 @@
 
 
                     </Grid>
-                    <StackLayout VerticalOptions="EndAndExpand">
-                        <BoxView HeightRequest="0.6" BackgroundColor="Silver"></BoxView>
-                        <StackLayout Padding="10">
-                            <StackLayout Orientation="Horizontal">
-
-                                <Entry x:Name="txt_PalletTagNo"  VerticalOptions="Center" HorizontalOptions="FillAndExpand" Placeholder="Tag" />
-                                <Label x:Name="lbl_PalletTag"  Text="Read Tag" VerticalOptions="Center" HorizontalOptions="End" />
-
-
-                            </StackLayout>
-                            <StackLayout  Spacing="10" Orientation="Horizontal" HorizontalOptions="End" >
-                                <StackLayout >
-                                    <Button   Text="Save" BackgroundColor="#3C495A" BorderRadius="7" TextColor="White"   VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40"  Clicked="Button_Clicked"/>
-
-                                </StackLayout>
-                                <StackLayout >
-                                    <Button  Text="Close" BackgroundColor="#3C495A" BorderRadius="7" TextColor="White" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40"/>
-
-                                </StackLayout>
-
-                            </StackLayout>
-                       
-
-                        
-
-                        </StackLayout>
-
-                    </StackLayout>
+                  
 
 
 
@@ -167,6 +141,35 @@
 
 
                 </Grid>
+                <BoxView HeightRequest="2" BackgroundColor="#3C495A"></BoxView>
+                <StackLayout VerticalOptions="EndAndExpand">
+                   
+                    <StackLayout Padding="10,0,10,10">
+                        <StackLayout Orientation="Horizontal">
+
+                            <Entry x:Name="txt_PalletTagNo"  VerticalOptions="Center" HorizontalOptions="FillAndExpand" Placeholder="Tag" />
+                            <Label x:Name="lbl_PalletTag"  Text="Read Tag" VerticalOptions="Center" HorizontalOptions="End" />
+
+
+                        </StackLayout>
+                        <StackLayout  Spacing="10" Orientation="Horizontal" HorizontalOptions="End" >
+                            <StackLayout >
+                                <Button   Text="Save" BackgroundColor="#3C495A" BorderRadius="7" TextColor="White"   VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40"  Clicked="Button_Clicked"/>
+
+                            </StackLayout>
+                            <StackLayout >
+                                <Button  Text="Close" BackgroundColor="#3C495A" BorderRadius="7" TextColor="White" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40"/>
+
+                            </StackLayout>
+
+                        </StackLayout>
+
+
+
+
+                    </StackLayout>
+
+                </StackLayout>
 
             </StackLayout>
           

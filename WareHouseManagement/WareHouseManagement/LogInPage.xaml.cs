@@ -13,14 +13,14 @@ using Xamarin.Forms.Xaml;
 
 namespace WareHouseManagement
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class LogInPage : ContentPage
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class LogInPage : ContentPage
+    {
         SharedPreference _objShared = new SharedPreference();
-        public LogInPage ()
-		{
-			InitializeComponent ();
-		}
+        public LogInPage()
+        {
+            InitializeComponent();
+        }
         protected override void OnAppearing()
         {
             base.OnAppearing();

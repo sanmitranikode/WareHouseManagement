@@ -5708,8 +5708,8 @@ namespace WareHouseManagement.Droid
 			// aapt resource value: 0x7f0b0172
 			public const int Animation_Design_BottomSheetDialog = 2131427698;
 			
-			// aapt resource value: 0x7f0b0196
-			public const int AppCompatDialogStyle = 2131427734;
+			// aapt resource value: 0x7f0b0195
+			public const int AppCompatDialogStyle = 2131427733;
 			
 			// aapt resource value: 0x7f0b00ad
 			public const int Base_AlertDialog_AppCompat = 2131427501;
@@ -6224,11 +6224,11 @@ namespace WareHouseManagement.Droid
 			// aapt resource value: 0x7f0b0012
 			public const int CardView_Light = 2131427346;
 			
-			// aapt resource value: 0x7f0b0194
-			public const int MainTheme = 2131427732;
+			// aapt resource value: 0x7f0b0193
+			public const int MainTheme = 2131427731;
 			
-			// aapt resource value: 0x7f0b0195
-			public const int MainTheme_Base = 2131427733;
+			// aapt resource value: 0x7f0b0194
+			public const int MainTheme_Base = 2131427732;
 			
 			// aapt resource value: 0x7f0b0031
 			public const int Platform_AppCompat = 2131427377;
@@ -6619,9 +6619,6 @@ namespace WareHouseManagement.Droid
 			
 			// aapt resource value: 0x7f0b000a
 			public const int Theme_MediaRouter_LightControlPanel = 2131427338;
-			
-			// aapt resource value: 0x7f0b0193
-			public const int Theme_Splash = 2131427731;
 			
 			// aapt resource value: 0x7f0b011a
 			public const int ThemeOverlay_AppCompat = 2131427610;

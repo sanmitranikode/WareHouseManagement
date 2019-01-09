@@ -20,6 +20,12 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout Padding="10">
+            <StackLayout>
+                <Entry x:Name="txt_Barcode"   VerticalOptions="Center"  Placeholder="Bar Code" HorizontalOptions="Fill">
+
+                </Entry>
+
+            </StackLayout>
             <StackLayout Padding="10" VerticalOptions="Center" >
                 
                 <Grid VerticalOptions="CenterAndExpand"  Margin="7" Padding="1"  RowSpacing="1" ColumnSpacing="1">

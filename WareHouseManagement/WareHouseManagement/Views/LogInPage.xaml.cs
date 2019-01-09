@@ -57,7 +57,7 @@ namespace WareHouseManagement.Views
             {
                 var UserData = JsonConvert.DeserializeObject<UserLoginViewModel>(UserDetail.Response.ToString());
                 GlobalConstant.AccessToken = UserData.Token;
-                _objShared.SaveApplicationProperty("AccessToken", GlobalConstant.AccessToken);
+                _objShared.SaveApplicationProperty("IpAddress", GlobalConstant.AccessToken);
 
                 //Application.Current.Properties["UserEmail"] = userEmailEntry.Text;
                 //Application.Current.Properties["Password"] = passwordEntry.Text;

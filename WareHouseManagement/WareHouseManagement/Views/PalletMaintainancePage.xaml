@@ -29,13 +29,8 @@
                                   TextMemberPath="LotNo"
                                 TextChanged="srchbox_carret_TextChanged"
                            QuerySubmitted="srchbox_carret_QuerySubmitted"/>
-                    <!--<Entry x:Name="txt_lotno"  Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill" VerticalOptions="Center">
-                        
-                    </Entry>-->
-
-
-                    <Entry  x:Name="txt_Barcode"   VerticalOptions="Center" TextChanged="txt_Barcode_TextChanged" Placeholder="Bar Code" HorizontalOptions="Fill"/>
-
+                    <Entry  x:Name="txt_Barcode"   VerticalOptions="Center"  TextChanged="txt_Barcode_TextChanged" Placeholder="Bar Code" HorizontalOptions="Fill"/>
+                    <Label x:Name="lbl_totalQuantity" Text="Total Quantity = 0" TextColor="DarkGray" Font="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand"></Label>
 
 
                 </StackLayout>

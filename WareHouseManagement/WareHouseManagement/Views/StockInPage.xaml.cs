@@ -219,11 +219,12 @@ namespace WareHouseManagement.Views
                 var GetData = await new PalletMaintainanceService().GetPalletLog(StockInServiceUrl.GetQuantity + PalletTag.Text);
                 if (GetData.Status == 1)
                 {
-                    var PalletData = JsonConvert.DeserializeObject<ProductBarcodeResponseModel>(GetData.Response.ToString());
+                    Quantity.Text = GetData.Response.ToString();
                 }
+                else { Quantity.Text = "0"; }
             }catch(Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Message", "Server Not Found", "OK");
+               
             }
         }
 

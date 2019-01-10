@@ -229,14 +229,19 @@ namespace WareHouseManagement.Views
                         {
                             _model.Add(PalletData);
                             items = new PalletMaintanancedataBindingModel(_model);
+                            int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
+                            lbl_totalQuantity.Text= "Total Quantity = " + TotalQty.ToString();
                             PalletList.ItemsSource = null;
                             PalletList.ItemsSource = items.Items;
+                            txt_Barcode.Text = "";
                         }
                     }
                     catch(Exception ex)
                     {
                         _model.Add(PalletData);
                         items = new PalletMaintanancedataBindingModel(_model);
+                        int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
+                        lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
                         PalletList.ItemsSource = null;
                         PalletList.ItemsSource = items.Items;
                     }
@@ -264,8 +269,9 @@ namespace WareHouseManagement.Views
                 {
                     PalletBarcodes productmodel = new PalletBarcodes();
                     productmodel.LotNo =(item.LotNo);
-                    productmodel.WrReceivingProductId = Convert.ToInt32(item.WrReceivingProductId);
+                    productmodel.WRReceivingProductsId = Convert.ToInt32(item.WrReceivingProductId);
                     productmodel.Quantity =Convert.ToInt32( item.Quantity);
+                    productmodel.WRReceivingProductsId = Convert.ToInt32(item.WrReceivingProductId);
                     PalletBarcodes.Add(productmodel);
                  
                 }
@@ -301,6 +307,7 @@ namespace WareHouseManagement.Views
             items.Items = null;
             PalletList.ItemsSource = items.Items;
             txt_lotNo.Text = "";
+            lbl_totalQuantity.Text = "Total Quantity = 0";
         }
 
 
@@ -332,6 +339,8 @@ namespace WareHouseManagement.Views
                 ProductBarcodeResponseModel listitem = (from itm in items.Items where itm.Barcode == item.ToString() select itm).FirstOrDefault<ProductBarcodeResponseModel>();
                 items.Items.Remove(listitem);
                 _model.Remove(listitem);
+                int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
+                lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
 
             }
             catch

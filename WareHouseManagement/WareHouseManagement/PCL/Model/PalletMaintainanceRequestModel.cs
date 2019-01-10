@@ -16,7 +16,7 @@ namespace WareHouseManagement.PCL.Model
     {
       
         public string LotNo { get; set; }
-        public int WrReceivingProductId { get; set; }
+        public int WRReceivingProductsId { get; set; }
         public int Quantity { get; set; }
       
 }

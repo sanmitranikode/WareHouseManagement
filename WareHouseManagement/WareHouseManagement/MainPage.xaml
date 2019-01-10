@@ -38,7 +38,7 @@
                     <Button x:Name="btn_StockOut"  BorderRadius="5"  Grid.Row="1" Grid.Column="1" BackgroundColor="White" ContentLayout="Top,30"  Image="delivery_truck" Text="Stock Out" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" Clicked="btn_StockOut_Clicked">
 
                     </Button>
-                    <Button  Image="checklist.png"   Grid.Row="2"  BorderRadius="5" Grid.Column="0" BackgroundColor="White"  ContentLayout="Top,30" Text="Pickup List " HorizontalOptions="FillAndExpand" >
+                    <Button  Image="checklist.png"   Grid.Row="2"  BorderRadius="5" Grid.Column="0" BackgroundColor="White"  ContentLayout="Top,30" Text="Pickup List " HorizontalOptions="FillAndExpand" Clicked="Btn_PickUpList_Clicked" >
 
                     </Button>
                     <Button x:Name="btn_ReaderList" Text="ReaderList" Image="smartphone.png" ContentLayout="Top,30" Grid.Row="2"  BorderRadius="5" BackgroundColor="White" Grid.Column="1" Clicked="btn_ReaderList_Clicked" >

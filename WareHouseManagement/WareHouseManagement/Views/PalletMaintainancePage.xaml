@@ -17,6 +17,8 @@
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="BackgroundColor" Value="White" />
                 <Setter Property="FontSize" Value="9"/>
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -110,7 +112,7 @@
                                             </Grid.ColumnDefinitions>
                                             <Label x:Name="txt_ItemCode" Grid.Row="0" Grid.Column="0"  Style="{DynamicResource detailTablet}" Text="{Binding Barcode}  "/>
                                             <Label x:Name="txt_Name" Grid.Row="0" Grid.Column="1"   Style="{DynamicResource detailTablet}"  Text="{Binding ProductName}"/>
-                                            <Label x:Name="txt_Quantity" Grid.Row="0" Grid.Column="2" Style="{DynamicResource detailTablet}"  Text="{Binding Quantity}"/>
+                                                <Label x:Name="txt_Quantity" Grid.Row="0" Grid.Column="2" Style="{DynamicResource detailTablet}"  Text="{Binding Quantity}"/>
                                             <Label x:Name="txt_LotNo" Grid.Row="0" Grid.Column="3" Style="{DynamicResource detailTablet}"  Text="{Binding LotNo}"/>
                                             <Image x:Name="Img_deleteRow" Source="deleteitem.png"  Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="1"  HorizontalOptions="End"  >
                                                 <Image.GestureRecognizers>

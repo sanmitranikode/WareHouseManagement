@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WareHouseManagement.Views.StockInPage"
+             xmlns:custom1="clr-namespace:WareHouseManagement.PCL.Common"
              Title="STOCK IN">
     <ContentPage.Content>
         <StackLayout>
@@ -12,17 +13,19 @@
                     <Entry Grid.Row="0" x:Name="PalletTag"   VerticalOptions="Center"  Placeholder="Pallet Tag" HorizontalOptions="Fill" TextChanged="PalletTag_TextChanged"/>
                     <Entry Grid.Row="1" x:Name="Quantity"   VerticalOptions="Center"  Placeholder="Quantity" HorizontalOptions="Fill"/>
                 <Entry Grid.Row="2" x:Name="BinTag"   VerticalOptions="Center"  Placeholder="Bin Tag" HorizontalOptions="Fill"/>
-                    
+               
 
-                   
+
+
             </StackLayout>
             <StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="Center">
                 <Button Text="Save"  BackgroundColor="#3C495A" TextColor="White" BorderRadius="7" HeightRequest="40" Clicked="btnSave_ClickedAsync"/>
                 <Button Text="Clear" BackgroundColor="#3C495A" TextColor="White" BorderRadius="7" HeightRequest="40" />
                 <Button Text="Close" BackgroundColor="#3C495A" TextColor="White" BorderRadius="7"  HeightRequest="40"/>
+             
 
             </StackLayout>
-          
+         
         </StackLayout>
        
     </ContentPage.Content>

@@ -53,6 +53,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ReaderListViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RelativeDistanceViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserLoginViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\WRReceivingLogReportResponseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\WRReceivingLogResponseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\ClearPalletTagPage.xaml.cs">
       <SubType>Code</SubType>

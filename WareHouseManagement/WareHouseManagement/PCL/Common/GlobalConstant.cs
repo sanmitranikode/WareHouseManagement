@@ -38,7 +38,7 @@ namespace WareHouseManagement.PCL.Common
     {
 
         public static string PostStockIn = "StockInPallet";
-        public static string GetQuantity = "Pallet";
+        public static string GetQuantity = "Pallet/";
       
     }
 

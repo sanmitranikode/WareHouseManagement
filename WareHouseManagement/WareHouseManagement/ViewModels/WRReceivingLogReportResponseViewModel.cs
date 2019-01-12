@@ -6,14 +6,7 @@ namespace WareHouseManagement.ViewModels
 {
    public class WRReceivingLogReportResponseViewModel
     {
-        public IList<WRReceivingLogModel> WRReceivingLogModel { get; set; }
-       
-    }
-
-    public class WRReceivingLogModel
-    {
-        public Customer Customer { get; set; }
-
+        private IList<WRReceivingProducts> WRReceivingProducts { get; set; }
         public string LotNo { get; set; }
 
         public DateTime ReceivedDate { get; set; }

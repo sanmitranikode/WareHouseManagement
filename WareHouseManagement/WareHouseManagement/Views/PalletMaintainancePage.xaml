@@ -4,6 +4,11 @@
              x:Class="WareHouseManagement.Views.PalletMaintainancePage"
              xmlns:forms="clr-namespace:dotMorten.Xamarin.Forms;assembly=dotMorten.Xamarin.Forms.AutoSuggestBox"
              Title="PALLET MAINTAINANCE">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="Editpencil.PNG" Clicked="EditItem_Clicked" />
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="headerTablet" TargetType="Label">
@@ -49,15 +54,6 @@
 
                     </Grid.RowDefinitions>
 
-
-
-
-
-
-
-
-
-
                     <Grid VerticalOptions="CenterAndExpand" Grid.Row="0" Margin="7,0,7,7" Padding="1"  RowSpacing="1" ColumnSpacing="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40" />
@@ -83,95 +79,70 @@
                                 <DataTemplate>
                                     <ViewCell>
                                         <ScrollView>
-                                            
-                                       
 
-                                        <Grid x:Name="GridList" Padding="4" ColumnSpacing="1" RowSpacing="1"  >
-                                            <!--<Grid.GestureRecognizers>
+
+
+                                            <Grid x:Name="GridList" Padding="4" ColumnSpacing="1" RowSpacing="1"  >
+                                                <!--<Grid.GestureRecognizers>
                                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"  />
 
                                         </Grid.GestureRecognizers>-->
 
 
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="40"></RowDefinition>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="40"></RowDefinition>
 
-                                            </Grid.RowDefinitions>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="3*"></ColumnDefinition>
-                                                <ColumnDefinition Width="3*"></ColumnDefinition>
-                                                <ColumnDefinition Width="2*"></ColumnDefinition>
-                                                <ColumnDefinition Width="2*"></ColumnDefinition>
-                                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="1*"></ColumnDefinition>
 
-                                            </Grid.ColumnDefinitions>
-                                            <Label x:Name="txt_ItemCode" Grid.Row="0" Grid.Column="0"  Style="{DynamicResource detailTablet}" Text="{Binding Barcode}  "/>
-                                            <Label x:Name="txt_Name" Grid.Row="0" Grid.Column="1"   Style="{DynamicResource detailTablet}"  Text="{Binding ProductName}"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Label x:Name="txt_ItemCode" Grid.Row="0" Grid.Column="0"  Style="{DynamicResource detailTablet}" Text="{Binding Barcode}  "/>
+                                                <Label x:Name="txt_Name" Grid.Row="0" Grid.Column="1"   Style="{DynamicResource detailTablet}"  Text="{Binding ProductName}"/>
                                                 <Label x:Name="txt_Quantity" Grid.Row="0" Grid.Column="2" Style="{DynamicResource detailTablet}"  Text="{Binding Quantity}"/>
-                                            <Label x:Name="txt_LotNo" Grid.Row="0" Grid.Column="3" Style="{DynamicResource detailTablet}"  Text="{Binding LotNo}"/>
-                                            <Image x:Name="Img_deleteRow" Source="deleteitem.png"  Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="1"  HorizontalOptions="End"  >
-                                                <Image.GestureRecognizers>
-                                                    <TapGestureRecognizer
+                                                <Label x:Name="txt_LotNo" Grid.Row="0" Grid.Column="3" Style="{DynamicResource detailTablet}"  Text="{Binding LotNo}"/>
+                                                <Image x:Name="Img_deleteRow" Source="deleteitem.png"  Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="1"  HorizontalOptions="End"  >
+                                                    <Image.GestureRecognizers>
+                                                        <TapGestureRecognizer
                                                          Tapped="Img_deleteRow_Clicked"
                                                          NumberOfTapsRequired="1"
                                                      CommandParameter="{Binding Barcode}"/>
-                                                </Image.GestureRecognizers>
-                                            </Image>
+                                                    </Image.GestureRecognizers>
+                                                </Image>
 
-                                        </Grid>
+                                            </Grid>
                                         </ScrollView>
                                     </ViewCell>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
-
                         </ListView>
-
-
                     </Grid>
-                  
-
-
-
-
-
-
-
-
                 </Grid>
                 <BoxView HeightRequest="2" BackgroundColor="#3C495A"></BoxView>
                 <StackLayout VerticalOptions="EndAndExpand">
-                   
+
                     <StackLayout Padding="10,0,10,10">
                         <StackLayout Orientation="Horizontal">
 
                             <Entry x:Name="txt_PalletTagNo"  VerticalOptions="Center" HorizontalOptions="FillAndExpand" Placeholder="Tag" />
                             <Label x:Name="lbl_PalletTag"  Text="Read Tag" VerticalOptions="Center" HorizontalOptions="End" />
-
-
                         </StackLayout>
                         <StackLayout  Spacing="10" Orientation="Horizontal" HorizontalOptions="End" >
                             <StackLayout >
-                                <Button   Text="Save" BackgroundColor="#3C495A" BorderRadius="7" TextColor="White"   VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40"  Clicked="Button_Clicked"/>
-
+                                <Button x:Name="SaveUpdateButton"  Text="Save" BackgroundColor="#3C495A" BorderRadius="7" TextColor="White"   VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40"  Clicked="Button_Clicked"/>
                             </StackLayout>
                             <StackLayout >
                                 <Button  Text="Close" BackgroundColor="#3C495A" BorderRadius="7" TextColor="White" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40"/>
-
                             </StackLayout>
-
                         </StackLayout>
-
-
-
-
                     </StackLayout>
-
                 </StackLayout>
-
             </StackLayout>
-          
-       
-    </StackLayout>
+        </StackLayout>
     </ContentPage.Content>
 
 </ContentPage>

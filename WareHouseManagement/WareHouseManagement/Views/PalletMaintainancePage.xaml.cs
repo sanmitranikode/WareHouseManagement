@@ -229,7 +229,8 @@ namespace WareHouseManagement.Views
                         {
                             _model.Add(PalletData);
                             items = new PalletMaintanancedataBindingModel(_model);
-                            int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
+                            int TotalQty = items.Items.Count;
+                          //  int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
                             lbl_totalQuantity.Text= "Total Quantity = " + TotalQty.ToString();
                             PalletList.ItemsSource = null;
                             PalletList.ItemsSource = items.Items;
@@ -240,7 +241,8 @@ namespace WareHouseManagement.Views
                     {
                         _model.Add(PalletData);
                         items = new PalletMaintanancedataBindingModel(_model);
-                        int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
+                        int TotalQty = items.Items.Count;
+                        // int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
                         lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
                         PalletList.ItemsSource = null;
                         PalletList.ItemsSource = items.Items;
@@ -369,6 +371,54 @@ namespace WareHouseManagement.Views
 
         }
 
+        private async void EditItem_Clicked(object sender, EventArgs e)
+        {
+            if(txt_PalletTagNo.Text== "Update")
+            {
 
+                UpdateListPost();
+            }
+
+            if ( txt_PalletTagNo.Text != null)
+            {
+               
+                SaveUpdateButton.Text = "Update";
+                lbl_totalQuantity.IsVisible = false;
+               // GetPalletItem();
+            }
+
+            else
+            {
+
+                await Application.Current.MainPage.DisplayAlert("Message", "Fill Pallet Tag", "OK");
+            }
+        }
+
+        private void UpdateListPost()
+        {
+           
+        }
+
+        private async void GetPalletItem()
+        {
+            try
+            {
+
+                var PalletDetail = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetPalletItemByTagId + "?" + txt_PalletTagNo.Text);
+                if (PalletDetail.Status == 1 && PalletDetail != null)
+                {
+                    var PalletData = JsonConvert.DeserializeObject<ProductBarcodeResponseModel>(PalletDetail.Response.ToString());
+
+                    _model.Add(PalletData);
+                    items = new PalletMaintanancedataBindingModel(_model);
+                    PalletList.ItemsSource = null;
+                    PalletList.ItemsSource = items.Items;
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
+      }
     }
 }

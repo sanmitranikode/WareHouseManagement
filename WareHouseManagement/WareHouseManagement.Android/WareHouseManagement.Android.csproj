@@ -197,6 +197,9 @@
     <AndroidResource Include="Resources\drawable\smartphone.png" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Report.png" />
+  </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="Resources\drawable\EditIcon.png" />
   </ItemGroup>
   <ItemGroup>

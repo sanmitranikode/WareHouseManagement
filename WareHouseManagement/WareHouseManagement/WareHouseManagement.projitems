@@ -53,6 +53,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ReaderListViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RelativeDistanceViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserLoginViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\WRReceivingLogReportResponseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\WRReceivingLogResponseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\ClearPalletTagPage.xaml.cs">
       <SubType>Code</SubType>
@@ -81,6 +82,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\PickUpLogSelection.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ProductRecords.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\ReaderList.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -103,6 +107,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\WarehouseReceivingLogPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\warehouseReceivingLogReport.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -190,5 +197,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)NewFolder\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ProductRecords.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\warehouseReceivingLogReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

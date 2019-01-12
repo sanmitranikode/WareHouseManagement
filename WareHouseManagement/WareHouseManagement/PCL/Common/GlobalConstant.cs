@@ -33,6 +33,7 @@ namespace WareHouseManagement.PCL.Common
         public static string GetlotNoreceive = "PalletBarcode/GetLotNoList";
 
         public static string GetPalletItemByTagId = "PalletBarcode/GetPalletItemByTag";
+        public static string GetReportRecord = "PalletBarcode/GetPalletMaintainanceReportDetail";
     }
 
 

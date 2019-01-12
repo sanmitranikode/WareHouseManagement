@@ -6,7 +6,7 @@ namespace WareHouseManagement.ViewModels
 {
    public class WRReceivingLogReportResponseViewModel
     {
-        private ICollection<WRReceivingProducts> _wrReceivingProducts;
+        private IList<WRReceivingProducts> WRReceivingProducts { get; set; }
         public string LotNo { get; set; }
         public DateTime ReceivedDate { get; set; }
         public int CustomerId { get; set; }

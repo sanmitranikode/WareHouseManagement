@@ -215,6 +215,12 @@ namespace WareHouseManagement.Views
                     LotNo = txt_lotNo.Text
                 };
                 var PalletDetail = await new PalletMaintainanceService().GetPalletMaintainanceDetail(_User, PalletMaintainanceServiceUrl.GetPalletMaintainanceDetai);
+                if (PalletDetail.Status == 2)
+                {
+
+                    await Application.Current.MainPage.DisplayAlert("Message", PalletDetail.Message, "OK");
+                    return;
+                }
                 if (PalletDetail.Status == 1)
                 {
                     var PalletData = JsonConvert.DeserializeObject<ProductBarcodeResponseModel>(PalletDetail.Response.ToString());
@@ -236,7 +242,10 @@ namespace WareHouseManagement.Views
                             PalletList.ItemsSource = items.Items;
                             txt_Barcode.Text = "";
                         }
+
+                       
                     }
+
                     catch(Exception ex)
                     {
                         _model.Add(PalletData);
@@ -384,7 +393,7 @@ namespace WareHouseManagement.Views
                
                 SaveUpdateButton.Text = "Update";
                 lbl_totalQuantity.IsVisible = false;
-               // GetPalletItem();
+                GetPalletItem();
             }
 
             else
@@ -404,20 +413,20 @@ namespace WareHouseManagement.Views
             try
             {
 
-                var PalletDetail = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetPalletItemByTagId + "?" + txt_PalletTagNo.Text);
+                var PalletDetail = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetPalletItemByTagId + "?=" + txt_PalletTagNo.Text);
                 if (PalletDetail.Status == 1 && PalletDetail != null)
                 {
-                    var PalletData = JsonConvert.DeserializeObject<ProductBarcodeResponseModel>(PalletDetail.Response.ToString());
+                    var PalletData = JsonConvert.DeserializeObject<List<WRReceivingLogReportResponseViewModel>>(PalletDetail.Response.ToString());
 
-                    _model.Add(PalletData);
-                    items = new PalletMaintanancedataBindingModel(_model);
-                    PalletList.ItemsSource = null;
-                    PalletList.ItemsSource = items.Items;
+                   // _model.Add(PalletData);
+                    //items = new PalletMaintanancedataBindingModel(PalletData);
+                    //PalletList.ItemsSource = null;
+                    //PalletList.ItemsSource = items.Items;
                 }
             }
             catch(Exception ex)
             {
-
+    
             }
       }
     }

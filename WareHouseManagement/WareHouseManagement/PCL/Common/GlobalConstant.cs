@@ -31,6 +31,8 @@ namespace WareHouseManagement.PCL.Common
         public static string GetPalletreceivinglog = "WarehouseReceiveLog";
         public static string PostPalletreceivinglog = "Pallet";
         public static string GetlotNoreceive = "PalletBarcode/GetLotNoList";
+
+        public static string GetPalletItemByTagId = "PalletBarcode/GetPalletItemByTag";
     }
 
 
@@ -38,7 +40,7 @@ namespace WareHouseManagement.PCL.Common
     {
 
         public static string PostStockIn = "StockInPallet";
-        public static string GetQuantity = "Pallet";
+        public static string GetQuantity = "Pallet/";
       
     }
 

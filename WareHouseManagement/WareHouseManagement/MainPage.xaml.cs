@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Android.App;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -73,9 +74,10 @@ namespace WareHouseManagement
             await Navigation.PushAsync(new PickUpLogList());
         }
 
-        //private async void Btn_PalletMaintainanceReport_Clicked(object sender, EventArgs e)
-        //{
-        //    await Navigation.PushAsync(new warehouseReceivingLogReport());
-        //}
+        private async void Btn_PalletMaintainanceReport_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new ProductRecords());
+           
+        }
     }
 }

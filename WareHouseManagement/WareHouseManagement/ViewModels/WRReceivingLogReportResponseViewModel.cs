@@ -8,18 +8,33 @@ namespace WareHouseManagement.ViewModels
     {
         private IList<WRReceivingProducts> WRReceivingProducts { get; set; }
         public string LotNo { get; set; }
+
         public DateTime ReceivedDate { get; set; }
+
         public int CustomerId { get; set; }
+
+        public string CustomerFullName { get; set; }
+
         public string PONo { get; set; }
-        public int WRReceivingLogStatusId { get; set; }
+
+        public decimal TotalWeight { get; set; }
+
+        public decimal TotalCubic { get; set; }
+
+        public int TotalQuantity { get; set; }
+
+
         public bool Deleted { get; set; }
+
+
         public bool Active { get; set; }
+
         public string ContainerNo { get; set; }
+
         public DateTime CreateDate { get; set; }
 
         public DateTime LastUpdateDate { get; set; }
-
-        public virtual Customer Customer { get; set; }
+        public IList<WRReceivingProducts> WRReceivingProducts { get; set; }
     }
 
     public class WRReceivingProducts

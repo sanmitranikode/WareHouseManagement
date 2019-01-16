@@ -76,7 +76,7 @@ namespace WareHouseManagement
 
         private async void Btn_PalletMaintainanceReport_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new ProductRecords());
+            await Navigation.PushAsync(new WareHouseReceivingLogReports());
            
         }
     }

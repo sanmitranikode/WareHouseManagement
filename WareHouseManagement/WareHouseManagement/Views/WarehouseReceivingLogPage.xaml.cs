@@ -23,8 +23,6 @@ namespace WareHouseManagement.Views
             InitializeComponent();
             
             GetReceiveLogAsync();
-
-           
             //PalletList.ItemsSource = Items;
         }
         public async void GetReceiveLogAsync()

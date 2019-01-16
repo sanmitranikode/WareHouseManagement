@@ -17,6 +17,7 @@ namespace WareHouseManagement.ViewModels
        
         public event PropertyChangedEventHandler PropertyChanged;
         public ObservableCollection<ProductBarcodeResponseModel> _items;
+        public ObservableCollection<PalletItemResponse> TagData;
         public ObservableCollection<ProductBarcodeResponseModel> Items
         {
             get { return _items; }
@@ -38,6 +39,16 @@ namespace WareHouseManagement.ViewModels
             foreach (ProductBarcodeResponseModel itm in itemList)
             {
                 Items.Add(itm);
+            }
+        }
+
+
+        public PalletMaintanancedataBindingModel(List<PalletItemResponse> itemTagData)
+        {
+            TagData = new ObservableCollection<PalletItemResponse>();
+            foreach (PalletItemResponse itm in itemTagData)
+            {
+                TagData.Add(itm);
             }
         }
 

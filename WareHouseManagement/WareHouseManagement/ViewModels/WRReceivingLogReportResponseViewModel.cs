@@ -4,9 +4,16 @@ using System.Text;
 
 namespace WareHouseManagement.ViewModels
 {
-   public class WRReceivingLogReportResponseViewModel
+    public class WRReceivingLogReportResponseViewModel
     {
-        private IList<WRReceivingProducts> WRReceivingProducts { get; set; }
+        public IList<WRReceivingLogModel> WRReceivingLogModel { get; set; }
+
+    }
+
+    public class WRReceivingLogModel
+    {
+      
+
         public string LotNo { get; set; }
 
         public DateTime ReceivedDate { get; set; }
@@ -34,41 +41,30 @@ namespace WareHouseManagement.ViewModels
         public DateTime CreateDate { get; set; }
 
         public DateTime LastUpdateDate { get; set; }
-        public IList<WRReceivingProducts> WRReceivingProducts { get; set; }
+        public List<WRReceivingProducts> WRReceivingProducts { get; set; }
     }
 
     public class WRReceivingProducts
     {
         public int WRReceivingLogId { get; set; }
+        public int WRReceivingProductId { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
         public DateTime ExDate { get; set; }
         public decimal Weight { get; set; }
         public decimal Cubic { get; set; }
-        public virtual Product Product { get; set; }
+        public string ProductName { get; set; }
+        public ProductStatus ProductStatus { get; set; }
     }
 
-    public class Product
+    public enum ProductStatus
     {
-        public string Name { get; set; }
-        public string ShortDescription { get; set; }
-        public int VendorId { get; set; }
-        public string Sku { get; set; }
-        public string ManufacturerPartNumber { get; set; }
-        public string Gtin { get; set; }
-        public int ManageInventoryMethodId { get; set; }
-        public bool UseMultipleWarehouses { get; set; }
-        public int WarehouseId { get; set; }
+        Pending = 10,
+        Processing = 20,
+        StockIn = 30,
+        StockOut = 40,
+        PickUp = 50
     }
 
-    public class Customer
-    {
-        public string Username { get; set; }
-        public string Email { get; set; }
-        public string EmailToRevalidate { get; set; }
-        public string AdminComment { get; set; }
-        public bool IsTaxExempt { get; set; }
-        public int AffiliateId { get; set; }
-        public int VendorId { get; set; }
-    }
+
 }

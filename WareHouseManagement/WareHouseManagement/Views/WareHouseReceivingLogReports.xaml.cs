@@ -14,10 +14,13 @@ using Xamarin.Forms.Xaml;
 namespace WareHouseManagement.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ProductRecords : ContentPage
+	public partial class WareHouseReceivingLogReports : ContentPage
     {
+        ResultModel ProductReport;
         WRReceivingLogReportResponseViewModel _model = new WRReceivingLogReportResponseViewModel();
-        public ProductRecords ()
+        WRReceivingLogReportResponseViewModel Detail = new WRReceivingLogReportResponseViewModel();
+        
+        public WareHouseReceivingLogReports()
 		{
 			InitializeComponent ();
             GetDetailAsync();
@@ -29,22 +32,32 @@ namespace WareHouseManagement.Views
         }
        public async void GetDetailAsync()
         {
-            var ProductReport = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetReportRecord);
+             ProductReport = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetReportRecord);
             if (ProductReport.Status == 1)
             {
-                var Detail = JsonConvert.DeserializeObject<WRReceivingLogReportResponseViewModel>(ProductReport.Response.ToString());
+                 Detail = JsonConvert.DeserializeObject<WRReceivingLogReportResponseViewModel>(ProductReport.Response.ToString());
                 _model = Detail;
                 PalletList.ItemsSource = Detail.WRReceivingLogModel;
             }
             else
             {
             }
+
+          
         }
-           
 
-        
 
-        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+
+
+   
+
+        private async void TapGestureRecognizer_TappedAsync(object sender, EventArgs e)
+        {
+            
+            await Navigation.PushAsync(new ProductRecord(ProductReport));
+        }
+
+        private void PalletList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
 
         }

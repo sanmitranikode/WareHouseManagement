@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WareHouseManagement.Views.PalletMaintainancePage"
              xmlns:forms="clr-namespace:dotMorten.Xamarin.Forms;assembly=dotMorten.Xamarin.Forms.AutoSuggestBox"
-             Title="PALLET MAINTAINANCE">
+             Title="PALLET MAINTENANCE">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="Editpencil.PNG" Clicked="EditItem_Clicked" />

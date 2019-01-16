@@ -28,28 +28,76 @@
                         <ColumnDefinition Width="*" />
 
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="btn_StockIn" Grid.Row="0" BorderRadius="5" Grid.Column="0" Image="warehouse" BackgroundColor="White" ContentLayout="Top,30" Text="Stock In" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Clicked="btn_StockIn_Clicked">
+                   
+                        <Button x:Name="btn_PalletMaintainance" Image="palletmaintance.png"   Grid.Row="0"  Grid.Column="0"  BorderRadius="5"   BackgroundColor="White" ContentLayout="Top,5"  Text="Pallet Maintenance"  VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" Clicked="btn_PalletMaintainance_Clicked">
 
-                    </Button>
-                    <Button x:Name="btn_PalletMaintainance"  BorderRadius="5"  Grid.Row="0" Grid.Column="1" BackgroundColor="White" ContentLayout="Top,10"  Text="Pallet MainTainance" Image="storage" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" Clicked="btn_PalletMaintainance_Clicked">
+                        </Button>
 
-                    </Button>
-                    <Button x:Name="btn_ClrPalletTag"  BorderRadius="5" Grid.Row="1" Grid.Column="0" BackgroundColor="White" ContentLayout="Top,20" Image="price_tag" Text="Clear Pallet Tag" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" Clicked="btn_ClrPalletTag_Clicked">
+                   
+                  
 
-                    </Button>
-                    <ActivityIndicator x:Name="activity" VerticalOptions="Center" HorizontalOptions="Center"  HeightRequest="30"/>
-                    <Button x:Name="btn_StockOut"  BorderRadius="5"  Grid.Row="1" Grid.Column="1" BackgroundColor="White" ContentLayout="Top,30"  Image="delivery_truck" Text="Stock Out" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" Clicked="btn_StockOut_Clicked">
 
-                    </Button>
-                    <Button  Image="checklist.png"   Grid.Row="2"  BorderRadius="5" Grid.Column="0" BackgroundColor="White"  ContentLayout="Top,30" Text="Pickup List " HorizontalOptions="FillAndExpand" Clicked="Btn_PickUpList_Clicked" >
+                  
+                        <Button x:Name="btn_ReaderList" Image="connection.png"  Grid.Row="0"  Grid.Column="1" Text="ReaderList"  ContentLayout="Top,30"   BorderRadius="5" BackgroundColor="White"  Clicked="btn_ReaderList_Clicked" >
 
-                    </Button>
-                    <Button x:Name="Btn_PalletMaintainanceReport"  Image="Increase.png" ContentLayout="Top,30" Grid.Row="3"  BorderRadius="5" BackgroundColor="White" Grid.Column="0" Clicked="Btn_PalletMaintainanceReport_Clicked" ></Button>
+                        </Button>
 
-                    <Button x:Name="btn_ReaderList" Text="ReaderList" Image="smartphone.png" ContentLayout="Top,30" Grid.Row="2"  BorderRadius="5" BackgroundColor="White" Grid.Column="1" Clicked="btn_ReaderList_Clicked" >
+                    
 
-                    </Button>
+
+                    
+                        <Button x:Name="btn_StockIn" Image="warehousestockin.png"  Grid.Row="1"  Grid.Column="0" BorderRadius="5"   BackgroundColor="White" ContentLayout="Top,30" Text="Stock In" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Clicked="btn_StockIn_Clicked">
+                        </Button>
+                        
+                  
+
+
+                   
+                        <Button x:Name="btn_StockOut" Image="stockoutPng.png"  Grid.Row="1"  Grid.Column="1" BorderRadius="5"  BackgroundColor="White" ContentLayout="Top,30"   Text="Stock Out" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" Clicked="btn_StockOut_Clicked">
+
+                        </Button>
+                    
+
+
+                  
+                        <Button x:Name="btn_ClrPalletTag" Image="clearpallet.png"  Grid.Row="2"  Grid.Column="0"  BorderRadius="5"  BackgroundColor="White" ContentLayout="Top,20"  Text="Clear Pallet Tag" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" Clicked="btn_ClrPalletTag_Clicked">
+
+                        </Button>
+
+                   
+
+
+                  
+                        <Button x:Name="btn_binTag" Image="clearpallet.png"   Grid.Row="2"  Grid.Column="1" BorderRadius="5"  BackgroundColor="White" ContentLayout="Top,20"  Text="Bin Tag" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" >
+
+                        </Button>
+
+
+
+
+                    <Button x:Name="Btn_PalletMaintainanceReport" Image="reportPng.png" Grid.Row="3"  Grid.Column="0" Text="WR Received Log" ContentLayout="Top,5"  BorderRadius="5" BackgroundColor="White"  Clicked="Btn_PalletMaintainanceReport_Clicked" ></Button>
+
+
+
+                   
+                   
+
+                        <Button    Image="pickuplistPng.png"   Grid.Row="3"  Grid.Column="1"  BorderRadius="5"  BackgroundColor="White"  ContentLayout="Top,30" Text="Pickup List " HorizontalOptions="FillAndExpand" Clicked="Btn_PickUpList_Clicked" >
+
+                        </Button>
+
+
                  
+                  
+
+                  
+                   
+                   
+                    <ActivityIndicator x:Name="activity" VerticalOptions="Center" HorizontalOptions="Center"  HeightRequest="30"/>
+                   
+
+                   
+
 
                 </Grid>
 

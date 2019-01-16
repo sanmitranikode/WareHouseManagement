@@ -64,7 +64,7 @@ namespace WareHouseManagement.PCL.Model
         /// <summary>
         /// Gets or sets the customer
         /// </summary>
-        public virtual Customer Customer { get; set; }
+       // public virtual Customer Customer { get; set; }
 
 
 

@@ -41,7 +41,7 @@ namespace WareHouseManagement.PCL.Model
         /// <summary>
         /// Gets or sets the Product
         /// </summary>
-        public virtual Product Product { get; set; }
+       // public virtual Product Product { get; set; }
 
         /// <summary>
         /// Gets or sets the WRReceivingLog

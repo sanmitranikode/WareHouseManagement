@@ -45,21 +45,19 @@ namespace WareHouseManagement.Views
 
           
         }
-
-
-
-
-   
-
+        
         private async void TapGestureRecognizer_TappedAsync(object sender, EventArgs e)
         {
-            
-            await Navigation.PushAsync(new ProductRecord(ProductReport));
+            var tappedHier = ((TappedEventArgs)e).Parameter;
+            ProductReport.Status = 1;
+              var data = Detail.WRReceivingLogModel.Where(a => a.LotNo == tappedHier.ToString()).FirstOrDefault().WRReceivingProducts;
+           
+            await Navigation.PushAsync(new ProductRecord(data));
         }
 
         private void PalletList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-
+            var tappedHier = e;
         }
     }
 }

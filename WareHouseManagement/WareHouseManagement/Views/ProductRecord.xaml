@@ -40,18 +40,20 @@
                             <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
                         <Label Text="Name"  Grid.Row="0" Style="{DynamicResource headerTablet}"/>
                         <Label Text="Qty" Grid.Column="1" Grid.Row="0"  Style="{DynamicResource headerTablet}"/>
                         <Label Text="WT" Grid.Column="2" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
                         <Label Text="Cubic" Grid.Column="3" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
                         <Label Text="Ex-Date" Grid.Column="4" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
-                        <ListView x:Name="PalletList" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" ItemsSource="{Binding MyObservableCollectionList}"      HorizontalOptions="CenterAndExpand"   >
+                        <Label Text="Status" Grid.Column="5" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+                        <ListView x:Name="PalletList" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" ItemsSource="{Binding MyObservableCollectionList}"     HorizontalOptions="CenterAndExpand"   >
                             <ListView.ItemTemplate >
                                 <DataTemplate>
                                     <ViewCell>
                                         <ScrollView>
-                                            <Grid x:Name="GridList" Padding="4" ColumnSpacing="1" RowSpacing="1"  >
+                                            <Grid x:Name="GridList" Padding="4" ColumnSpacing="1" RowSpacing="1" >
 
 
                                                 <Grid.RowDefinitions>
@@ -64,12 +66,14 @@
                                                     <ColumnDefinition Width="2*"></ColumnDefinition>
                                                     <ColumnDefinition Width="2*"></ColumnDefinition>
                                                     <ColumnDefinition Width="2*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="2*" ></ColumnDefinition>
                                                 </Grid.ColumnDefinitions>
                                                 <Label x:Name="txt_Name" Grid.Row="0" Grid.Column="0"  Style="{DynamicResource detailTablet}" Text="{Binding ProductName}  "/>
                                                 <Label x:Name="txt_Qty" Grid.Row="0" Grid.Column="1"   Style="{DynamicResource detailTablet}"  Text="{Binding Quantity}"/>
                                                 <Label x:Name="txt_WT" Grid.Row="0" Grid.Column="2" Style="{DynamicResource detailTablet}"  Text="{Binding Weight}"/>
                                                 <Label x:Name="txt_Cubic" Grid.Row="0" Grid.Column="3" Style="{DynamicResource detailTablet}"  Text="{Binding Cubic}"/>
                                                 <Label x:Name="txt_Ex-Date" Grid.Row="0" Grid.Column="4" Style="{DynamicResource detailTablet}"  Text="{Binding ExDate, StringFormat=':{0:MM/dd/yyyy}'}"/>
+                                                <Label x:Name="txt_Status" Grid.Row="0" Grid.Column="5" Style="{DynamicResource detailTablet}"  Text="{Binding Status}"/>
                                             </Grid>
                                         </ScrollView>
                                     </ViewCell>

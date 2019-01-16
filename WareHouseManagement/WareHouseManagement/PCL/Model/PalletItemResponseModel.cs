@@ -19,10 +19,12 @@ namespace WareHouseManagement.PCL.Model
 
         public int WRReceivingProductsId { get; set; }
 
-        public string Sku { get; set; }
+        public string Barcode { get; set; }
 
-        public string Name { get; set; }
+        public string ProductName { get; set; }
 
         public int Quantity { get; set; }
+
+        public string Status { get; set; }
     }
 }

@@ -100,6 +100,10 @@
 
 
                 </Grid>
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Fill">
+                    <Label  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+
+                </StackLayout>
 
 
 

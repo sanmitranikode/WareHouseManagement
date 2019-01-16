@@ -3785,49 +3785,49 @@ namespace WareHouseManagement.Droid
 			public const int clearpallet = 2130837595;
 			
 			// aapt resource value: 0x7f02005c
-			public const int ClearTag = 2130837596;
+			public const int connection = 2130837596;
 			
 			// aapt resource value: 0x7f02005d
-			public const int connection = 2130837597;
+			public const int deleteitem = 2130837597;
 			
 			// aapt resource value: 0x7f02005e
-			public const int deleteitem = 2130837598;
+			public const int delivery_truck = 2130837598;
 			
 			// aapt resource value: 0x7f02005f
-			public const int delivery_truck = 2130837599;
+			public const int delivery_truck2 = 2130837599;
 			
 			// aapt resource value: 0x7f020060
-			public const int delivery_truck2 = 2130837600;
+			public const int design_bottom_navigation_item_background = 2130837600;
 			
 			// aapt resource value: 0x7f020061
-			public const int design_bottom_navigation_item_background = 2130837601;
+			public const int design_fab_background = 2130837601;
 			
 			// aapt resource value: 0x7f020062
-			public const int design_fab_background = 2130837602;
+			public const int design_ic_visibility = 2130837602;
 			
 			// aapt resource value: 0x7f020063
-			public const int design_ic_visibility = 2130837603;
+			public const int design_ic_visibility_off = 2130837603;
 			
 			// aapt resource value: 0x7f020064
-			public const int design_ic_visibility_off = 2130837604;
+			public const int design_password_eye = 2130837604;
 			
 			// aapt resource value: 0x7f020065
-			public const int design_password_eye = 2130837605;
+			public const int design_snackbar_background = 2130837605;
 			
 			// aapt resource value: 0x7f020066
-			public const int design_snackbar_background = 2130837606;
+			public const int EditIcon = 2130837606;
 			
 			// aapt resource value: 0x7f020067
-			public const int EditIcon = 2130837607;
+			public const int EditIconPen = 2130837607;
 			
 			// aapt resource value: 0x7f020068
-			public const int EditIconPen = 2130837608;
+			public const int Editpencil = 2130837608;
 			
 			// aapt resource value: 0x7f020069
-			public const int Editpencil = 2130837609;
+			public const int envelope = 2130837609;
 			
 			// aapt resource value: 0x7f02006a
-			public const int envelope = 2130837610;
+			public const int greensignal = 2130837610;
 			
 			// aapt resource value: 0x7f02006b
 			public const int ic_audiotrack_dark = 2130837611;
@@ -4478,16 +4478,16 @@ namespace WareHouseManagement.Droid
 			public const int palletmaintance = 2130837824;
 			
 			// aapt resource value: 0x7f020141
-			public const int pickuplistPng = 2130837825;
+			public const int PickUpList = 2130837825;
 			
 			// aapt resource value: 0x7f020142
-			public const int power = 2130837826;
+			public const int pickuplistPng = 2130837826;
 			
 			// aapt resource value: 0x7f020143
-			public const int power_1 = 2130837827;
+			public const int power = 2130837827;
 			
 			// aapt resource value: 0x7f020144
-			public const int price_tag = 2130837828;
+			public const int power_1 = 2130837828;
 			
 			// aapt resource value: 0x7f020145
 			public const int price_tag2 = 2130837829;

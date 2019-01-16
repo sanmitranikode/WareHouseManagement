@@ -35,7 +35,7 @@ namespace WareHouseManagement.Views
 
      
         List<ProductBarcodeResponseModel> _model = new List<ProductBarcodeResponseModel> ();
-        List<PalletItemResponse> data = new List<PalletItemResponse>();
+        List<PalletItemResponseModel> data = new List<PalletItemResponseModel>();
 
         public List<ProductBarcodeResponseModel> allItems;
         PalletMaintanancedataBindingModel items;
@@ -435,12 +435,14 @@ namespace WareHouseManagement.Views
                 var PalletDetail = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetPalletItemByTagId + "?=" + txt_PalletTagNo.Text);
                 if (PalletDetail.Status == 1 && PalletDetail != null)
                 {
-                    var PalletData = JsonConvert.DeserializeObject<PalletItemResponse>(PalletDetail.Response.ToString());
+                    var PalletData = JsonConvert.DeserializeObject<PalletItemResponseModel>(PalletDetail.Response.ToString());
 
-                    data.Add(PalletData);
-                    items = new PalletMaintanancedataBindingModel(data);
-                    PalletList.ItemsSource = null;
-                    PalletList.ItemsSource = items.Items;
+                    var palletItem = PalletData.PalletBarcodes;
+
+                   // data.Add(PalletData);
+                   // items = new PalletMaintanancedataBindingModel(data);
+                   //  PalletList.ItemsSource = null;
+                    PalletList.ItemsSource = palletItem;
                 }
             }
             catch(Exception ex)

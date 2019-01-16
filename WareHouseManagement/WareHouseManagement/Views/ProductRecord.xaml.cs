@@ -15,25 +15,21 @@ namespace WareHouseManagement.Views
 	public partial class ProductRecord : ContentPage
 	{
 
-        ProductModel product= new ProductModel();
-       WRReceivingLogReportResponseViewModel _model = new WRReceivingLogReportResponseViewModel();
-        WRReceivingLogReportResponseViewModel Detail = new WRReceivingLogReportResponseViewModel();
-        public ProductRecord (ResultModel model)
+        List<ViewModels.WRReceivingProducts> product= new List<ViewModels.WRReceivingProducts>();
+      
+        public ProductRecord(List<ViewModels.WRReceivingProducts> _product)
 		{
+            product = _product;
             InitializeComponent();
-            GetDetailAsync(model);
+            GetDetailAsync();
 
 
         }
 
-        private async void GetDetailAsync(ResultModel ProductReport)
+        private async void GetDetailAsync()
         {
-             Detail = JsonConvert.DeserializeObject <WRReceivingLogReportResponseViewModel>(ProductReport.Response.ToString());
-
-
-            PalletList.ItemsSource = Detail.WRReceivingLogModel.FirstOrDefault().WRReceivingProducts;
-
-
+         
+            PalletList.ItemsSource = product;
         }
 
         protected override void OnAppearing()

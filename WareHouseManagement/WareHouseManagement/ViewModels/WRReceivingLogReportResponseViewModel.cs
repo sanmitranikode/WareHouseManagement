@@ -30,7 +30,7 @@ namespace WareHouseManagement.ViewModels
 
         public int TotalQuantity { get; set; }
 
-
+        public string Status { get; set; }
         public bool Deleted { get; set; }
 
 
@@ -55,6 +55,7 @@ namespace WareHouseManagement.ViewModels
         public decimal Cubic { get; set; }
         public string ProductName { get; set; }
         public ProductStatus ProductStatus { get; set; }
+        public string Status { get; set; }
     }
 
     public enum ProductStatus

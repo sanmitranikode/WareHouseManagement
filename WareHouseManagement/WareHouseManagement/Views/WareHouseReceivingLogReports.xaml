@@ -45,6 +45,7 @@
                             <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
 
                         <Label Text="Lot No"  Grid.Row="0" Style="{DynamicResource headerTablet}"/>
@@ -52,7 +53,8 @@
                         <Label Text="Po No" Grid.Column="2" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
                         <Label Text="Qty" Grid.Column="3" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
                         <Label Text="WT" Grid.Column="4" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
-                        <ListView x:Name="PalletList" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" ItemsSource="{Binding MyObservableCollectionList}"  HorizontalOptions="CenterAndExpand"   >
+                        <Label Text="Status" Grid.Column="5" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+                        <ListView x:Name="PalletList" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" ItemsSource="{Binding MyObservableCollectionList}"  HorizontalOptions="CenterAndExpand"   >
 
                             <ListView.ItemTemplate >
                                 <DataTemplate>
@@ -63,7 +65,7 @@
 
                                             <Grid x:Name="GridList" Padding="4" ColumnSpacing="1" RowSpacing="1"   >
                                                 <Grid.GestureRecognizers>
-                                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_TappedAsync" CommandParameter="{Binding CustomerId}"/>
+                                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_TappedAsync" CommandParameter="{Binding LotNo}"/>
                                                 </Grid.GestureRecognizers>
 
 
@@ -77,7 +79,8 @@
                                                     <ColumnDefinition Width="2*"></ColumnDefinition>
                                                     <ColumnDefinition Width="2*"></ColumnDefinition>
                                                     <ColumnDefinition Width="2*"></ColumnDefinition>
-                                                   
+                                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+
 
                                                 </Grid.ColumnDefinitions>
                                                 <Label x:Name="txt_LotNo" Grid.Row="0" Grid.Column="0"  Style="{DynamicResource detailTablet}" Text="{Binding LotNo}  "/>
@@ -85,7 +88,7 @@
                                                 <Label x:Name="txt_PoNo" Grid.Row="0" Grid.Column="2" Style="{DynamicResource detailTablet}"  Text="{Binding PONo}"/>
                                                 <Label x:Name="txt_Qty" Grid.Row="0" Grid.Column="3" Style="{DynamicResource detailTablet}"  Text="{Binding TotalQuantity}"/>
                                                 <Label x:Name="txt_Weight" Grid.Row="0" Grid.Column="4" Style="{DynamicResource detailTablet}"  Text="{Binding TotalWeight}"/>
-                                               
+                                                <Label x:Name="txt_Status" Grid.Row="0" Grid.Column="5" Style="{DynamicResource detailTablet}"  Text="{Binding Status}"/>
 
                                             </Grid>
                                         </ScrollView>

@@ -28,6 +28,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ErrorViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\Pallet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\PalletBarcodeModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\PalletItemResponseModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\PalletMaintainanceRequestModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ReaderItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ReaderModel.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PageDataViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PalletMaintanance Model.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PalletMaintanancedataBindingModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProductModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ReaderListViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RelativeDistanceViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserLoginViewModel.cs" />
@@ -82,7 +84,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\PickUpLogSelection.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\ProductRecords.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Views\WareHouseReceivingLogReports.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\ReaderList.xaml.cs">
@@ -109,7 +111,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\WarehouseReceivingLogPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\warehouseReceivingLogReport.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ProductRecord.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -199,12 +201,12 @@
     <Folder Include="$(MSBuildThisFileDirectory)NewFolder\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ProductRecords.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\WareHouseReceivingLogReports.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\warehouseReceivingLogReport.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ProductRecord.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>

@@ -20,6 +20,8 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -42,7 +44,7 @@
                     <Button  Image="checklist.png"   Grid.Row="2"  BorderRadius="5" Grid.Column="0" BackgroundColor="White"  ContentLayout="Top,30" Text="Pickup List " HorizontalOptions="FillAndExpand" Clicked="Btn_PickUpList_Clicked" >
 
                     </Button>
-                    <Button x:Name="Btn_PalletMaintainanceReport"  Image="Report.png" ContentLayout="Top,30" Grid.Row="3"  BorderRadius="5" BackgroundColor="White" Grid.Column="0" Clicked="Btn_PalletMaintainanceReport_Clicked" ></Button>
+                    <Button x:Name="Btn_PalletMaintainanceReport"  Image="Increase.png" ContentLayout="Top,30" Grid.Row="3"  BorderRadius="5" BackgroundColor="White" Grid.Column="0" Clicked="Btn_PalletMaintainanceReport_Clicked" ></Button>
 
                     <Button x:Name="btn_ReaderList" Text="ReaderList" Image="smartphone.png" ContentLayout="Top,30" Grid.Row="2"  BorderRadius="5" BackgroundColor="White" Grid.Column="1" Clicked="btn_ReaderList_Clicked" >
 

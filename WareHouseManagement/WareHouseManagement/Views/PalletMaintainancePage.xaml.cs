@@ -24,8 +24,8 @@ namespace WareHouseManagement.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PalletMaintainancePage : ContentPage
     {
-       
 
+        List<PCL.Model.WRReceivingLogResponseViewModel> getlot;
         public event PropertyChangedEventHandler PropertyChanged;
           ReaderModel rfidModel = ReaderModel.readerModel;
         public List<TagItem> Tags=new List<TagItem>();
@@ -35,6 +35,8 @@ namespace WareHouseManagement.Views
 
      
         List<ProductBarcodeResponseModel> _model = new List<ProductBarcodeResponseModel> ();
+        List<PalletItemResponse> data = new List<PalletItemResponse>();
+
         public List<ProductBarcodeResponseModel> allItems;
         PalletMaintanancedataBindingModel items;
         public bool isConnected { get => isConnected; set => OnPropertyChanged(); }
@@ -69,9 +71,9 @@ namespace WareHouseManagement.Views
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-           
-    
-            GetUserLoginAsync();
+
+            LoadLotNo();
+           // GetUserLoginAsync();
             PalletList.ItemsSource = _model;
 
             UpdateIn();
@@ -190,20 +192,20 @@ namespace WareHouseManagement.Views
      
 
 
-        public async Task GetUserLoginAsync()
-        {
-            UserModel _User = new UserModel
-            {
-                Username = "nealandmassy@gmail.com",
-                Password = "lalit4mm"
-            };
-            var UserDetail = await new PalletMaintainanceService().GetLoginDetail(_User, PalletMaintainanceServiceUrl.GetUserLoginDetail);
-            if (UserDetail.Status == 1)
-            {
-                var UserData = JsonConvert.DeserializeObject<UserLoginViewModel>(UserDetail.Response.ToString());
-                GlobalConstant.AccessToken = UserData.Token;
-            }
-        }
+        //public async Task GetUserLoginAsync()
+        //{
+        //    UserModel _User = new UserModel
+        //    {
+        //        Username = "nealandmassy@gmail.com",
+        //        Password = "lalit4mm"
+        //    };
+        //    var UserDetail = await new PalletMaintainanceService().GetLoginDetail(_User, PalletMaintainanceServiceUrl.GetUserLoginDetail);
+        //    if (UserDetail.Status == 1)
+        //    {
+        //        var UserData = JsonConvert.DeserializeObject<UserLoginViewModel>(UserDetail.Response.ToString());
+        //        GlobalConstant.AccessToken = UserData.Token;
+        //    }
+        //}
 
         private async void txt_Barcode_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
         {
@@ -361,15 +363,32 @@ namespace WareHouseManagement.Views
         {
             if (txt_lotNo.Text != "" && txt_lotNo.Text != null)
             {
-                var data = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetlotNoreceive);
-                if (data.Status == 1)
-                {
-                    var getlot = JsonConvert.DeserializeObject<List<PCL.Model.WRReceivingLogResponseViewModel>>(data.Response.ToString());
+               
                     txt_lotNo.ItemsSource = string.IsNullOrWhiteSpace(txt_lotNo.Text) ? null : getlot.Where(x => x.LotNo.StartsWith(txt_lotNo.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
-                }
+
+               
             }
 
         }
+
+        public async void LoadLotNo()
+        {
+
+            var data = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetlotNoreceive);
+            if (data.Status == 1)
+           {
+               getlot = JsonConvert.DeserializeObject<List<PCL.Model.WRReceivingLogResponseViewModel>>(data.Response.ToString());
+               
+            }
+
+        }
+
+
+
+
+
+
+
 
         private async void EditItem_Clicked(object sender, EventArgs e)
         {
@@ -384,7 +403,7 @@ namespace WareHouseManagement.Views
                
                 SaveUpdateButton.Text = "Update";
                 lbl_totalQuantity.IsVisible = false;
-               // GetPalletItem();
+                GetPalletItem();
             }
 
             else
@@ -407,10 +426,10 @@ namespace WareHouseManagement.Views
                 var PalletDetail = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetPalletItemByTagId + "?" + txt_PalletTagNo.Text);
                 if (PalletDetail.Status == 1 && PalletDetail != null)
                 {
-                    var PalletData = JsonConvert.DeserializeObject<ProductBarcodeResponseModel>(PalletDetail.Response.ToString());
+                    var PalletData = JsonConvert.DeserializeObject<PalletItemResponse>(PalletDetail.Response.ToString());
 
-                    _model.Add(PalletData);
-                    items = new PalletMaintanancedataBindingModel(_model);
+                    data.Add(PalletData);
+                    items = new PalletMaintanancedataBindingModel(data);
                     PalletList.ItemsSource = null;
                     PalletList.ItemsSource = items.Items;
                 }
@@ -420,5 +439,9 @@ namespace WareHouseManagement.Views
 
             }
       }
+
+      
+           
+        
     }
 }

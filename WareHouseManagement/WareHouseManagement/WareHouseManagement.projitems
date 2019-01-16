@@ -30,6 +30,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\PalletBarcodeModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\PalletItemResponseModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\PalletMaintainanceRequestModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\PalletResponceModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ReaderItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ReaderModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ResultModel.cs" />
@@ -40,6 +41,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\UserModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ValidationMessages.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\WrPickupListModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\WRReceivingLog.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\WRReceivingProducts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\ClearPalletTagService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\PalletMaintainanceService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\StockInPalletService.cs" />

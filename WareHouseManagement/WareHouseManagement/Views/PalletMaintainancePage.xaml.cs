@@ -217,6 +217,12 @@ namespace WareHouseManagement.Views
                     LotNo = txt_lotNo.Text
                 };
                 var PalletDetail = await new PalletMaintainanceService().GetPalletMaintainanceDetail(_User, PalletMaintainanceServiceUrl.GetPalletMaintainanceDetai);
+                if (PalletDetail.Status == 2)
+                {
+
+                    await Application.Current.MainPage.DisplayAlert("Message", PalletDetail.Message, "OK");
+                    return;
+                }
                 if (PalletDetail.Status == 1)
                 {
                     var PalletData = JsonConvert.DeserializeObject<ProductBarcodeResponseModel>(PalletDetail.Response.ToString());
@@ -238,7 +244,10 @@ namespace WareHouseManagement.Views
                             PalletList.ItemsSource = items.Items;
                             txt_Barcode.Text = "";
                         }
+
+                       
                     }
+
                     catch(Exception ex)
                     {
                         _model.Add(PalletData);
@@ -423,7 +432,7 @@ namespace WareHouseManagement.Views
             try
             {
 
-                var PalletDetail = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetPalletItemByTagId + "?" + txt_PalletTagNo.Text);
+                var PalletDetail = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetPalletItemByTagId + "?=" + txt_PalletTagNo.Text);
                 if (PalletDetail.Status == 1 && PalletDetail != null)
                 {
                     var PalletData = JsonConvert.DeserializeObject<PalletItemResponse>(PalletDetail.Response.ToString());
@@ -436,7 +445,7 @@ namespace WareHouseManagement.Views
             }
             catch(Exception ex)
             {
-
+    
             }
       }
 

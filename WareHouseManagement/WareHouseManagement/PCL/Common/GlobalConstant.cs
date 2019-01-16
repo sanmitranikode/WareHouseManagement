@@ -32,7 +32,7 @@ namespace WareHouseManagement.PCL.Common
         public static string PostPalletreceivinglog = "Pallet";
         public static string GetlotNoreceive = "PalletBarcode/GetLotNoList";
 
-        public static string GetPalletItemByTagId = "PalletBarcode/GetPalletItemByTag";
+        public static string GetPalletItemByTagId = "Pallet/GetPalletItemByTag";
         public static string GetReportRecord = "PalletBarcode/GetPalletMaintainanceReportDetail";
     }
 

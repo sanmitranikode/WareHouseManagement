@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace WareHouseManagement.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class StockOutMenuPage : TabbedPage
-    {
-		public StockOutMenuPage ()
+	public partial class StockOutPage : ContentPage
+	{
+		public StockOutPage ()
 		{
 			InitializeComponent ();
 		}

@@ -16,7 +16,7 @@ namespace WareHouseManagement.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PickUpLogList : ContentPage
     {
-        List<WrPickupListModel> _model = new List<WrPickupListModel>();
+      List <WrPickupListModel> _model = new List<WrPickupListModel>();
        
 
         public PickUpLogList()
@@ -31,7 +31,7 @@ namespace WareHouseManagement.Views
         {
             base.OnAppearing();
 
-            PalletList.ItemsSource = _model;
+            PalletList.ItemsSource = null;
 
 
         }

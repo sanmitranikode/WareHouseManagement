@@ -83,7 +83,7 @@ namespace WareHouseManagement
 
         private async void btn_binTag_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new ClearBinTag());
+            await Navigation.PushAsync(new ClearBinTagPage());
         }
     }
 }

@@ -52,6 +52,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\GradientColorStack.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HeatMapConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\InventoryListModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LotNumberRecievingLogModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PageDataViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PalletMaintanance Model.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PalletMaintanancedataBindingModel.cs" />
@@ -61,7 +62,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserLoginViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\WRReceivingLogReportResponseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\WRReceivingLogResponseViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\ClearPalletTagPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ClearBinPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ClearPalletAndBinTagPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ClearPalletPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\FullPalletPage.xaml.cs">
@@ -130,7 +137,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ClearPalletTagPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ClearPalletAndBinTagPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -211,6 +218,16 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ProductRecord.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ClearPalletPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ClearBinPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>

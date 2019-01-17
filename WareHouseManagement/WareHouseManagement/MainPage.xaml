@@ -68,7 +68,7 @@
 
 
                   
-                        <Button x:Name="btn_binTag" Image="clearpallet.png"   Grid.Row="2"  Grid.Column="1" BorderRadius="5"  BackgroundColor="White" ContentLayout="Top,20"  Text="Bin Tag" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" >
+                        <Button x:Name="btn_binTag" Image="clearpallet.png"   Grid.Row="2"  Grid.Column="1" BorderRadius="5"  BackgroundColor="White" ContentLayout="Top,20"  Text="Bin Tag" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" Clicked="btn_binTag_Clicked" >
 
                         </Button>
 

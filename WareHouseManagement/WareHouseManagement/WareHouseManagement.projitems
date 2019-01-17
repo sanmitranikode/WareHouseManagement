@@ -41,7 +41,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\TagItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\UserModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ValidationMessages.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\WrPickupListModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\WRReceivingLog.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\WRReceivingProducts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\ClearPalletTagService.cs" />
@@ -83,9 +82,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\PalletMaintainancePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\PartialPalletPage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\PickUpListTransaction.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -93,6 +89,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\PickUpLogSelection.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\StockOutPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\WareHouseReceivingLogReports.xaml.cs">
@@ -111,9 +110,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\StockInPage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\StockOutMenuPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\TestDesign.xaml.cs">
@@ -138,21 +134,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ClearPalletAndBinTagPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\StockOutMenuPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FullPalletPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PartialPalletPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>

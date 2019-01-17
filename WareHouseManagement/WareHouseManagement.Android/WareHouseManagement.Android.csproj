@@ -253,6 +253,9 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\warehousestockin.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\RefreshIcon.png" />
+  </ItemGroup>
   <Import Project="..\WareHouseManagement\WareHouseManagement.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

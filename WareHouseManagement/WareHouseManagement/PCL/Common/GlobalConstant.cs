@@ -51,6 +51,12 @@ namespace WareHouseManagement.PCL.Common
 
     }
 
+    public struct ClearBinTagUrl
+    {
+        public static string ClearBinTag = "BinClear";
+
+    }
+
 
     public struct GetPickUpListUrl
     {

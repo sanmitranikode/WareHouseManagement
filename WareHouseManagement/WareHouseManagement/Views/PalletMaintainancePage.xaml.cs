@@ -25,7 +25,7 @@ namespace WareHouseManagement.Views
     public partial class PalletMaintainancePage : ContentPage
     {
 
-        List<PCL.Model.WRReceivingLogResponseViewModel> getlot;
+        List<LotNumberList> LotNumberList;
         public event PropertyChangedEventHandler PropertyChanged;
           ReaderModel rfidModel = ReaderModel.readerModel;
         public List<TagItem> Tags=new List<TagItem>();
@@ -373,7 +373,7 @@ namespace WareHouseManagement.Views
             if (txt_lotNo.Text != "" && txt_lotNo.Text != null)
             {
                
-                    txt_lotNo.ItemsSource = string.IsNullOrWhiteSpace(txt_lotNo.Text) ? null : getlot.Where(x => x.LotNo.StartsWith(txt_lotNo.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
+                    txt_lotNo.ItemsSource = string.IsNullOrWhiteSpace(txt_lotNo.Text) ? null : LotNumberList.Where(x => x.LotNo.StartsWith(txt_lotNo.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
 
                
             }
@@ -386,14 +386,22 @@ namespace WareHouseManagement.Views
             var data = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetlotNoreceive);
             if (data.Status == 1)
            {
-               getlot = JsonConvert.DeserializeObject<List<PCL.Model.WRReceivingLogResponseViewModel>>(data.Response.ToString());
+                
+              
+                BtnEditpencil.Icon = "Editpencil";
+                LotNumberList = JsonConvert.DeserializeObject<List<LotNumberList>>(data.Response.ToString());
                
             }
 
         }
 
+        private async void RefreshButton_Clicked(object sender, EventArgs e)
+        {
+           
+            LoadLotNo();
+        }
 
-
+           
 
 
 

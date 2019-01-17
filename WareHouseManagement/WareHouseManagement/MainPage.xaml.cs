@@ -57,7 +57,7 @@ namespace WareHouseManagement
 
         private async void btn_ClrPalletTag_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new ClearPalletTagPage());
+            await Navigation.PushAsync(new ClearPalletAndBinTagPage());
         }
 
         private async void btn_StockOut_Clicked(object sender, EventArgs e)

@@ -51,6 +51,7 @@ namespace WareHouseManagement
 
         private async void btn_PalletMaintainance_Clicked(object sender, EventArgs e)
         {
+          
             await Navigation.PushAsync(new PalletMaintainancePage());
         }
 
@@ -78,6 +79,11 @@ namespace WareHouseManagement
         {
             await Navigation.PushAsync(new WareHouseReceivingLogReports());
            
+        }
+
+        private async void btn_binTag_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new ClearBinTag());
         }
     }
 }

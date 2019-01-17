@@ -5,28 +5,38 @@
              xmlns:custom1="clr-namespace:WareHouseManagement.PCL.Common"
              Title="STOCK IN">
     <ContentPage.Content>
-        <StackLayout>
+        
+            <StackLayout>
 
-            <StackLayout VerticalOptions="Center" Padding="20" Spacing="20">
-              
-                 
+
+                <StackLayout VerticalOptions="Center" Padding="20" Spacing="20">
+
+
                     <Entry Grid.Row="0" x:Name="PalletTag"   VerticalOptions="Center"  Placeholder="Pallet Tag" HorizontalOptions="Fill" TextChanged="PalletTag_TextChanged"/>
                     <Entry Grid.Row="1" x:Name="Quantity"   VerticalOptions="Center"  Placeholder="Quantity" HorizontalOptions="Fill"/>
-                <Entry Grid.Row="2" x:Name="BinTag"   VerticalOptions="Center"  Placeholder="Bin Tag" HorizontalOptions="Fill"/>
-               
+                    <Entry Grid.Row="2" x:Name="BinTag"   VerticalOptions="Center"  Placeholder="Bin Tag" HorizontalOptions="Fill"/>
+
+
+
+
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="Center">
+                    <Button Text="Save"  BackgroundColor="#3C495A" TextColor="White" BorderRadius="7" HeightRequest="40" Clicked="btnSave_ClickedAsync"/>
+                    <Button Text="Clear" BackgroundColor="#3C495A" TextColor="White" BorderRadius="7" HeightRequest="40" />
+                    <Button Text="Close" BackgroundColor="#3C495A" TextColor="White" BorderRadius="7"  HeightRequest="40" Clicked="Button_Clicked"/>
+
+
+                </StackLayout>
+
 
 
 
             </StackLayout>
-            <StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="Center">
-                <Button Text="Save"  BackgroundColor="#3C495A" TextColor="White" BorderRadius="7" HeightRequest="40" Clicked="btnSave_ClickedAsync"/>
-                <Button Text="Clear" BackgroundColor="#3C495A" TextColor="White" BorderRadius="7" HeightRequest="40" />
-                <Button Text="Close" BackgroundColor="#3C495A" TextColor="White" BorderRadius="7"  HeightRequest="40"/>
-             
-
-            </StackLayout>
-         
-        </StackLayout>
+          
+       
+        
+       
        
     </ContentPage.Content>
 </ContentPage>

@@ -18,7 +18,7 @@ using Xamarin.Forms.Xaml;
 namespace WareHouseManagement.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class StockInPage : ContentPage
+	public partial class ClearPalletPage : ContentPage
 	{
         public event PropertyChangedEventHandler PropertyChanged;
         ReaderModel rfidModel = ReaderModel.readerModel;
@@ -26,36 +26,32 @@ namespace WareHouseManagement.Views
         private Object tagreadlock = new object();
         private static Dictionary<String, int> tagListDict = new Dictionary<string, int>();
 
-
+        List<ProductBarcodeResponseModel> _model = new List<ProductBarcodeResponseModel>();
+        public List<ProductBarcodeResponseModel> allItems;
+        PalletMaintanancedataBindingModel items;
+        PalletItemResponseModel _pendingItem = new PalletItemResponseModel();
         public bool isConnected { get => isConnected; set => OnPropertyChanged(); }
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public StockInPage ()
+
+        public ClearPalletPage ()
 		{
 			InitializeComponent ();
-
-
 		}
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-
-
             UpdateIn();
-
-
-
-
-
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
             UpdateOut();
+            PalletList.ItemsSource = _model;
         }
 
 
@@ -77,7 +73,7 @@ namespace WareHouseManagement.Views
             rfidModel.ReaderConnectionEvent -= ReaderConnectionEvent;
             rfidModel.ReaderAppearanceEvent -= ReaderAppearanceEvent;
         }
-      
+
         public virtual void ReaderConnectionEvent(bool connection)
         {
             isConnected = connection;
@@ -108,17 +104,10 @@ namespace WareHouseManagement.Views
                         {
                             Device.BeginInvokeOnMainThread(() =>
                             {
-                                if (PalletTag.IsFocused == true)
-                                {
 
-                                    PalletTag.Text = Tags.FirstOrDefault(p => p.RelativeDistance == Tags.Max(p2 => p2.RelativeDistance)).InvID;
-                                }
+                                ReadPalletTag.Text = Tags.FirstOrDefault(p => p.RelativeDistance == Tags.Max(p2 => p2.RelativeDistance)).InvID;
 
-                                if (BinTag.IsFocused == true)
-                                {
 
-                                    BinTag.Text = Tags.FirstOrDefault(p => p.RelativeDistance == Tags.Max(p2 => p2.RelativeDistance)).InvID;
-                                }
                             });
 
 
@@ -186,65 +175,83 @@ namespace WareHouseManagement.Views
         {
 
         }
-        private async void btnSave_ClickedAsync(object sender, EventArgs e)
-        {
-            StockInPalletModel _model = new StockInPalletModel
-            {
-                PalletTag = PalletTag.Text,
-                BinTag = BinTag.Text,
-                Quantity = int.Parse(Quantity.Text)
 
-        };
-            
-            var PostDetails = await new StockInPalletService().PostStockInDetail(_model, StockInServiceUrl.PostStockIn);
-            if (PostDetails.Status == 1)
+
+        public async void ClearPalletTagAsync()
+        {
+            try
             {
-                await Application.Current.MainPage.DisplayAlert("Message", "Success", "OK");
-                clearData();
+                StockInPalletResponseModel _model = new StockInPalletResponseModel();
+                {
+                    _model.Tag = "1234567890";
+
+                };
+                var ClearPalletTag = await new ClearPalletTagService().ClearPalletTag(_model, ClearPalletTagUrl.ClearPalletTag);
+                if (ClearPalletTag.Status == 1)
+                {
+                    var PalletData = JsonConvert.DeserializeObject<StockInPalletModel>(ClearPalletTag.Response.ToString());
+                }
             }
-            else
+            catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Message", "Inser Fail"+"("+ PostDetails.Response.ToString()+")", "OK");
+
+
             }
-           
 
         }
 
+        private async void ReadPalletTag_TextChangedAsync(object sender, TextChangedEventArgs e)
+        {
 
-        public async void GetQuantityByPalletId()
+            if (ReadPalletTag.Text != "")
+            {
+                GetPalletItem();
+            }
+
+        }
+
+        private async void GetPalletItem()
         {
             try
             {
 
-                var GetData = await new PalletMaintainanceService().GetPalletLog(StockInServiceUrl.GetQuantity + PalletTag.Text);
-                if (GetData.Status == 1)
+                var PalletDetail = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetPalletItemByTagId + "?=" + ReadPalletTag.Text);
+                if (PalletDetail.Status == 1 && PalletDetail != null)
                 {
-                    Quantity.Text = GetData.Response.ToString();
+                    var PalletData = JsonConvert.DeserializeObject<PalletItemResponseModel>(PalletDetail.Response.ToString());
+
+                    _pendingItem = PalletData;
+
+                    var pendingdata = _pendingItem.PalletBarcodes.Where(x => x.Status == "Processing").ToList();
+
+                    if (pendingdata.Count == 0)
+                    {
+                        SaveButton.IsVisible = false;
+                        await Application.Current.MainPage.DisplayAlert("Message", "Ready to Clear Pallet", "OK");
+
+                    }
+
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Message", "Your have Pending item", "OK");
+                        PalletList.ItemsSource = null;
+                        PalletList.ItemsSource = pendingdata;
+                    }
+
+
                 }
-                else { Quantity.Text = "0"; }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-               
+
             }
         }
 
 
-        public void clearData()
-        {
 
-            PalletTag.Text = "";
-            BinTag.Text = "";
-            Quantity.Text = "";
-        }
-
-        private void PalletTag_TextChanged(object sender, TextChangedEventArgs e)
+        private void BtnSave_Clicked(object sender, EventArgs e)
         {
-            GetQuantityByPalletId();
-        }
-
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-           
+            ClearPalletTagAsync();
         }
     }
 }

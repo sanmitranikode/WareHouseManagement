@@ -18,7 +18,7 @@ using Xamarin.Forms.Xaml;
 namespace WareHouseManagement.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ClearPalletTagPage : ContentPage
+	public partial class ClearBinPage : ContentPage
 	{
         public event PropertyChangedEventHandler PropertyChanged;
         ReaderModel rfidModel = ReaderModel.readerModel;
@@ -29,7 +29,7 @@ namespace WareHouseManagement.Views
         List<ProductBarcodeResponseModel> _model = new List<ProductBarcodeResponseModel>();
         public List<ProductBarcodeResponseModel> allItems;
         PalletMaintanancedataBindingModel items;
-
+        PalletItemResponseModel _pendingItem = new PalletItemResponseModel();
         public bool isConnected { get => isConnected; set => OnPropertyChanged(); }
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -37,12 +37,10 @@ namespace WareHouseManagement.Views
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public ClearPalletTagPage ()
+        public ClearBinPage ()
 		{
 			InitializeComponent ();
-		}
-
-
+        }
         protected async override void OnAppearing()
         {
             base.OnAppearing();
@@ -107,9 +105,9 @@ namespace WareHouseManagement.Views
                             Device.BeginInvokeOnMainThread(() =>
                             {
 
-                                ReadPalletTag.Text = Tags.FirstOrDefault(p => p.RelativeDistance == Tags.Max(p2 => p2.RelativeDistance)).InvID;
-                               
-                                
+                                ReadBinTag.Text = Tags.FirstOrDefault(p => p.RelativeDistance == Tags.Max(p2 => p2.RelativeDistance)).InvID;
+
+
                             });
 
 
@@ -185,7 +183,7 @@ namespace WareHouseManagement.Views
             {
                 StockInPalletResponseModel _model = new StockInPalletResponseModel();
                 {
-                    _model.Tag = "E28011700000020A3E00415C";
+                    _model.Tag = "E0000A32";
 
                 };
                 var ClearPalletTag = await new ClearPalletTagService().ClearPalletTag(_model, ClearPalletTagUrl.ClearPalletTag);
@@ -205,46 +203,51 @@ namespace WareHouseManagement.Views
         private async void ReadPalletTag_TextChangedAsync(object sender, TextChangedEventArgs e)
         {
 
-            //if (ReadPalletTag.Text != "")
-            //{
-            //    ProductBarcodeRequestModel _User = new ProductBarcodeRequestModel
-            //    {
-            //        Barcode = ReadPalletTag.Text,
-                   
-            //    };
-            //    var PalletDetail = await new PalletMaintainanceService().GetPalletMaintainanceDetail(_User, PalletMaintainanceServiceUrl.GetPalletMaintainanceDetai);
-            //    if (PalletDetail.Status == 1)
-            //    {
-            //        var PalletData = JsonConvert.DeserializeObject<ProductBarcodeResponseModel>(PalletDetail.Response.ToString());
-            //        try
-            //        {
-            //            var selected = _model.Where(x => x.ProductId == PalletData.ProductId).First();
-            //            if (selected != null)
-            //            {
-            //                await Application.Current.MainPage.DisplayAlert("Message", "Your have Already added This Item", "OK");
-            //            }
-            //            else
-            //            {
-            //                _model.Add(PalletData);
-            //                items = new PalletMaintanancedataBindingModel(_model);
-            //                PalletList.ItemsSource = null;
-            //                PalletList.ItemsSource = items.Items;
-            //            }
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            _model.Add(PalletData);
-            //            items = new PalletMaintanancedataBindingModel(_model);
-            //            PalletList.ItemsSource = null;
-            //            PalletList.ItemsSource = items.Items;
-            //        }
-
-            //    }
-
-
-            //}
+            if (ReadBinTag.Text != "")
+            {
+                GetPalletItem();
+            }
 
         }
+
+        private async void GetPalletItem()
+        {
+            try
+            {
+
+                var PalletDetail = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetPalletItemByTagId + "?=" + ReadBinTag.Text);
+                if (PalletDetail.Status == 1 && PalletDetail != null)
+                {
+                    var PalletData = JsonConvert.DeserializeObject<PalletItemResponseModel>(PalletDetail.Response.ToString());
+
+                    _pendingItem = PalletData;
+
+                    var pendingdata = _pendingItem.PalletBarcodes.Where(x => x.Status == "Processing").ToList();
+
+                    if (pendingdata.Count == 0)
+                    {
+                        SaveButton.IsVisible = false;
+                        await Application.Current.MainPage.DisplayAlert("Message", "Ready to Clear Pallet", "OK");
+
+                    }
+
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Message", "Your have Pending item", "OK");
+                        PalletList.ItemsSource = null;
+                        PalletList.ItemsSource = pendingdata;
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+
 
         private void BtnSave_Clicked(object sender, EventArgs e)
         {

@@ -74,6 +74,7 @@ namespace WareHouseManagement
                 DisplayAlert("Alert!", " Email Or Password Incorrect", "OK");
                 passwordEntry.Text = string.Empty;
                 btn_login.IsEnabled = true;
+               
 
             }
         }

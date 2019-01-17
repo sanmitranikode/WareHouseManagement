@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace WareHouseManagement.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ClearBinTag : ContentPage
+	public partial class ClearBinTagPage : ContentPage
 	{
-		public ClearBinTag ()
+		public ClearBinTagPage ()
 		{
 			InitializeComponent ();
 		}

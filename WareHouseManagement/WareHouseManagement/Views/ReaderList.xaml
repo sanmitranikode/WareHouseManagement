@@ -24,7 +24,7 @@
                                 </StackLayout>
                                 <StackLayout x:Name="SerialLabel" Orientation="Horizontal" IsVisible="{Binding IsSelected}">
                                     <Label Text="Model :     " />
-                                    <Label Text="{Binding DeviceModel}" />
+                                    <Label Text="{Binding c}" />
                                 </StackLayout>
                             </StackLayout>
                         </ViewCell>

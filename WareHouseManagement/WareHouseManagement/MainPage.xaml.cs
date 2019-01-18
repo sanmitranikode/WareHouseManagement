@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WareHouseManagement.PCL.Common;
 using WareHouseManagement.PCL.Helper;
+using WareHouseManagement.ViewModels;
 using WareHouseManagement.Views;
 using Xamarin.Forms;
 
@@ -15,14 +16,24 @@ namespace WareHouseManagement
     {
 
         SharedPreference _objShared = new SharedPreference();
+        private MainPageViewModel viewmodel;
         public MainPage()
         {
             InitializeComponent();
+            BindingContext = viewmodel = new MainPageViewModel();
+
         }
         protected override void OnAppearing()
         {
             base.OnAppearing();
+           
             GlobalConstant.AccessToken = _objShared.LoadApplicationProperty<string>("AccessToken");
+            viewmodel.UpdateIn();
+        }
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            viewmodel.UpdateOut();
         }
         async void OnLogoutButtonClicked(object sender, EventArgs e)
         {
@@ -83,7 +94,7 @@ namespace WareHouseManagement
 
         private async void btn_binTag_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new ClearBinTagPage());
+            await Navigation.PushAsync(new ClearBinPage());
         }
     }
 }

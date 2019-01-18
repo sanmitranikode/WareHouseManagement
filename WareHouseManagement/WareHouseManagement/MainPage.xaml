@@ -15,7 +15,7 @@
           
                 <StackLayout  >
 
-                <Grid VerticalOptions="Center">
+                <Grid VerticalOptions="FillAndExpand">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
@@ -28,63 +28,117 @@
                         <ColumnDefinition Width="*" />
 
                     </Grid.ColumnDefinitions>
+                    
+                        <Button x:Name="btn_PalletMaintainance" Image="palletmaintance.png"  Grid.Row="0"  Grid.Column="0"    BorderRadius="5"   BackgroundColor="White" ContentLayout="Top,5"  Text="Pallet Maintenance"   Clicked="btn_PalletMaintainance_Clicked">
+
+                        </Button>
                    
-                        <Button x:Name="btn_PalletMaintainance" Image="palletmaintance.png"   Grid.Row="0"  Grid.Column="0"  BorderRadius="5"   BackgroundColor="White" ContentLayout="Top,5"  Text="Pallet Maintenance"  VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" Clicked="btn_PalletMaintainance_Clicked">
+
+
+
+                   
+
+                        <Button x:Name="btn_ReaderList" Image="connection.png" Grid.Row="0"  Grid.Column="1"   Text="ReaderList"  ContentLayout="Top,30"   BorderRadius="5" BackgroundColor="White"  Clicked="btn_ReaderList_Clicked" >
 
                         </Button>
 
-                   
-                  
-
-
-                  
-                        <Button x:Name="btn_ReaderList" Image="connection.png"  Grid.Row="0"  Grid.Column="1" Text="ReaderList"  ContentLayout="Top,30"   BorderRadius="5" BackgroundColor="White"  Clicked="btn_ReaderList_Clicked" >
-
-                        </Button>
 
                     
 
 
+
                     
-                        <Button x:Name="btn_StockIn" Image="warehousestockin.png"  Grid.Row="1"  Grid.Column="0" BorderRadius="5"   BackgroundColor="White" ContentLayout="Top,30" Text="Stock In" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Clicked="btn_StockIn_Clicked">
+
+                        <Button x:Name="btn_StockIn" Image="warehousestockin.png"  Grid.Row="1"  Grid.Column="0"  BorderRadius="5"   BackgroundColor="White" ContentLayout="Top,30" Text="Stock In"  Clicked="btn_StockIn_Clicked">
                         </Button>
+
+
+                
+
+
+               
+
+                        <Button x:Name="btn_StockOut" Image="stockoutPng.png"   Grid.Row="1"  Grid.Column="1" BorderRadius="5"  BackgroundColor="White" ContentLayout="Top,30"   Text="Stock Out"  Clicked="btn_StockOut_Clicked">
+
+                        </Button>
+
+
+                
+
+
+
+                 
+
+                        <Button x:Name="btn_ClrPalletTag" Image="clearpallet.png"  Grid.Row="2"  Grid.Column="0"   BorderRadius="5"  BackgroundColor="White" ContentLayout="Top,30"  Text="Clear Pallet Tag"  Clicked="btn_ClrPalletTag_Clicked">
+
+                        </Button>
+
+
+
+
+
+
+                 
+
+                        <Button x:Name="btn_binTag" Image="clearpallet.png" Grid.Row="2"  Grid.Column="1"  BorderRadius="5"  BackgroundColor="White" ContentLayout="Top,30"  Text="Bin Tag"  Clicked="btn_binTag_Clicked" >
+
+                        </Button>
+
+
+               
+
+
+
+
+                 
+
+
+                        <Button x:Name="Btn_PalletMaintainanceReport" Image="reportPng.png" Grid.Row="3"  Grid.Column="0" Text="WR Received Log" ContentLayout="Top,30"  BorderRadius="5" BackgroundColor="White"  Clicked="Btn_PalletMaintainanceReport_Clicked" ></Button>
+
+
+
+
+              
+
+
+
+
+
+                 
+
+                        <Button    Image="pickuplistPng.png"  Grid.Row="3"  Grid.Column="1"  BorderRadius="5"  BackgroundColor="White"  ContentLayout="Top,30" Text="Pickup List "  Clicked="Btn_PickUpList_Clicked" >
+
+                        </Button>
+
+
+
+                   
                         
+
+                   
                   
 
 
-                   
-                        <Button x:Name="btn_StockOut" Image="stockoutPng.png"  Grid.Row="1"  Grid.Column="1" BorderRadius="5"  BackgroundColor="White" ContentLayout="Top,30"   Text="Stock Out" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" Clicked="btn_StockOut_Clicked">
-
-                        </Button>
+                  
                     
 
 
+                    
                   
-                        <Button x:Name="btn_ClrPalletTag" Image="clearpallet.png"  Grid.Row="2"  Grid.Column="0"  BorderRadius="5"  BackgroundColor="White" ContentLayout="Top,20"  Text="Clear Pallet Tag" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" Clicked="btn_ClrPalletTag_Clicked">
 
-                        </Button>
 
                    
 
 
                   
-                        <Button x:Name="btn_binTag" Image="clearpallet.png"   Grid.Row="2"  Grid.Column="1" BorderRadius="5"  BackgroundColor="White" ContentLayout="Top,20"  Text="Bin Tag" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" Clicked="btn_binTag_Clicked" >
-
-                        </Button>
+                   
 
 
-
-
-                    <Button x:Name="Btn_PalletMaintainanceReport" Image="reportPng.png" Grid.Row="3"  Grid.Column="0" Text="WR Received Log" ContentLayout="Top,5"  BorderRadius="5" BackgroundColor="White"  Clicked="Btn_PalletMaintainanceReport_Clicked" ></Button>
-
+                  
 
 
                    
                    
-
-                        <Button    Image="pickuplistPng.png"   Grid.Row="3"  Grid.Column="1"  BorderRadius="5"  BackgroundColor="White"  ContentLayout="Top,30" Text="Pickup List " HorizontalOptions="FillAndExpand" Clicked="Btn_PickUpList_Clicked" >
-
-                        </Button>
 
 
                  
@@ -100,8 +154,9 @@
 
 
                 </Grid>
-                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Fill">
-                    <Label  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Fill" >
+                  <Image Source="{Binding readerConnectionicon}"/>
+                    <Label  Text="{Binding readerConnection}" TextColor="#3C495A"  FontAttributes="Bold" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
 
                 </StackLayout>
 

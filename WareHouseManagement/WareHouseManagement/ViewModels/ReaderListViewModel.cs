@@ -53,9 +53,11 @@ namespace WareHouseManagement.ViewModels
                     {
                         DeviceNumber = readerlist[i].Name,
                         DeviceModel = model,
+                        
                         DeviceSerialNumber = serialnumber,
                         Index = i,
                         IsSelected = isConnected
+                        
                     };
                     AllItems.Add(ritem);
                     if (isConnected)

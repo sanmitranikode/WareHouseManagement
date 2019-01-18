@@ -50,7 +50,7 @@ namespace WareHouseManagement.Views
         {
             var tappedHier = ((TappedEventArgs)e).Parameter;
             ProductReport.Status = 1;
-              var data = Detail.WRReceivingLogModel.Where(a => a.LotNo == tappedHier.ToString()).FirstOrDefault().WRReceivingProducts;
+              var data = Detail.WRReceivingLogModel.Where(a => a.Id ==Convert.ToInt32(tappedHier)).FirstOrDefault().WRPickupListProducts;
            
             await Navigation.PushAsync(new ProductRecord(data));
         }

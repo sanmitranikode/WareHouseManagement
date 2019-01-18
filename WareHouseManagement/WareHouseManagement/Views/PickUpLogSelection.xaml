@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms" 
-             x:Class="WareHouseManagement.Views.PiclUpLogSelection">
+             x:Class="WareHouseManagement.Views.PiclUpLogSelection"
+             Title="Pick Up List">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="headerTablet" TargetType="Label">
@@ -50,22 +51,21 @@
                             <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
 
-                        <Label Text="CustomerName"  Grid.Row="0" Style="{DynamicResource headerTablet}"/>
-                        <Label Text="ShipTo" Grid.Column="1" Grid.Row="0"  Style="{DynamicResource headerTablet}"/>
-                        <Label Text="ShipIn" Grid.Column="2" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
-                        <Label Text="LogNo" Grid.Column="3" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
-                        <Image x:Name="Img_Check" Source="checkmarkIcon.png" BackgroundColor="#ff3232" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="1"  HorizontalOptions="End"  />
-                        <ListView x:Name="PalletList" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" ItemsSource="{Binding MyObservableCollectionList}"     HorizontalOptions="CenterAndExpand"   >
+                        <Label Text="C-Name"  Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+                        <Label Text="PoNo" Grid.Column="1" Grid.Row="0"  Style="{DynamicResource headerTablet}"/>
+                        <Label Text="containerNo" Grid.Column="2" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+                        <Label Text="receivedDate" Grid.Column="3" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+                      
+                        <ListView x:Name="PalletList" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" ItemsSource="{Binding MyObservableCollectionList}"     HorizontalOptions="CenterAndExpand"   >
 
                             <ListView.ItemTemplate >
                                 <DataTemplate>
                                     <ViewCell>
 
                                         <Grid x:Name="GridList" Padding="4" ColumnSpacing="1" RowSpacing="1"  >
-                                            <!--<Grid.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"  />
-
-                                        </Grid.GestureRecognizers>-->
+                                            <Grid.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" CommandParameter="{Binding Id}"/>
+                                            </Grid.GestureRecognizers>
 
 
                                             <Grid.RowDefinitions>
@@ -77,14 +77,14 @@
                                                 <ColumnDefinition Width="3*"></ColumnDefinition>
                                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                                                 <ColumnDefinition Width="2*"></ColumnDefinition>
-                                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                            
 
                                             </Grid.ColumnDefinitions>
-                                            <Label x:Name="txt_CustomerName" Grid.Row="0" Grid.Column="0"  Style="{DynamicResource detailTablet}" Text="{Binding Barcode}  "/>
-                                            <Label x:Name="txt_ShipTo" Grid.Row="0" Grid.Column="1"   Style="{DynamicResource detailTablet}"  Text="{Binding ProductName}"/>
-                                            <Label x:Name="txt_ShipIn" Grid.Row="0" Grid.Column="2" Style="{DynamicResource detailTablet}"  Text="{Binding Quantity}"/>
-                                            <Label x:Name="txt_LoGNo" Grid.Row="0" Grid.Column="3" Style="{DynamicResource detailTablet}"  Text="{Binding LotNo}"/>
-                                            <controls:CheckBox   Grid.Row="0" Grid.Column="4" HorizontalOptions="FillAndExpand"/>                                                  
+                                            <Label x:Name="txt_customerName" Grid.Row="0" Grid.Column="0" HorizontalTextAlignment="Center" Style="{DynamicResource detailTablet}" Text="{Binding CustomerName}  "/>
+                                            <Label x:Name="txt_poNo" Grid.Row="0" Grid.Column="1"  HorizontalTextAlignment="Center" Style="{DynamicResource detailTablet}"  Text="{Binding PONo}"/>
+                                            <Label x:Name="txt_containerNo" Grid.Row="0" Grid.Column="2" HorizontalTextAlignment="Center" Style="{DynamicResource detailTablet}"  Text="{Binding ContainerNo}"/>
+                                            <Label x:Name="txt_receivedDate" Grid.Row="0" Grid.Column="3" HorizontalTextAlignment="Center" Style="{DynamicResource detailTablet}"  Text="{Binding ReceivedDate}"/>
+                                                                                           
                                             <!--<Image.GestureRecognizers>
                                                     <TapGestureRecognizer
                                                          Tapped="Img_deleteRow_Clicked"

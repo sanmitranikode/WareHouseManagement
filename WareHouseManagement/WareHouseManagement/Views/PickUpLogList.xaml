@@ -22,81 +22,83 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-       
-           
-          
-                <StackLayout  >
-                    <Grid VerticalOptions="CenterAndExpand"  Margin="7" Padding="1"  RowSpacing="1" ColumnSpacing="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*" />
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="2*" />
+
+
+        <StackLayout  >
+            <Grid VerticalOptions="CenterAndExpand"  Margin="7" Padding="1"  RowSpacing="1" ColumnSpacing="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
 
-                        <Label Text="CustomerName"  Grid.Row="0" Style="{DynamicResource headerTablet}"/>
-                        <Label Text="ShipTo" Grid.Column="1" Grid.Row="0"  Style="{DynamicResource headerTablet}"/>
-                        <Label Text="ShipIn" Grid.Column="2" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
-                        <Label Text="LotNo" Grid.Column="3" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
-                          <Image  Grid.Column="4" Grid.Row="0" Source="greensignal.png"/>
 
-                <ListView x:Name="PalletList" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"      HorizontalOptions="CenterAndExpand"   >
 
-                            <ListView.ItemTemplate >
-                                <DataTemplate>
-                                    <ViewCell>
+                <Label Text="P-Name"  Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+                <Label Text="QTY" Grid.Column="1" Grid.Row="0"  Style="{DynamicResource headerTablet}"/>
+                <Label Text="P-QTY" Grid.Column="2" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+                <Label Text="Weight" Grid.Column="3" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+                <Label Text="Cubic" Grid.Column="4" Grid.Row="0"  Style="{DynamicResource headerTablet}"/>
+                <Label Text="Ex-Date" Grid.Column="5" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+                <Label Text="Status" Grid.Column="6" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
 
-                                        <Grid x:Name="GridList" Padding="4" ColumnSpacing="1" RowSpacing="1"  >
-                                            <!--<Grid.GestureRecognizers>
+                <ListView x:Name="PalletList" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7"  VerticalOptions="FillAndExpand"    HorizontalOptions="FillAndExpand"   >
+
+                    <ListView.ItemTemplate >
+                        <DataTemplate>
+                            <ViewCell>
+
+                                <Grid x:Name="GridList" Padding="4" ColumnSpacing="1" RowSpacing="1"  >
+                                    <!--<Grid.GestureRecognizers>
                                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"  />
 
                                         </Grid.GestureRecognizers>-->
 
 
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="40"></RowDefinition>
-                                                <RowDefinition Height="*"></RowDefinition>
-                                            </Grid.RowDefinitions>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="3*"></ColumnDefinition>
-                                                <ColumnDefinition Width="3*"></ColumnDefinition>
-                                                <ColumnDefinition Width="2*"></ColumnDefinition>
-                                                <ColumnDefinition Width="2*"></ColumnDefinition>
-                                               
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
 
-                                            </Grid.ColumnDefinitions>
-                                            <Label x:Name="txt_CustomerName" Grid.Row="0" Grid.Column="0"  Style="{DynamicResource detailTablet}" Text="{Binding CustomerId}  "/>
-                                            <Label x:Name="txt_ShipTo" Grid.Row="0" Grid.Column="1"   Style="{DynamicResource detailTablet}"  Text="{Binding CreateDate}"/>
-                                            <Label x:Name="txt_ShipIn" Grid.Row="0" Grid.Column="2" Style="{DynamicResource detailTablet}"  Text="{Binding ReceivedDate}"/>
-                                            <Label x:Name="txt_LogNo" Grid.Row="0" Grid.Column="3" Style="{DynamicResource detailTablet}"  Text="{Binding LotNo}"/>
-                                           
-                                                <!--<Image.GestureRecognizers>
+                                    </Grid.ColumnDefinitions>
+                                    <Label x:Name="txt_ProductName" Grid.Row="0" Grid.Column="0"  Style="{DynamicResource detailTablet}" Text="{Binding ProductName}  "/>
+                                    <Label x:Name="txt_Quantity" Grid.Row="0" Grid.Column="1"  Style="{DynamicResource detailTablet}" Text="{Binding Quantity}  "/>
+                                    <Label x:Name="txt_Picked_Qty" Grid.Row="0" Grid.Column="2"  Style="{DynamicResource detailTablet}" Text="{Binding PickedQTY}  "/>
+                                    <Label x:Name="txt_Weight" Grid.Row="0" Grid.Column="3"  Style="{DynamicResource detailTablet}" Text="{Binding Weight}  "/>
+                                    <Label x:Name="txt_Cubic" Grid.Row="0" Grid.Column="4"   Style="{DynamicResource detailTablet}"  Text="{Binding Cubic}"/>
+                                    <Label x:Name="txt_ExDate" Grid.Row="0" Grid.Column="5" Style="{DynamicResource detailTablet}"  Text="{Binding ExDate}"/>
+                                    <Label x:Name="txt_ProductStatus" Grid.Row="0" Grid.Column="6" Style="{DynamicResource detailTablet}"  Text="{Binding ProductStatus}"/>
+
+                                    <!--<Image.GestureRecognizers>
                                                     <TapGestureRecognizer
                                                          Tapped="Img_deleteRow_Clicked"
                                                          NumberOfTapsRequired="1"
                                                      CommandParameter="{Binding Barcode}"/>
                                                 </Image.GestureRecognizers>-->
-                                       
-                                        </Grid>
-                                    </ViewCell>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-
-                        </ListView>
-
-
-                    </Grid>
-
-                </StackLayout>
-           
-          
-         
-       
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

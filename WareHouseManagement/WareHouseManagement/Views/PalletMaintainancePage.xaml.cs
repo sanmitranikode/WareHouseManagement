@@ -24,7 +24,7 @@ namespace WareHouseManagement.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PalletMaintainancePage : ContentPage
     {
-
+        PalletModel PalletMaintainanceRequest = new PalletModel();
         List<LotNumberList> LotNumberList;
         public event PropertyChangedEventHandler PropertyChanged;
           ReaderModel rfidModel = ReaderModel.readerModel;
@@ -326,6 +326,12 @@ namespace WareHouseManagement.Views
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
+            if (SaveUpdateButton.Text == "Update")
+            {
+               // UpdateListPost();
+                return;
+            }
+
             if (_model != null && txt_PalletTagNo.Text!="" && txt_PalletTagNo.Text !=null)
             {
                 PostPalletMaintainanceDetailAsync();
@@ -364,7 +370,7 @@ namespace WareHouseManagement.Views
         }
         private void srchbox_carret_QuerySubmitted(object sender, dotMorten.Xamarin.Forms.AutoSuggestBoxQuerySubmittedEventArgs e)
         {
-            var data = (PCL.Model.WRReceivingLogResponseViewModel)e.ChosenSuggestion;
+            var data = (ViewModels.LotNumberList)e.ChosenSuggestion;
             txt_lotNo.Text = data.LotNo;
 
         }
@@ -409,10 +415,10 @@ namespace WareHouseManagement.Views
 
         private async void EditItem_Clicked(object sender, EventArgs e)
         {
-            if(txt_PalletTagNo.Text== "Update")
+            if(SaveUpdateButton.Text== "Update")
             {
 
-                UpdateListPost();
+              //  UpdateListPost();
             }
 
             if ( txt_PalletTagNo.Text != null)
@@ -430,26 +436,60 @@ namespace WareHouseManagement.Views
             }
         }
 
-        private void UpdateListPost()
-        {
-           
-        }
+        //public async void UpdateListPost()
+        //{
+
+
+         
+        //    PalletMaintainanceRequest.Tag = txt_PalletTagNo.Text;
+
+
+        //    List<PalletBarcodes> PalletBarcodes = new List<PalletBarcodes>();
+
+        //    try
+        //    {
+        //        foreach (var item in _model)
+        //        {
+        //            PalletBarcodes productmodel = new PalletBarcodes();
+        //            productmodel.LotNo = (item.LotNo);
+        //            productmodel.WRReceivingProductsId = Convert.ToInt32(item.WrReceivingProductId);
+        //            productmodel.Quantity = Convert.ToInt32(item.Quantity);
+        //            productmodel.WRReceivingProductsId = Convert.ToInt32(item.WrReceivingProductId);
+        //            PalletBarcodes.Add(productmodel);
+
+        //        }
+
+        //        PalletMaintainanceRequest.PalletBarcodes = PalletBarcodes;
+
+        //        var PostDetails = await new PalletMaintainanceService().PostPalletMaintainanceDetail(PalletMaintainanceRequest, PalletMaintainanceServiceUrl.PostPalletreceivinglog);
+        //        if (PostDetails.Status == 1)
+        //        {
+        //            await Application.Current.MainPage.DisplayAlert("Message", "Success", "OK");
+        //            ClearData();
+        //        }
+        //        else
+        //        {
+        //            await Application.Current.MainPage.DisplayAlert("Message", "Insert Fail", "OK");
+        //        }
+        //    }catch(Exception ex)
+        //    { }
+        //}
 
         private async void GetPalletItem()
         {
             try
             {
-
+                
                 var PalletDetail = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetPalletItemByTagId + "?=" + txt_PalletTagNo.Text);
                 if (PalletDetail.Status == 1 && PalletDetail != null)
                 {
                     var PalletData = JsonConvert.DeserializeObject<PalletItemResponseModel>(PalletDetail.Response.ToString());
-
+                    var palletitem = JsonConvert.DeserializeObject<PalletModel>(PalletDetail.Response.ToString());
                     var palletItem = PalletData.PalletBarcodes;
-
-                   // data.Add(PalletData);
-                   // items = new PalletMaintanancedataBindingModel(data);
-                   //  PalletList.ItemsSource = null;
+                    PalletMaintainanceRequest = palletitem;
+                    // data.Add(PalletData);
+                    // items = new PalletMaintanancedataBindingModel(data);
+                    //  PalletList.ItemsSource = null;
                     PalletList.ItemsSource = palletItem;
                 }
             }

@@ -73,7 +73,7 @@ namespace WareHouseManagement
 
         private async void btn_StockOut_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new StockOutPage());
+           // await Navigation.PushAsync(new StockOutPage());
         }
 
         private async void btn_ReaderList_Clicked(object sender, EventArgs e)
@@ -83,7 +83,7 @@ namespace WareHouseManagement
 
         private async void Btn_PickUpList_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new PickUpLogList());
+            await Navigation.PushAsync(new PiclUpLogSelection());
         }
 
         private async void Btn_PalletMaintainanceReport_Clicked(object sender, EventArgs e)
@@ -94,7 +94,7 @@ namespace WareHouseManagement
 
         private async void btn_binTag_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new ClearBinPage());
+            await Navigation.PushAsync(new ClearPalletAndBinTagPage());
         }
     }
 }

@@ -16,14 +16,14 @@ namespace WareHouseManagement.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PickUpLogList : ContentPage
     {
-      List <WrPickupListModel> _model = new List<WrPickupListModel>();
+        IList<WRPickupListProductModel> _model;
        
 
-        public PickUpLogList()
+        public PickUpLogList(IList<WRPickupListProductModel> _Data)
         {
             InitializeComponent();
-
-            GetPickUpLIstAsync();
+            _model = _Data;
+          //  GetPickUpLIstAsync();
         }
 
 
@@ -32,6 +32,7 @@ namespace WareHouseManagement.Views
             base.OnAppearing();
 
             PalletList.ItemsSource = null;
+            PalletList.ItemsSource = _model;
 
 
         }
@@ -42,8 +43,8 @@ namespace WareHouseManagement.Views
             var GetPickUpList = await new PalletMaintainanceService().GetPalletLog(GetPickUpListUrl.GetPickUpList);
             if (GetPickUpList.Status == 1)
             {
-                _model = JsonConvert.DeserializeObject<List<WrPickupListModel>>(GetPickUpList.Response.ToString());
-              
+               var _model = JsonConvert.DeserializeObject<List<WRPickupListProductModel>>(GetPickUpList.Response.ToString());
+           
                 PalletList.ItemsSource = null;
                 PalletList.ItemsSource = _model;
             }

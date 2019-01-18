@@ -37,21 +37,33 @@ namespace WareHouseManagement.ViewModels
         public DateTime CreatedOnUtc { get; set; }
         public DateTime UpdatedOnUtc { get; set; }
     }
+
+
+
+    public class WrPickupListResponseViewModel
+    {
+        public IList<WrPickupListModel> WrPickupListModel { get; set; }
+    }
+
+
+
+
     public class WrPickupListModel
     {
-        public IList<WRPickupListProductModel> WRPickupListProducts { get; set; }
         public DateTime ReceivedDate { get; set; }
         public int CustomerId { get; set; }
         public int ShipperId { get; set; }
-
+        public string CustomerName { get; set; }
         public int ShippingAddressId { get; set; }
         public string PONo { get; set; }
+        public string LotNo { get; set; }
         public bool Deleted { get; set; }
         public bool Active { get; set; }
         public string ContainerNo { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime LastUpdateDate { get; set; }
-
+        public int Id { get; set; }
+        public IList<WRPickupListProductModel> WRPickupListProducts { get; set; }
     }
     public class WRPickupListProductModel
     {
@@ -67,18 +79,9 @@ namespace WareHouseManagement.ViewModels
         public virtual WrPickupListModel WRPickupList { get; set; }
         public int PickupListStatusId { get; set; }
 
-        public WRPickUplistStatusModel ProductStatus
-        {
-            get
-            {
-                return (WRPickUplistStatusModel)PickupListStatusId;
-            }
-            set
-            {
-                PickupListStatusId = (int)value;
-            }
-        }
+        public string ProductStatus { get; set; }
 
+        public string ProductName { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime LastUpdateDate { get; set; }
         public string LotNo { get; set; }

@@ -70,9 +70,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\ClearPalletPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\FullPalletPage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\InventoryList.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -89,9 +86,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\PickUpLogSelection.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\StockOutPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\WareHouseReceivingLogReports.xaml.cs">

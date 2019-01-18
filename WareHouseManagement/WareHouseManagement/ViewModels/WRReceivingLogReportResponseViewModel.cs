@@ -30,6 +30,8 @@ namespace WareHouseManagement.ViewModels
 
         public int TotalQuantity { get; set; }
 
+        public int Id { get; set; }
+
         public string Status { get; set; }
         public bool Deleted { get; set; }
 
@@ -41,7 +43,7 @@ namespace WareHouseManagement.ViewModels
         public DateTime CreateDate { get; set; }
 
         public DateTime LastUpdateDate { get; set; }
-        public List<WRReceivingProducts> WRReceivingProducts { get; set; }
+        public List<WRReceivingProducts> WRPickupListProducts { get; set; }
     }
 
     public class WRReceivingProducts

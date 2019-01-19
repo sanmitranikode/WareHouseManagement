@@ -7,9 +7,11 @@ namespace WareHouseManagement.PCL.Model
     public class PalletModel
     {
         public string Tag { get; set; }
+        public string PalletId { get; set; }
+        public string Sku { get; set; }
 
 
-     
+
         public List<PalletBarcodes> PalletBarcodes { get; set; }
     }
     public class PalletBarcodes
@@ -19,5 +21,6 @@ namespace WareHouseManagement.PCL.Model
         public int WRReceivingProductsId { get; set; }
         public int Quantity { get; set; }
       
+
 }
 }

@@ -52,6 +52,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HeatMapConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\InventoryListModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LotNumberRecievingLogModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PageDataViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PalletMaintanance Model.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PalletMaintanancedataBindingModel.cs" />

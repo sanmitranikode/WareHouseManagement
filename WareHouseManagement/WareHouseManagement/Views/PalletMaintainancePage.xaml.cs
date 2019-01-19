@@ -24,6 +24,8 @@ namespace WareHouseManagement.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PalletMaintainancePage : ContentPage
     {
+        IList<PalletItemResponse> palletItem;
+        ProductBarcodeResponseModel listitem;
         PalletModel PalletMaintainanceRequest = new PalletModel();
         List<LotNumberList> LotNumberList;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -31,9 +33,10 @@ namespace WareHouseManagement.Views
         public List<TagItem> Tags=new List<TagItem>();
         private Object tagreadlock = new object();
         private static Dictionary<String, int> tagListDict = new Dictionary<string, int>();
+        object item;
 
+        bool checkRemoveItemModel=true;
 
-     
         List<ProductBarcodeResponseModel> _model = new List<ProductBarcodeResponseModel> ();
         List<PalletItemResponseModel> data = new List<PalletItemResponseModel>();
 
@@ -318,6 +321,7 @@ namespace WareHouseManagement.Views
             txt_Barcode.Text = "";
             _model = null;
             items.Items = null;
+            PalletList.ItemsSource = null;
             PalletList.ItemsSource = items.Items;
             txt_lotNo.Text = "";
             lbl_totalQuantity.Text = "Total Quantity = 0";
@@ -328,7 +332,7 @@ namespace WareHouseManagement.Views
         {
             if (SaveUpdateButton.Text == "Update")
             {
-               // UpdateListPost();
+                UpdateListPost();
                 return;
             }
 
@@ -350,17 +354,29 @@ namespace WareHouseManagement.Views
 
            
 
-            var item = ((TappedEventArgs)e).Parameter;
+             item = ((TappedEventArgs)e).Parameter;
             
             try
             {
 
-                ProductBarcodeResponseModel listitem = (from itm in items.Items where itm.Barcode == item.ToString() select itm).FirstOrDefault<ProductBarcodeResponseModel>();
-                items.Items.Remove(listitem);
-                _model.Remove(listitem);
-                int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
-                lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
+                if (checkRemoveItemModel == false)
+                {
 
+                   var listitems = (from itm in palletItem where itm.Barcode == item.ToString() select itm).FirstOrDefault<PalletItemResponse>();
+                    palletItem.Remove(listitems);
+                    PalletList.ItemsSource = null;
+                    PalletList.ItemsSource = palletItem;
+                    //  int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
+                    //lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
+                }
+                else
+                {
+                    listitem = (from itm in items.Items where itm.Barcode == item.ToString() select itm).FirstOrDefault<ProductBarcodeResponseModel>();
+                    items.Items.Remove(listitem);
+                    _model.Remove(listitem);
+                    int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
+                    lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
+                }
             }
             catch
             {
@@ -409,16 +425,12 @@ namespace WareHouseManagement.Views
 
            
 
-
-
-
-
         private async void EditItem_Clicked(object sender, EventArgs e)
         {
             if(SaveUpdateButton.Text== "Update")
             {
 
-              //  UpdateListPost();
+                UpdateListPost();
             }
 
             if ( txt_PalletTagNo.Text != null)
@@ -436,44 +448,39 @@ namespace WareHouseManagement.Views
             }
         }
 
-        //public async void UpdateListPost()
-        //{
+        public async void UpdateListPost()
+        {
 
 
-         
-        //    PalletMaintainanceRequest.Tag = txt_PalletTagNo.Text;
+           // popupLoginView.IsVisible = true;
+          
 
 
-        //    List<PalletBarcodes> PalletBarcodes = new List<PalletBarcodes>();
+            string ItemTag = txt_PalletTagNo.Text;
+            string BarcodeNo = item.ToString();
 
-        //    try
-        //    {
-        //        foreach (var item in _model)
-        //        {
-        //            PalletBarcodes productmodel = new PalletBarcodes();
-        //            productmodel.LotNo = (item.LotNo);
-        //            productmodel.WRReceivingProductsId = Convert.ToInt32(item.WrReceivingProductId);
-        //            productmodel.Quantity = Convert.ToInt32(item.Quantity);
-        //            productmodel.WRReceivingProductsId = Convert.ToInt32(item.WrReceivingProductId);
-        //            PalletBarcodes.Add(productmodel);
 
-        //        }
 
-        //        PalletMaintainanceRequest.PalletBarcodes = PalletBarcodes;
+            try
+            {
 
-        //        var PostDetails = await new PalletMaintainanceService().PostPalletMaintainanceDetail(PalletMaintainanceRequest, PalletMaintainanceServiceUrl.PostPalletreceivinglog);
-        //        if (PostDetails.Status == 1)
-        //        {
-        //            await Application.Current.MainPage.DisplayAlert("Message", "Success", "OK");
-        //            ClearData();
-        //        }
-        //        else
-        //        {
-        //            await Application.Current.MainPage.DisplayAlert("Message", "Insert Fail", "OK");
-        //        }
-        //    }catch(Exception ex)
-        //    { }
-        //}
+                var PostDetails = await new PalletMaintainanceService().PostPalletMaintainanceDetail(PalletMaintainanceRequest, PalletMaintainanceServiceUrl.DeletePalletItem +"?"+ "ItemTag=" + ItemTag+"&"+"BarcodeNo=" + BarcodeNo);
+                if (PostDetails.Status == 1)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Message", "Update Success", "OK");
+                    popupLoginView.IsVisible = true;
+                    ClearData();
+                    
+                  
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Message", "Update Fail", "OK");
+                }
+            }
+            catch (Exception ex)
+            { }
+        }
 
         private async void GetPalletItem()
         {
@@ -484,12 +491,14 @@ namespace WareHouseManagement.Views
                 if (PalletDetail.Status == 1 && PalletDetail != null)
                 {
                     var PalletData = JsonConvert.DeserializeObject<PalletItemResponseModel>(PalletDetail.Response.ToString());
-                    var palletitem = JsonConvert.DeserializeObject<PalletModel>(PalletDetail.Response.ToString());
-                    var palletItem = PalletData.PalletBarcodes;
-                    PalletMaintainanceRequest = palletitem;
+
+                    palletItem = PalletData.PalletBarcodes;
+
                     // data.Add(PalletData);
-                    // items = new PalletMaintanancedataBindingModel(data);
-                    //  PalletList.ItemsSource = null;
+                    //  items = PalletData;
+
+                    checkRemoveItemModel = false;
+                      PalletList.ItemsSource = null;
                     PalletList.ItemsSource = palletItem;
                 }
             }

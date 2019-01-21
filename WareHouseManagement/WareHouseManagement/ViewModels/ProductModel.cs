@@ -6,7 +6,7 @@ namespace WareHouseManagement.ViewModels
 {
     public class ProductModel
     {
-
+        public int Id { get; set; }
         public int WRReceivingLogId { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }

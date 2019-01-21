@@ -96,5 +96,10 @@ namespace WareHouseManagement
         {
             await Navigation.PushAsync(new ClearPalletAndBinTagPage());
         }
+
+        private async void Btn_ProductBinReport_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new ProductBinDetailReport());
+        }
     }
 }

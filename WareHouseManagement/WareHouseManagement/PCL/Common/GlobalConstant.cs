@@ -50,6 +50,11 @@ namespace WareHouseManagement.PCL.Common
         public static string ClearPalletTag = "PalletClear";
 
     }
+    public struct ProductUrl
+    {
+        public static string GetProduct = "BinDetailByProduct/GetProductList";
+        public static string GetProductDetails = "BinDetailByProduct/GetBinsDetail";
+    }
 
     public struct ClearBinTagUrl
     {

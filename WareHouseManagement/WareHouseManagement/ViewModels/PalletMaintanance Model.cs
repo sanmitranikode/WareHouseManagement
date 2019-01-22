@@ -9,6 +9,7 @@ namespace WareHouseManagement.ViewModels
     {
         public string Barcode { get; set; }
         public string LotNo { get; set; }
+        public int CheckQuantity { get; set; }
     }
     public class ProductBarcodeResponseModel
     {
@@ -17,6 +18,7 @@ namespace WareHouseManagement.ViewModels
         public string WrReceivingProductId { get; set; }
         public string ProductName { get; set; }
         public string Quantity { get; set; }
+        public bool CheckQty { get; set; }
     }
     public class WRReceivingLogResponseViewModel
     {

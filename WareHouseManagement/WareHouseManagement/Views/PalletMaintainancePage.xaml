@@ -152,7 +152,7 @@
                     <StackLayout Padding="10,0,10,10">
                         <StackLayout Orientation="Horizontal">
 
-                            <Entry x:Name="txt_PalletTagNo"  VerticalOptions="Center" HorizontalOptions="FillAndExpand" Placeholder="Tag"  />
+                            <Entry x:Name="txt_PalletTagNo"  VerticalOptions="Center" TextChanged="Txt_PalletTagNo_TextChanged" HorizontalOptions="FillAndExpand" Placeholder="Tag"  />
                             <Label x:Name="lbl_PalletTag"  Text="Read Tag" VerticalOptions="Center" HorizontalOptions="End" />
                         </StackLayout>
                         <StackLayout  Spacing="10" Orientation="Horizontal" HorizontalOptions="End" >

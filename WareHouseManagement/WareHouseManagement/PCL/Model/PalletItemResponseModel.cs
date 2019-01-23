@@ -13,6 +13,7 @@ namespace WareHouseManagement.PCL.Model
 
     public class PalletItemResponse
     {
+        public int Id { get; set; }
         public int PalletId { get; set; }
 
         public string LotNo { get; set; }

@@ -35,7 +35,7 @@ namespace WareHouseManagement.Views
         private static Dictionary<String, int> tagListDict = new Dictionary<string, int>();
         object item;
 
-        bool checkRemoveItemModel = true;
+        bool EditOption = false;
 
         List<ProductBarcodeResponseModel> _model = new List<ProductBarcodeResponseModel>();
         List<PalletItemResponseModel> data = new List<PalletItemResponseModel>();
@@ -74,6 +74,8 @@ namespace WareHouseManagement.Views
         protected async override void OnAppearing()
         {
             base.OnAppearing();
+            bool EditOption = false;
+            BtnEditpencil.Icon = "EditIcon";
 
             LoadLotNo();
             // GetUserLoginAsync();
@@ -221,18 +223,19 @@ namespace WareHouseManagement.Views
                         {
                             if (_model.Count != 0)
                             {
-                                var selected = _model.Where(x => x.Barcode == PalletData.Barcode).FirstOrDefault();
+                                var selected = _model.Where(x => x.Barcode == PalletData.Barcode && x.LotNo==PalletData.LotNo).FirstOrDefault();
 
                                 if (selected != null)
                                 {
                                     _model.Remove(selected);
                                     _model.Add(new ProductBarcodeResponseModel
                                     {
+                                        Id= PalletData.Id,
                                         Barcode = PalletData.Barcode,
                                         LotNo = PalletData.LotNo,
                                         WrReceivingProductId = PalletData.WrReceivingProductId,
                                         ProductName = PalletData.ProductName,
-                                        Quantity = (txt_SetQuantity.Text != "" && txt_SetQuantity.Text != "0") ? txt_SetQuantity.Text :((Convert.ToInt32(selected.Quantity) + 1)>Convert.ToInt32( PalletData.Quantity))? PalletData.Quantity.ToString(): (Convert.ToInt32(selected.Quantity) + 1).ToString()
+                                        Quantity = (txt_SetQuantity.Text != "" && txt_SetQuantity.Text != "0" && txt_SetQuantity.Text != null) ? txt_SetQuantity.Text :((Convert.ToInt32(selected.Quantity) + 1)>Convert.ToInt32( PalletData.Quantity))? PalletData.Quantity.ToString(): (Convert.ToInt32(selected.Quantity) + 1).ToString()
                                     });
                                     items = new PalletMaintanancedataBindingModel(_model);
                                     int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
@@ -245,11 +248,12 @@ namespace WareHouseManagement.Views
                                 {
                                     _model.Add(new ProductBarcodeResponseModel
                                     {
+                                        Id = PalletData.Id,
                                         Barcode = PalletData.Barcode,
                                         LotNo = PalletData.LotNo,
                                         WrReceivingProductId = PalletData.WrReceivingProductId,
                                         ProductName = PalletData.ProductName,
-                                        Quantity = (txt_SetQuantity.Text != "" && txt_SetQuantity.Text != "0") ? txt_SetQuantity.Text : "1"
+                                        Quantity = (txt_SetQuantity.Text != "" && txt_SetQuantity.Text != "0" && txt_SetQuantity.Text != null) ? txt_SetQuantity.Text : "1"
                                     }
 
                                     );
@@ -266,11 +270,12 @@ namespace WareHouseManagement.Views
                             {
                                 _model.Add(new ProductBarcodeResponseModel
                                 {
+                                    Id = PalletData.Id,
                                     Barcode = PalletData.Barcode,
                                     LotNo = PalletData.LotNo,
                                     WrReceivingProductId = PalletData.WrReceivingProductId,
                                     ProductName = PalletData.ProductName,
-                                    Quantity = (txt_SetQuantity.Text != "" && txt_SetQuantity.Text != "0") ? txt_SetQuantity.Text : "1"
+                                    Quantity = (txt_SetQuantity.Text != "" && txt_SetQuantity.Text != "0" && txt_SetQuantity.Text !=null) ? txt_SetQuantity.Text : "1"
                                 }
 
                                 );
@@ -370,21 +375,19 @@ namespace WareHouseManagement.Views
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            if (SaveUpdateButton.Text == "Update")
-            {
-                UpdateListPost();
-                return;
-            }
+         
+           
+                if (_model != null && txt_PalletTagNo.Text != "" && txt_PalletTagNo.Text != null)
+                {
+                    PostPalletMaintainanceDetailAsync();
+                }
 
-            if (_model != null && txt_PalletTagNo.Text != "" && txt_PalletTagNo.Text != null)
-            {
-                PostPalletMaintainanceDetailAsync();
-            }
-
-            else
-            {
-                await Application.Current.MainPage.DisplayAlert("Message", "Fill All Detail", "OK");
-            }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Message", "Fill All Detail", "OK");
+                }
+           
+           
 
         }
 
@@ -399,19 +402,27 @@ namespace WareHouseManagement.Views
             try
             {
 
-                if (checkRemoveItemModel == false)
+                if (EditOption == true)
                 {
 
-                    var listitems = (from itm in palletItem where itm.Barcode == item.ToString() select itm).FirstOrDefault<PalletItemResponse>();
-                    palletItem.Remove(listitems);
-                    PalletList.ItemsSource = null;
-                    PalletList.ItemsSource = palletItem;
+                    var listitems = (from itm in palletItem where itm.Id ==Convert.ToInt32( item) select itm).FirstOrDefault<PalletItemResponse>();
+                    var PalletDetailDelete = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.DeletePalletItem + "?ItemTag="+txt_PalletTagNo.Text+"&Id="+listitems.Id);
+                    if (PalletDetailDelete.Status == 1)
+                    {
+                        palletItem.Remove(listitems);
+                        PalletList.ItemsSource = null;
+                        PalletList.ItemsSource = palletItem;
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Message", "Item is Not Deleted", "OK");
+                    }
                     //  int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
                     //lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
                 }
                 else
                 {
-                    listitem = (from itm in items.Items where itm.Barcode == item.ToString() select itm).FirstOrDefault<ProductBarcodeResponseModel>();
+                    listitem = (from itm in items.Items where itm.Id == Convert.ToInt32(item) select itm).FirstOrDefault<ProductBarcodeResponseModel>();
                     items.Items.Remove(listitem);
                     _model.Remove(listitem);
                     int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
@@ -434,27 +445,17 @@ namespace WareHouseManagement.Views
         {
             if (txt_lotNo.Text != "" && txt_lotNo.Text != null)
             {
-
                 txt_lotNo.ItemsSource = string.IsNullOrWhiteSpace(txt_lotNo.Text) ? null : LotNumberList.Where(x => x.LotNo.StartsWith(txt_lotNo.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
-
-
             }
-
         }
 
         public async void LoadLotNo()
         {
-
             var data = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetlotNoreceive);
             if (data.Status == 1)
             {
-
-
-                BtnEditpencil.Icon = "Editpencil";
                 LotNumberList = JsonConvert.DeserializeObject<List<LotNumberList>>(data.Response.ToString());
-
             }
-
         }
 
         private async void RefreshButton_Clicked(object sender, EventArgs e)
@@ -467,60 +468,22 @@ namespace WareHouseManagement.Views
 
         private async void EditItem_Clicked(object sender, EventArgs e)
         {
-            if (SaveUpdateButton.Text == "Update")
+            if(EditOption == true)
             {
-
-                UpdateListPost();
+                 EditOption = false;
+                BtnEditpencil.Icon = "EditIcon";
+                SaveUpdateButton.Text = "Save";
             }
-
-            if (txt_PalletTagNo.Text != null)
-            {
-
-                SaveUpdateButton.Text = "Update";
-                lbl_totalQuantity.IsVisible = false;
-                GetPalletItem();
-            }
-
             else
             {
-
-                await Application.Current.MainPage.DisplayAlert("Message", "Fill Pallet Tag", "OK");
+                EditOption = true;
+                BtnEditpencil.Icon = "SaveIcon";
+                SaveUpdateButton.Text = "Update";
             }
+            
         }
 
-        public async void UpdateListPost()
-        {
-
-
-            // popupLoginView.IsVisible = true;
-
-
-
-            string ItemTag = txt_PalletTagNo.Text;
-            string BarcodeNo = item.ToString();
-
-
-
-            try
-            {
-
-                var PostDetails = await new PalletMaintainanceService().PostPalletMaintainanceDetail(PalletMaintainanceRequest, PalletMaintainanceServiceUrl.DeletePalletItem + "?" + "ItemTag=" + ItemTag + "&" + "BarcodeNo=" + BarcodeNo);
-                if (PostDetails.Status == 1)
-                {
-                    await Application.Current.MainPage.DisplayAlert("Message", "Update Success", "OK");
-                    // popupLoginView.IsVisible = true;
-                    ClearData();
-
-
-                }
-                else
-                {
-                    await Application.Current.MainPage.DisplayAlert("Message", "Update Fail", "OK");
-                }
-            }
-            catch (Exception ex)
-            { }
-        }
+       
 
         private async void GetPalletItem()
         {
@@ -536,8 +499,6 @@ namespace WareHouseManagement.Views
 
                     // data.Add(PalletData);
                     //  items = PalletData;
-
-                    checkRemoveItemModel = false;
                     PalletList.ItemsSource = null;
                     PalletList.ItemsSource = palletItem;
                 }
@@ -548,8 +509,20 @@ namespace WareHouseManagement.Views
             }
         }
 
+        private void Txt_PalletTagNo_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
+        {
+            if (EditOption == true)
+            {
+                try
+                {
+                    lbl_totalQuantity.IsVisible = false;
+                    GetPalletItem();
+                }
+                catch (Exception ex)
+                {
 
-
-
+                }
+            }
+        }
     }
 }

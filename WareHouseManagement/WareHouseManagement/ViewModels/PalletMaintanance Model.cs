@@ -13,6 +13,7 @@ namespace WareHouseManagement.ViewModels
     }
     public class ProductBarcodeResponseModel
     {
+        public int Id { get; set; }
         public string LotNo { get; set; }
         public string Barcode { get; set; }
         public string WrReceivingProductId { get; set; }

@@ -62,13 +62,25 @@ namespace WareHouseManagement
 
         private async void btn_PalletMaintainance_Clicked(object sender, EventArgs e)
         {
-          
+            activityIndicator.IsRunning = true;
+            popupLoadingView.IsVisible = true;
+            
+
+
             await Navigation.PushAsync(new PalletMaintainancePage());
+            popupLoadingView.IsVisible = false;
+            activityIndicator.IsRunning = false;
+
+
         }
 
         private async void btn_ClrPalletTag_Clicked(object sender, EventArgs e)
         {
+            activityIndicator.IsRunning = true;
+            popupLoadingView.IsVisible = true;
             await Navigation.PushAsync(new ClearPalletAndBinTagPage());
+            popupLoadingView.IsVisible = false;
+            activityIndicator.IsRunning = false;
         }
 
         private async void btn_StockOut_Clicked(object sender, EventArgs e)
@@ -78,28 +90,49 @@ namespace WareHouseManagement
 
         private async void btn_ReaderList_Clicked(object sender, EventArgs e)
         {
+            activityIndicator.IsRunning = true;
+            popupLoadingView.IsVisible = true;
             await Navigation.PushAsync(new ReaderListMainPage());
+            popupLoadingView.IsVisible = false;
+            activityIndicator.IsRunning = false;
         }
 
         private async void Btn_PickUpList_Clicked(object sender, EventArgs e)
         {
+            activityIndicator.IsRunning = true;
+            popupLoadingView.IsVisible = true;
             await Navigation.PushAsync(new PiclUpLogSelection());
+            popupLoadingView.IsVisible = false;
+            activityIndicator.IsRunning = false;
         }
 
         private async void Btn_PalletMaintainanceReport_Clicked(object sender, EventArgs e)
         {
+            activityIndicator.IsRunning = true;
+            popupLoadingView.IsVisible = true;
+
             await Navigation.PushAsync(new WareHouseReceivingLogReports());
-           
+            popupLoadingView.IsVisible = false;
+            activityIndicator.IsRunning = false;
         }
 
         private async void btn_binTag_Clicked(object sender, EventArgs e)
         {
+            activityIndicator.IsRunning = true;
+            popupLoadingView.IsVisible = true;
             await Navigation.PushAsync(new ClearPalletAndBinTagPage());
+            popupLoadingView.IsVisible = false;
+            activityIndicator.IsRunning = false;
         }
 
         private async void Btn_ProductBinReport_Clicked(object sender, EventArgs e)
         {
+            activityIndicator.IsRunning = true;
+            popupLoadingView.IsVisible = true;
+
             await Navigation.PushAsync(new ProductBinDetailReport());
+            popupLoadingView.IsVisible = false;
+            activityIndicator.IsRunning = false;
         }
     }
 }

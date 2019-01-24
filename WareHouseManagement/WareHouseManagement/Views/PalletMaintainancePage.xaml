@@ -134,7 +134,7 @@
                                                         <TapGestureRecognizer
                                                          Tapped="Img_deleteRow_Clicked"
                                                          NumberOfTapsRequired="1"
-                                                     CommandParameter="{Binding Barcode}"/>
+                                                     CommandParameter="{Binding Id}"/>
                                                     </Image.GestureRecognizers>
                                                 </Image>
 

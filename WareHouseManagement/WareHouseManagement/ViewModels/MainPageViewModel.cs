@@ -30,5 +30,6 @@ namespace WareHouseManagement.ViewModels
             aTimer?.Stop();
             aTimer?.Dispose();
         }
+
     }
 }

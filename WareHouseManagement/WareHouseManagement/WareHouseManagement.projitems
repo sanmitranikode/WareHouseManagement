@@ -51,7 +51,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BinsDetailByProductModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\GradientColorStack.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HeatMapConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\InventoryListModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LotNumberRecievingLogModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PageDataViewModel.cs" />
@@ -59,7 +58,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PalletMaintanancedataBindingModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProductModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ReaderListViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RelativeDistanceViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserLoginViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\WRReceivingLogReportResponseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\WRReceivingLogResponseViewModel.cs" />
@@ -72,16 +70,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\ClearPalletPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\InventoryList.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\LocateTag.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\PalletMaintainancePage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\PickUpListTransaction.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\PickUpLogList.xaml.cs">
@@ -106,9 +98,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\ReadWriteAccess.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\RelativeDistance.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\StockInPage.xaml.cs">
@@ -140,13 +129,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\InventoryList.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ReadWriteAccess.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\RelativeDistance.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ReaderListMainPage.xaml">
@@ -178,11 +161,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PickUpLogSelection.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PickUpListTransaction.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>

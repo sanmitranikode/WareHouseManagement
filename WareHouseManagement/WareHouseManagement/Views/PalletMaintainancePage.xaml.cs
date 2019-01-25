@@ -76,7 +76,7 @@ namespace WareHouseManagement.Views
         {
             base.OnAppearing();
             bool EditOption = false;
-            BtnEditpencil.Icon = "EditIcon";
+            BtnEditpencil.Icon = "edit_icon.png";
 
             LoadLotNo();
             // GetUserLoginAsync();
@@ -581,13 +581,14 @@ namespace WareHouseManagement.Views
             if(EditOption == true)
             {
                  EditOption = false;
-                BtnEditpencil.Icon = "EditIcon";
+                BtnEditpencil.Icon = "edit_icon.png";
                 SaveUpdateButton.Text = "Save";
             }
             else
             {
                 EditOption = true;
-                BtnEditpencil.Icon = "SaveIcon";
+                txt_PalletTagNo.Focus();
+                BtnEditpencil.Icon = "Save_icon.png";
                 SaveUpdateButton.Text = "Update";
             }
 

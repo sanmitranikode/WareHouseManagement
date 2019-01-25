@@ -7,6 +7,7 @@
              Title="MANAGEMENT"  >
 
     <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="rfidReader" Icon="{Binding readerConnectionicon}" Clicked="rfidReader_Clicked"/>
         <ToolbarItem Icon="power_1.PNG" Clicked="OnLogoutButtonClicked" />
     </ContentPage.ToolbarItems>
 
@@ -15,15 +16,14 @@
             <StackLayout x:Name="wholelaout"  HorizontalOptions="Center" Padding="10" VerticalOptions="Fill"
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
 
-                <StackLayout  >
+                <StackLayout  VerticalOptions="FillAndExpand" >
 
                     <Grid VerticalOptions="FillAndExpand">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
+                          
 
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
@@ -31,34 +31,22 @@
                             <ColumnDefinition Width="*" />
 
                         </Grid.ColumnDefinitions>
-
                         <Button x:Name="btn_PalletMaintainance" Image="palletmaintance.png"  Grid.Row="0"  Grid.Column="0"    BorderRadius="5"   BackgroundColor="White" ContentLayout="Top,5"  Text="Pallet Maintenance"   Clicked="btn_PalletMaintainance_Clicked">
 
                         </Button>
 
+                        <Button x:Name="Btn_PalletMaintainanceReport" Image="reportPng.png" Grid.Row="0"  Grid.Column="1" Text="WR Received Log" ContentLayout="Top,30"  BorderRadius="5" BackgroundColor="White"  Clicked="Btn_PalletMaintainanceReport_Clicked" ></Button>
 
 
 
 
+                        <!--<Button x:Name="btn_ReaderList" Image="connection.png" Grid.Row="0"  Grid.Column="1"   Text="ReaderList"  ContentLayout="Top,30"   BorderRadius="5" BackgroundColor="White"  Clicked="btn_ReaderList_Clicked" >
 
-                        <Button x:Name="btn_ReaderList" Image="connection.png" Grid.Row="0"  Grid.Column="1"   Text="ReaderList"  ContentLayout="Top,30"   BorderRadius="5" BackgroundColor="White"  Clicked="btn_ReaderList_Clicked" >
-
-                        </Button>
-
-
-
-
-
-
+                        </Button>-->
 
 
                         <Button x:Name="btn_StockIn" Image="warehousestockin.png"  Grid.Row="1"  Grid.Column="0"  BorderRadius="5"   BackgroundColor="White" ContentLayout="Top,30" Text="Stock In"  Clicked="btn_StockIn_Clicked">
                         </Button>
-
-
-
-
-
 
 
                         <Button x:Name="btn_StockOut" Image="stockoutPng.png"   Grid.Row="1"  Grid.Column="1" BorderRadius="5"  BackgroundColor="White" ContentLayout="Top,30"   Text="Stock Out"  Clicked="btn_StockOut_Clicked">
@@ -66,71 +54,31 @@
                         </Button>
 
 
-
-
-
-
-
-
                         <Button x:Name="btn_ClrPalletTag" Image="clearpallet.png"  Grid.Row="2"  Grid.Column="0"   BorderRadius="5"  BackgroundColor="White" ContentLayout="Top,30"  Text="Clear Pallet Tag"  Clicked="btn_ClrPalletTag_Clicked">
 
                         </Button>
-
-
-
-
-
-
-
 
                         <Button x:Name="btn_binTag" Image="clearpallet.png" Grid.Row="2"  Grid.Column="1"  BorderRadius="5"  BackgroundColor="White" ContentLayout="Top,30"  Text="Bin Tag"  Clicked="btn_binTag_Clicked" >
 
                         </Button>
 
 
+                        <!--<Button     Image="pickuplistPng.png"  Grid.Row="3"  Grid.Column="1"  BorderRadius="5"  BackgroundColor="White"  ContentLayout="Top,30" Text="Pickup List "  Clicked="Btn_PickUpList_Clicked" >
 
+                        </Button>-->
+                        <!--<Button x:Name="btn_ProductBinReport"  Image="clearpallet.png" Grid.Row="0"  Grid.Column="1"   BorderRadius="5"  BackgroundColor="White"  ContentLayout="Top,30" Text="Product Report"  Clicked="Btn_ProductBinReport_Clicked" >
 
-
-
-
-
-
-
-                        <Button x:Name="Btn_PalletMaintainanceReport" Image="reportPng.png" Grid.Row="3"  Grid.Column="0" Text="WR Received Log" ContentLayout="Top,30"  BorderRadius="5" BackgroundColor="White"  Clicked="Btn_PalletMaintainanceReport_Clicked" ></Button>
-
-
-
-
-
-
-
-
-
-
-
-
-                        <Button    Image="pickuplistPng.png"  Grid.Row="3"  Grid.Column="1"  BorderRadius="5"  BackgroundColor="White"  ContentLayout="Top,30" Text="Pickup List "  Clicked="Btn_PickUpList_Clicked" >
-
-                        </Button>
-                        <Button x:Name="btn_ProductBinReport"  Image="clearpallet.png"  Grid.Row="4"  Grid.Column="0"  BorderRadius="5"  BackgroundColor="White"  ContentLayout="Top,30" Text="Product Report"  Clicked="Btn_ProductBinReport_Clicked" >
-
-                        </Button>
-          
-
-
-                        <!--<ActivityIndicator x:Name="activity" VerticalOptions="Center" HorizontalOptions="Center"  HeightRequest="30"/>-->
-
-
+                        </Button>-->
 
 
 
                     </Grid>
                   
-                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Fill" >
+                    <!--<StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Fill" >
                         <Image Source="{Binding readerConnectionicon}"/>
                         <Label  Text="{Binding readerConnection}" TextColor="#3C495A"  FontAttributes="Bold" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
 
-                    </StackLayout>
+                    </StackLayout>-->
                    
 
 
@@ -142,9 +90,9 @@
             </StackLayout>
             <ContentView x:Name="popupLoadingView" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                    <StackLayout Orientation="Vertical" HeightRequest="150" WidthRequest="200" BackgroundColor="White">
-                        <ActivityIndicator x:Name="activityIndicator" IsVisible="True" Margin="0,50,0,0" VerticalOptions="Center" HorizontalOptions="Center" Color="Black" WidthRequest="30" HeightRequest="30" ></ActivityIndicator>
-                        <Label x:Name="lblLoadingText" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center" VerticalTextAlignment="Center" Text="Loading..."></Label>
+                    <StackLayout Orientation="Vertical" HeightRequest="150" WidthRequest="200" BackgroundColor="Transparent">
+                        <ActivityIndicator x:Name="activityIndicator" IsVisible="True" Margin="0,50,0,0" VerticalOptions="Center" HorizontalOptions="Center" Color="#3C495A" WidthRequest="30" HeightRequest="30" ></ActivityIndicator>
+                        <Label x:Name="lblLoadingText" TextColor="#3C495A" VerticalOptions="Center" HorizontalOptions="Center" VerticalTextAlignment="Center" Text="Loading..."></Label>
                     </StackLayout>
                 </StackLayout>
             </ContentView>

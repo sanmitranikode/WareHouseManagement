@@ -25,13 +25,10 @@ namespace WareHouseManagement.ViewModels
             All = new List<PageDataViewModel>
             {
                 new PageDataViewModel(typeof(ReaderList), "Reader List",
-                                      "To select the reader from available reader list"),
-                new PageDataViewModel(typeof(InventoryList), "Item inventory",
-                                      "Used for Item count or stock count\nPerforms inventory operation"),
-                  new PageDataViewModel(typeof(RelativeDistance), "Relative Distance",
-                                      "Shows the relative proximity of multiple tags"),
-                   new PageDataViewModel(typeof(PickUpListTransaction), "Test",
-                                      "Shows the relative proximity of multiple tags"),
+                                      "To select the reader from available reader list")
+                
+                 
+                   
             };
         }
 

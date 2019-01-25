@@ -57,15 +57,21 @@ namespace WareHouseManagement
 
         private async void btn_StockIn_Clicked(object sender, EventArgs e)
         {
-          await Navigation.PushAsync(new StockInPage());
+            activityIndicator.IsRunning = true;
+            popupLoadingView.IsVisible = true;
+
+            await Task.Delay(700);
+            await Navigation.PushAsync(new StockInPage());
+            popupLoadingView.IsVisible = false;
+            activityIndicator.IsRunning = false;
         }
 
         private async void btn_PalletMaintainance_Clicked(object sender, EventArgs e)
         {
             activityIndicator.IsRunning = true;
             popupLoadingView.IsVisible = true;
-            
 
+            await Task.Delay(700);
 
             await Navigation.PushAsync(new PalletMaintainancePage());
             popupLoadingView.IsVisible = false;
@@ -78,6 +84,7 @@ namespace WareHouseManagement
         {
             activityIndicator.IsRunning = true;
             popupLoadingView.IsVisible = true;
+            await Task.Delay(700);
             await Navigation.PushAsync(new ClearPalletAndBinTagPage());
             popupLoadingView.IsVisible = false;
             activityIndicator.IsRunning = false;
@@ -92,6 +99,7 @@ namespace WareHouseManagement
         {
             activityIndicator.IsRunning = true;
             popupLoadingView.IsVisible = true;
+            await Task.Delay(700);
             await Navigation.PushAsync(new ReaderListMainPage());
             popupLoadingView.IsVisible = false;
             activityIndicator.IsRunning = false;
@@ -101,6 +109,7 @@ namespace WareHouseManagement
         {
             activityIndicator.IsRunning = true;
             popupLoadingView.IsVisible = true;
+            await Task.Delay(700);
             await Navigation.PushAsync(new PiclUpLogSelection());
             popupLoadingView.IsVisible = false;
             activityIndicator.IsRunning = false;
@@ -110,7 +119,7 @@ namespace WareHouseManagement
         {
             activityIndicator.IsRunning = true;
             popupLoadingView.IsVisible = true;
-
+            await Task.Delay(700);
             await Navigation.PushAsync(new WareHouseReceivingLogReports());
             popupLoadingView.IsVisible = false;
             activityIndicator.IsRunning = false;
@@ -120,6 +129,7 @@ namespace WareHouseManagement
         {
             activityIndicator.IsRunning = true;
             popupLoadingView.IsVisible = true;
+            await Task.Delay(700);
             await Navigation.PushAsync(new ClearPalletAndBinTagPage());
             popupLoadingView.IsVisible = false;
             activityIndicator.IsRunning = false;
@@ -129,10 +139,15 @@ namespace WareHouseManagement
         {
             activityIndicator.IsRunning = true;
             popupLoadingView.IsVisible = true;
-
+            await Task.Delay(700);
             await Navigation.PushAsync(new ProductBinDetailReport());
             popupLoadingView.IsVisible = false;
             activityIndicator.IsRunning = false;
+        }
+
+        private async void rfidReader_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new ReaderListMainPage());
         }
     }
 }

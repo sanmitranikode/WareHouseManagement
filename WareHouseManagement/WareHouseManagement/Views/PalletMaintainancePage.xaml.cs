@@ -250,6 +250,7 @@ namespace WareHouseManagement.Views
                                         PalletList.ItemsSource = null;
                                         PalletList.ItemsSource = items.Items;
                                         txt_Barcode.Text = "";
+                                        txt_SetQuantity.Text = "";
                                     }
                                     else
                                     {
@@ -271,6 +272,7 @@ namespace WareHouseManagement.Views
                                         PalletList.ItemsSource = null;
                                         PalletList.ItemsSource = items.Items;
                                         txt_Barcode.Text = "";
+                                        txt_SetQuantity.Text = "";
                                     }
                                 }
                                 else
@@ -293,6 +295,7 @@ namespace WareHouseManagement.Views
                                     PalletList.ItemsSource = null;
                                     PalletList.ItemsSource = items.Items;
                                     txt_Barcode.Text = "";
+                                    txt_SetQuantity.Text = "";
                                 }
 
                             }
@@ -342,6 +345,7 @@ namespace WareHouseManagement.Views
                             PalletList.ItemsSource = null;
                             PalletList.ItemsSource = palletItem;
                             txt_Barcode.Text = "";
+                            txt_SetQuantity.Text = "";
                         }
                         else
                         {
@@ -362,6 +366,7 @@ namespace WareHouseManagement.Views
                             PalletList.ItemsSource = null;
                             PalletList.ItemsSource = palletItem;
                             txt_Barcode.Text = "";
+                            txt_SetQuantity.Text = "";
                         }
                     }
                     else
@@ -384,6 +389,7 @@ namespace WareHouseManagement.Views
                         PalletList.ItemsSource = null;
                         PalletList.ItemsSource = palletItem;
                         txt_Barcode.Text = "";
+                        txt_SetQuantity.Text = "";
                     }
 
                 }
@@ -479,14 +485,27 @@ namespace WareHouseManagement.Views
             PalletList.ItemsSource = null;
             PalletList.ItemsSource = items.Items;
             txt_lotNo.Text = "";
-            lbl_totalQuantity.Text = "Total Quantity = 0";
+            lbl_totalQuantity.Text = "Total Quantity = " +"0";
         }
 
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-         
-           
+
+            if (EditOption == true)
+            {
+                if (palletItem != null && txt_PalletTagNo.Text != "" && txt_PalletTagNo.Text != null)
+                {
+                    PostPalletMaintainanceDetailAsync();
+                }
+
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Message", "Fill All Detail", "OK");
+                }
+            }
+            else
+            {
                 if (_model != null && txt_PalletTagNo.Text != "" && txt_PalletTagNo.Text != null)
                 {
                     PostPalletMaintainanceDetailAsync();
@@ -496,6 +515,8 @@ namespace WareHouseManagement.Views
                 {
                     await Application.Current.MainPage.DisplayAlert("Message", "Fill All Detail", "OK");
                 }
+            }
+                
            
            
 
@@ -511,10 +532,10 @@ namespace WareHouseManagement.Views
 
             try
             {
-
+                int TotalQty = 0;
                 if (EditOption == true)
                 {
-
+                    
                     var listitems = (from itm in palletItem where itm.Id ==Convert.ToInt32( item) select itm).FirstOrDefault<PalletItemResponse>();
                     var PalletDetailDelete = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.DeletePalletItem + "?ItemTag="+txt_PalletTagNo.Text+"&Id="+listitems.Id);
                     if (PalletDetailDelete.Status == 1)
@@ -522,22 +543,27 @@ namespace WareHouseManagement.Views
                         palletItem.Remove(listitems);
                         PalletList.ItemsSource = null;
                         PalletList.ItemsSource = palletItem;
+                      
+                        
                     }
                     else
                     {
-                        await Application.Current.MainPage.DisplayAlert("Message", "Item is Not Deleted", "OK");
+                        palletItem.Remove(listitems);
+                        PalletList.ItemsSource = null;
+                        PalletList.ItemsSource = palletItem;
                     }
-                    //  int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
-                    //lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
+                    TotalQty = palletItem.Sum(a => Convert.ToInt32(a.Quantity));
+                   
                 }
                 else
                 {
                     listitem = (from itm in items.Items where itm.Id == Convert.ToInt32(item) select itm).FirstOrDefault<ProductBarcodeResponseModel>();
                     items.Items.Remove(listitem);
                     _model.Remove(listitem);
-                    int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
-                    lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
+                     TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
+                   
                 }
+                lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
             }
             catch
             {
@@ -611,6 +637,15 @@ namespace WareHouseManagement.Views
 
                     // data.Add(PalletData);
                     //  items = PalletData;
+                    PalletList.ItemsSource = null;
+                    PalletList.ItemsSource = palletItem;
+                    int TotalQty = palletItem.Sum(a => Convert.ToInt32(a.Quantity));
+                    //  int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
+                    lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
+                }
+                else
+                {
+                    palletItem = null;
                     PalletList.ItemsSource = null;
                     PalletList.ItemsSource = palletItem;
                     int TotalQty = palletItem.Sum(a => Convert.ToInt32(a.Quantity));

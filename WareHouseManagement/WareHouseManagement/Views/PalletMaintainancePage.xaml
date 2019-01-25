@@ -46,7 +46,7 @@
                     </Image>
                 </StackLayout>
                 <StackLayout Padding="10,10,10,0" Orientation="Horizontal">
-                    <Entry  x:Name="txt_SetQuantity"  VerticalOptions="Start"   Placeholder="Quantity" HorizontalOptions="Fill"  />
+                    <Entry  x:Name="txt_SetQuantity"  VerticalOptions="Start" Keyboard="Numeric"   Placeholder="Quantity" HorizontalOptions="Fill"  />
 
                     <Entry  x:Name="txt_Barcode"   VerticalOptions="End"   TextChanged="txt_Barcode_TextChanged" Placeholder="Bar Code" HorizontalOptions="FillAndExpand"  />
                    

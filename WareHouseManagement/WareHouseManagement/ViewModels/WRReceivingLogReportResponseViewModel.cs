@@ -43,7 +43,7 @@ namespace WareHouseManagement.ViewModels
         public DateTime CreateDate { get; set; }
 
         public DateTime LastUpdateDate { get; set; }
-        public List<WRReceivingProducts> WRPickupListProducts { get; set; }
+        public List<WRReceivingProducts> wrReceivingProducts { get; set; }
     }
 
     public class WRReceivingProducts

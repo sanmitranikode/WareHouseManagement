@@ -45,13 +45,15 @@ namespace WareHouseManagement.Views
 
           
         }
-        
+       
+
+      
         private async void TapGestureRecognizer_TappedAsync(object sender, EventArgs e)
         {
             var tappedHier = ((TappedEventArgs)e).Parameter;
             ProductReport.Status = 1;
-              var data = Detail.WRReceivingLogModel.Where(a => a.Id ==Convert.ToInt32(tappedHier)).FirstOrDefault().WRPickupListProducts;
-           
+            var data = Detail.WRReceivingLogModel.Where(a => a.LotNo == tappedHier).FirstOrDefault().wrReceivingProducts;
+
             await Navigation.PushAsync(new ProductRecord(data));
         }
 

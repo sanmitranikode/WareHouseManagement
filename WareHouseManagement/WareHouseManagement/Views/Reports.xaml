@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WareHouseManagement.Views.Reports">
+    <ContentPage.Content>
+        <StackLayout>
+            <Button     Image="clearpallet.png"  Grid.Row="3"  Grid.Column="1"  BorderRadius="5"  BackgroundColor="White"  ContentLayout="Top,30" Text="Product Report"  Clicked="Btn_ProductBinReport_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

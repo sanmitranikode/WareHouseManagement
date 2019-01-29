@@ -83,5 +83,19 @@ namespace WareHouseManagement.PCL.Service
                 return resp;
             }
         }
+        public async Task<ResultModel> GetBinTags(string Url)
+        {
+            ResultModel resp = null;
+            try
+            {
+                resp = await _helper.Get<ResultModel>(Url);
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                //Crashes.TrackError(ex);
+                return resp;
+            }
+        }
     }
 }

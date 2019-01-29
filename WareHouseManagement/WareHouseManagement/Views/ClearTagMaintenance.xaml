@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WareHouseManagement.Views.ClearTagMaintenance">
+    <ContentPage.Content>
+        <StackLayout>
+
+            <Button x:Name="btn_ClrPalletTag" Image="clearpallet.png"  Grid.Row="2"  Grid.Column="0"   BorderRadius="5"  BackgroundColor="White" ContentLayout="Top,30"  Text="Clear Pallet Tag"  Clicked="btn_ClrPalletTag_Clicked">
+
+            </Button>
+
+            <Button x:Name="btn_clearbinTag" Image="clearpallet.png" Grid.Row="2"  Grid.Column="1"  BorderRadius="5"  BackgroundColor="White" ContentLayout="Top,30"  Text=" Clear Bin Tag"  Clicked="btn_binTag_Clicked" >
+
+            </Button>
+
+            <Button x:Name="btn_createbinTag" Image="clearpallet.png" Grid.Row="2"  Grid.Column="1"  BorderRadius="5"  BackgroundColor="White" ContentLayout="Top,30"  Text="Create Bin Tag"  Clicked="btn_binTag_Clicked" >
+
+            </Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

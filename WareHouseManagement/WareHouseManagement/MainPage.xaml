@@ -54,21 +54,21 @@
                         </Button>
 
 
-                        <Button x:Name="btn_ClrPalletTag" Image="clearpallet.png"  Grid.Row="2"  Grid.Column="0"   BorderRadius="5"  BackgroundColor="White" ContentLayout="Top,30"  Text="Clear Pallet Tag"  Clicked="btn_ClrPalletTag_Clicked">
+                        <Button x:Name="btn_ClrPalletTag" Image="clearpallet.png"  Grid.Row="2"  Grid.Column="0"   BorderRadius="5"  BackgroundColor="White" ContentLayout="Top,30"  Text="Tags"  Clicked="btn_ClrPalletTag_Clicked">
 
                         </Button>
 
-                        <Button x:Name="btn_binTag" Image="clearpallet.png" Grid.Row="2"  Grid.Column="1"  BorderRadius="5"  BackgroundColor="White" ContentLayout="Top,30"  Text="Bin Tag"  Clicked="btn_binTag_Clicked" >
+                        <!--<Button x:Name="btn_binTag" Image="clearpallet.png" Grid.Row="2"  Grid.Column="1"  BorderRadius="5"  BackgroundColor="White" ContentLayout="Top,30"  Text="Bin Tag"  Clicked="btn_binTag_Clicked" >
+
+                        </Button>-->
+
+
+                        <!--<Button     Image="pickuplistPng.png"  Grid.Row="2"  Grid.Column="1"  BorderRadius="5"  BackgroundColor="White"  ContentLayout="Top,30" Text="Pickup List "  Clicked="Btn_PickUpList_Clicked" >
+
+                        </Button>-->
+                        <Button x:Name="btn_ProductBinReport"  Image="pickuplistPng.png"  Grid.Row="2"  Grid.Column="1"  BorderRadius="5"  BackgroundColor="White"  ContentLayout="Top,30" Text="Reports"  Clicked="Btn_ProductBinReport_Clicked" >
 
                         </Button>
-
-
-                        <!--<Button     Image="pickuplistPng.png"  Grid.Row="3"  Grid.Column="1"  BorderRadius="5"  BackgroundColor="White"  ContentLayout="Top,30" Text="Pickup List "  Clicked="Btn_PickUpList_Clicked" >
-
-                        </Button>-->
-                        <!--<Button x:Name="btn_ProductBinReport"  Image="clearpallet.png" Grid.Row="0"  Grid.Column="1"   BorderRadius="5"  BackgroundColor="White"  ContentLayout="Top,30" Text="Product Report"  Clicked="Btn_ProductBinReport_Clicked" >
-
-                        </Button>-->
 
 
 

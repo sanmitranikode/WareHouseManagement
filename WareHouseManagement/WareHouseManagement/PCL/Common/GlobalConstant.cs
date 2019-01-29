@@ -69,5 +69,9 @@ namespace WareHouseManagement.PCL.Common
         public static string GetPickUpList = "PickUpList";
 
     }
+    public struct GetBintagsUrl
+    {
+        public static string GetBintagList = "BinsList";
+    }
 
 }

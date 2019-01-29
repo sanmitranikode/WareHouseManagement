@@ -5,26 +5,33 @@
              xmlns:custom1="clr-namespace:WareHouseManagement.PCL.Common"
              Title="STOCK IN">
     <ContentPage.Content>
-        
-            <StackLayout>
+        <AbsoluteLayout  Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout  HorizontalOptions="Center"  VerticalOptions="Fill" Spacing="30"
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
 
 
-                <StackLayout VerticalOptions="Center" Padding="20" Spacing="20">
+                <StackLayout VerticalOptions="Center"  Spacing="20" HorizontalOptions="FillAndExpand">
 
+                    <StackLayout>
+                        
+                    </StackLayout>
+                    <Entry x:Name="PalletTag"   VerticalOptions="Center"  Placeholder="Pallet Tag" HorizontalOptions="FillAndExpand" TextChanged="PalletTag_TextChanged"/>
+                    <Entry  x:Name="Quantity"   VerticalOptions="Center"  Placeholder="Quantity" HorizontalOptions="FillAndExpand"/>
+                    <StackLayout Orientation="Horizontal">
+                        <Entry  x:Name="BinTag"   VerticalOptions="Center"  Placeholder="Bin Tag" HorizontalOptions="FillAndExpand"/>
 
-                    <Entry Grid.Row="0" x:Name="PalletTag"   VerticalOptions="Center"  Placeholder="Pallet Tag" HorizontalOptions="Fill" TextChanged="PalletTag_TextChanged"/>
-                    <Entry Grid.Row="1" x:Name="Quantity"   VerticalOptions="Center"  Placeholder="Quantity" HorizontalOptions="Fill"/>
-                    <Entry Grid.Row="2" x:Name="BinTag"   VerticalOptions="Center"  Placeholder="Bin Tag" HorizontalOptions="Fill"/>
+                        <Button x:Name="btn_binsearch" Image="magnifier.png" HeightRequest="30" WidthRequest="30" HorizontalOptions="End" BackgroundColor="White" Clicked="btn_binsearch_Clicked"/>
 
-
+                    </StackLayout>
+                   
 
 
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="Center">
-                    <Button Text="Save"  BackgroundColor="#3C495A" TextColor="White" BorderRadius="7" HeightRequest="40" Clicked="btnSave_ClickedAsync"/>
-                    <Button Text="Clear" BackgroundColor="#3C495A" TextColor="White" BorderRadius="7" HeightRequest="40" />
-                    <Button Text="Close" BackgroundColor="#3C495A" TextColor="White" BorderRadius="7"  HeightRequest="40" Clicked="Button_Clicked"/>
+                    <Button x:Name="btn_save"  Text="Save"  BackgroundColor="#3C495A" TextColor="White" BorderRadius="7" HeightRequest="40" Clicked="btnSave_ClickedAsync"/>
+                    <Button x:Name="btn_clear" Text="Clear" BackgroundColor="#3C495A" TextColor="White" BorderRadius="7" HeightRequest="40" />
+                    <Button x:Name="btn_close" Text="Close" BackgroundColor="#3C495A" TextColor="White" BorderRadius="7"  HeightRequest="40" Clicked="Button_Clicked"/>
 
 
                 </StackLayout>
@@ -33,6 +40,32 @@
 
 
             </StackLayout>
+            <ContentView x:Name="popupListView" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                    <StackLayout Orientation="Vertical" HeightRequest="400" WidthRequest="250" BackgroundColor="White">
+                        <Label Text="BinTags" FontSize="14" TextColor="#3C495A" HeightRequest="30" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalOptions="Center"/>
+                        <ListView x:Name="sampleList" ItemSelected="sampleList_ItemSelected">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center" >
+                                            <StackLayout Orientation="Vertical">
+                                                <Label Text = "{Binding BinTag}" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                                               
+                                            </StackLayout>
+                                           
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                </StackLayout>
+            </ContentView>
+            
+        </AbsoluteLayout>
+        
+         
           
        
         

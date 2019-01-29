@@ -25,6 +25,7 @@ namespace WareHouseManagement.Views
         public List<TagItem> Tags = new List<TagItem>();
         private Object tagreadlock = new object();
         private static Dictionary<String, int> tagListDict = new Dictionary<string, int>();
+        public List<BinViewModel> _bintaglist = new List<BinViewModel>();
 
 
         public bool isConnected { get => isConnected; set => OnPropertyChanged(); }
@@ -47,8 +48,13 @@ namespace WareHouseManagement.Views
             UpdateIn();
 
 
-
-
+          var getbins= await new PalletMaintainanceService().GetBinTags(GetBintagsUrl.GetBintagList);
+            if (getbins.Status == 1)
+            {
+                _bintaglist= JsonConvert.DeserializeObject<List<BinViewModel>>(getbins.Response.ToString());
+                sampleList.ItemsSource = _bintaglist;
+            }
+          
 
         }
 
@@ -188,25 +194,32 @@ namespace WareHouseManagement.Views
         }
         private async void btnSave_ClickedAsync(object sender, EventArgs e)
         {
-            StockInPalletModel _model = new StockInPalletModel
+            btn_save.IsEnabled = true;
+            try
             {
-                PalletTag = PalletTag.Text,
-                BinTag = BinTag.Text,
-                Quantity = int.Parse(Quantity.Text)
+                StockInPalletModel _model = new StockInPalletModel
+                {
+                    PalletTag = PalletTag.Text,
+                    BinTag = BinTag.Text,
+                    Quantity = int.Parse(Quantity.Text)
 
-        };
-            
-            var PostDetails = await new StockInPalletService().PostStockInDetail(_model, StockInServiceUrl.PostStockIn);
-            if (PostDetails.Status == 1)
-            {
-                await Application.Current.MainPage.DisplayAlert("Message", "Success", "OK");
-                clearData();
+                };
+
+                var PostDetails = await new StockInPalletService().PostStockInDetail(_model, StockInServiceUrl.PostStockIn);
+                if (PostDetails.Status == 1)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Message", "Success", "OK");
+                    clearData();
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Message", "Inser Fail" + "(" + PostDetails.Response.ToString() + ")", "OK");
+                }
             }
-            else
-            {
-                await Application.Current.MainPage.DisplayAlert("Message", "Inser Fail"+"("+ PostDetails.Response.ToString()+")", "OK");
-            }
+            catch(Exception ex)
+            { }
            
+            btn_save.IsEnabled = false;
 
         }
 
@@ -245,6 +258,26 @@ namespace WareHouseManagement.Views
         private void Button_Clicked(object sender, EventArgs e)
         {
            
+        }
+
+        private void btn_binsearch_Clicked(object sender, EventArgs e)
+        {
+            popupListView.IsVisible = true;
+
+        }
+
+        private void sampleList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var item = (BinViewModel)e.SelectedItem;
+            if (item != null)
+            {
+                BinTag.Text = item.BinTag;
+                ((ListView)sender).SelectedItem = null;
+            }
+        
+            popupListView.IsVisible = false;
+
+
         }
     }
 }

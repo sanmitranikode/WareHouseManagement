@@ -25,7 +25,7 @@
       
         <StackLayout  >
             <StackLayout Padding="10,10,10,0">
-                <Entry  x:Name="txt_BarcodeSearch"   VerticalOptions="Center"  TextChanged="Txt_BarcodeSearch_TextChanged" Placeholder="Bar Code" HorizontalOptions="FillAndExpand"  />
+                <Entry  x:Name="txt_BarcodeSearch"   VerticalOptions="Center"  TextChanged="Txt_BarcodeSearch_TextChanged" Placeholder="Name and Bar Code" HorizontalOptions="FillAndExpand"  />
                 
 
 

@@ -20,13 +20,14 @@ namespace WareHouseManagement
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = viewmodel = new MainPageViewModel();
+         
 
         }
         protected override void OnAppearing()
         {
             base.OnAppearing();
-           
+            BindingContext = viewmodel = new MainPageViewModel();
+
             GlobalConstant.AccessToken = _objShared.LoadApplicationProperty<string>("AccessToken");
             viewmodel.UpdateIn();
         }
@@ -85,7 +86,7 @@ namespace WareHouseManagement
             activityIndicator.IsRunning = true;
             popupLoadingView.IsVisible = true;
             await Task.Delay(700);
-            await Navigation.PushAsync(new ClearPalletAndBinTagPage());
+            await Navigation.PushAsync(new ClearTagMaintenance());
             popupLoadingView.IsVisible = false;
             activityIndicator.IsRunning = false;
         }
@@ -107,12 +108,12 @@ namespace WareHouseManagement
 
         private async void Btn_PickUpList_Clicked(object sender, EventArgs e)
         {
-            activityIndicator.IsRunning = true;
-            popupLoadingView.IsVisible = true;
-            await Task.Delay(700);
-            await Navigation.PushAsync(new PiclUpLogSelection());
-            popupLoadingView.IsVisible = false;
-            activityIndicator.IsRunning = false;
+            //activityIndicator.IsRunning = true;
+            //popupLoadingView.IsVisible = true;
+            //await Task.Delay(700);
+            //await Navigation.PushAsync(new Reports());
+            //popupLoadingView.IsVisible = false;
+            //activityIndicator.IsRunning = false;
         }
 
         private async void Btn_PalletMaintainanceReport_Clicked(object sender, EventArgs e)
@@ -140,7 +141,7 @@ namespace WareHouseManagement
             activityIndicator.IsRunning = true;
             popupLoadingView.IsVisible = true;
             await Task.Delay(700);
-            await Navigation.PushAsync(new ProductBinDetailReport());
+            await Navigation.PushAsync(new Reports());
             popupLoadingView.IsVisible = false;
             activityIndicator.IsRunning = false;
         }

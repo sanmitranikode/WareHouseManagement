@@ -49,6 +49,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\StockOutPalletService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BinsDetailByProductModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BinViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\GradientColorStack.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HeatMapConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LotNumberRecievingLogModel.cs" />
@@ -69,6 +70,9 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\ClearPalletPage.xaml.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ClearTagMaintenance.xaml.cs">
+      <DependentUpon>ClearTagMaintenance.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\LocateTag.xaml.cs">
       <SubType>Code</SubType>
@@ -201,5 +205,11 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ProductBinDetailReportList.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Views\ClearTagMaintenance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>

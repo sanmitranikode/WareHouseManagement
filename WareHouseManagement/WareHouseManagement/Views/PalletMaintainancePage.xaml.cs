@@ -197,60 +197,89 @@ namespace WareHouseManagement.Views
 
         private async void txt_Barcode_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
         {
-            if (txt_Barcode.Text != "")
+            try
             {
-               
-                ProductBarcodeRequestModel _User = new ProductBarcodeRequestModel
-                {
-                    Barcode = txt_Barcode.Text,
-                    LotNo = txt_lotNo.Text,
-                    CheckQuantity=(txt_SetQuantity.Text!="" && txt_SetQuantity.Text!="0")?Convert.ToInt32(txt_SetQuantity.Text):1
 
-
-                };
-                var PalletDetail = await new PalletMaintainanceService().GetPalletMaintainanceDetail(_User, PalletMaintainanceServiceUrl.GetPalletMaintainanceDetai);
-                if (PalletDetail.Status == 2)
+                if (txt_Barcode.Text != "")
                 {
 
-                    await Application.Current.MainPage.DisplayAlert("Message", PalletDetail.Message, "OK");
-                    return;
-                }
-                if (PalletDetail.Status == 1)
-                {
-                    if (EditOption == true)
+                    ProductBarcodeRequestModel _User = new ProductBarcodeRequestModel
                     {
-                        AddProductInGreedForUpdate(PalletDetail.Response);
+                        Barcode = txt_Barcode.Text,
+                        LotNo = txt_lotNo.Text,
+                        CheckQuantity = (txt_SetQuantity.Text != "" && txt_SetQuantity.Text != "0"  && txt_SetQuantity.Text != null) ? Convert.ToInt32(txt_SetQuantity.Text) : 1
+
+
+                    };
+                    var PalletDetail = await new PalletMaintainanceService().GetPalletMaintainanceDetail(_User, PalletMaintainanceServiceUrl.GetPalletMaintainanceDetai);
+                    if (PalletDetail.Status == 2)
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Message", PalletDetail.Message, "OK");
+                        return;
                     }
-                    else
+                    if (PalletDetail.Status == 1)
                     {
-                        var PalletData = JsonConvert.DeserializeObject<ProductBarcodeResponseModel>(PalletDetail.Response.ToString());
-                        if (PalletData.CheckQty == true)
+                        if (EditOption == true)
                         {
-                            try
+                            AddProductInGreedForUpdate(PalletDetail.Response);
+                        }
+                        else
+                        {
+                            var PalletData = JsonConvert.DeserializeObject<ProductBarcodeResponseModel>(PalletDetail.Response.ToString());
+                            if (PalletData.CheckQty == true)
                             {
-                                if (_model.Count != 0)
+                                try
                                 {
-                                    var selected = _model.Where(x => x.Barcode == PalletData.Barcode && x.LotNo == PalletData.LotNo).FirstOrDefault();
-
-                                    if (selected != null)
+                                    if (_model.Count != 0)
                                     {
-                                        _model.Remove(selected);
-                                        _model.Add(new ProductBarcodeResponseModel
+                                        var selected = _model.Where(x => x.Barcode == PalletData.Barcode && x.LotNo == PalletData.LotNo).FirstOrDefault();
+
+                                        if (selected != null)
                                         {
-                                            Id = PalletData.Id,
-                                            Barcode = PalletData.Barcode,
-                                            LotNo = PalletData.LotNo,
-                                            WrReceivingProductId = PalletData.WrReceivingProductId,
-                                            ProductName = PalletData.ProductName,
-                                            Quantity = (txt_SetQuantity.Text != "" && txt_SetQuantity.Text != "0" && txt_SetQuantity.Text != null) ? txt_SetQuantity.Text : ((Convert.ToInt32(selected.Quantity) + 1) > Convert.ToInt32(PalletData.Quantity)) ? PalletData.Quantity.ToString() : (Convert.ToInt32(selected.Quantity) + 1).ToString()
-                                        });
-                                        items = new PalletMaintanancedataBindingModel(_model);
-                                        int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
-                                        lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
-                                        PalletList.ItemsSource = null;
-                                        PalletList.ItemsSource = items.Items;
-                                        txt_Barcode.Text = "";
-                                        txt_SetQuantity.Text = "";
+                                            if (Convert.ToInt32(selected.Quantity) >= Convert.ToInt32(PalletData.Quantity)) { await Application.Current.MainPage.DisplayAlert("Message", "No More Product Found", "OK"); }
+                                            else
+                                            {
+                                                _model.Remove(selected);
+                                                _model.Add(new ProductBarcodeResponseModel
+                                                {
+                                                    Id = PalletData.Id,
+                                                    Barcode = PalletData.Barcode,
+                                                    LotNo = PalletData.LotNo,
+                                                    WrReceivingProductId = PalletData.WrReceivingProductId,
+                                                    ProductName = PalletData.ProductName,
+                                                    Quantity = (txt_SetQuantity.Text != "" && txt_SetQuantity.Text != "0" && txt_SetQuantity.Text != null) ? txt_SetQuantity.Text : ((Convert.ToInt32(selected.Quantity) + 1) > Convert.ToInt32(PalletData.Quantity)) ? PalletData.Quantity.ToString() : (Convert.ToInt32(selected.Quantity) + 1).ToString()
+                                                });
+                                                items = new PalletMaintanancedataBindingModel(_model);
+                                                int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
+                                                lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
+                                                PalletList.ItemsSource = null;
+                                                PalletList.ItemsSource = items.Items;
+                                                txt_Barcode.Text = "";
+                                                txt_SetQuantity.Text = "";
+                                            }
+                                        }
+                                        else
+                                        {
+                                            _model.Add(new ProductBarcodeResponseModel
+                                            {
+                                                Id = PalletData.Id,
+                                                Barcode = PalletData.Barcode,
+                                                LotNo = PalletData.LotNo,
+                                                WrReceivingProductId = PalletData.WrReceivingProductId,
+                                                ProductName = PalletData.ProductName,
+                                                Quantity = (txt_SetQuantity.Text != "" && txt_SetQuantity.Text != "0" && txt_SetQuantity.Text != null) ? txt_SetQuantity.Text : "1"
+                                            }
+
+                                            );
+                                            items = new PalletMaintanancedataBindingModel(_model);
+                                            int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
+                                            //  int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
+                                            lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
+                                            PalletList.ItemsSource = null;
+                                            PalletList.ItemsSource = items.Items;
+                                            txt_Barcode.Text = "";
+                                            txt_SetQuantity.Text = "";
+                                        }
                                     }
                                     else
                                     {
@@ -274,202 +303,199 @@ namespace WareHouseManagement.Views
                                         txt_Barcode.Text = "";
                                         txt_SetQuantity.Text = "";
                                     }
+
                                 }
-                                else
+
+                                catch (Exception ex)
                                 {
-                                    _model.Add(new ProductBarcodeResponseModel
-                                    {
-                                        Id = PalletData.Id,
-                                        Barcode = PalletData.Barcode,
-                                        LotNo = PalletData.LotNo,
-                                        WrReceivingProductId = PalletData.WrReceivingProductId,
-                                        ProductName = PalletData.ProductName,
-                                        Quantity = (txt_SetQuantity.Text != "" && txt_SetQuantity.Text != "0" && txt_SetQuantity.Text != null) ? txt_SetQuantity.Text : "1"
-                                    }
 
-                                    );
-                                    items = new PalletMaintanancedataBindingModel(_model);
-                                    int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
-                                    //  int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
-                                    lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
-                                    PalletList.ItemsSource = null;
-                                    PalletList.ItemsSource = items.Items;
-                                    txt_Barcode.Text = "";
-                                    txt_SetQuantity.Text = "";
                                 }
 
                             }
-
-                            catch (Exception ex)
+                            else
                             {
-
+                                await Application.Current.MainPage.DisplayAlert("Message", "Product Quantity Is Smaller Than Entered Quantity ", "OK");
                             }
+                        }
 
-                        }
-                        else
-                        {
-                            await Application.Current.MainPage.DisplayAlert("Message", "Product Quantity Is Smaller Than Entered Quantity ", "OK");
-                        }
                     }
 
                 }
-
+            }catch(Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Message", ex.ToString(), "OK");
             }
         }
         public async void AddProductInGreedForUpdate(object Response)
         {
-            var PalletData = JsonConvert.DeserializeObject<ProductBarcodeResponseModel>(Response.ToString());
-            if (PalletData.CheckQty == true)
+            try
             {
-                try
+                var PalletData = JsonConvert.DeserializeObject<ProductBarcodeResponseModel>(Response.ToString());
+                if (PalletData.CheckQty == true)
                 {
-                    if (palletItem!=null)
+                    try
                     {
-                        var selected = palletItem.Where(x => x.Barcode == PalletData.Barcode && x.LotNo == PalletData.LotNo).FirstOrDefault();
-
-                        if (selected != null)
+                        if (palletItem != null)
                         {
-                            palletItem.Remove(selected);
-                            palletItem.Add(new PalletItemResponse
+                            var selected = palletItem.Where(x => x.Barcode == PalletData.Barcode && x.LotNo == PalletData.LotNo).FirstOrDefault();
+
+                            if (selected != null)
                             {
-                                Id =0,
-                                Barcode = PalletData.Barcode,
-                                LotNo = PalletData.LotNo,
-                                WRReceivingProductsId =Convert.ToInt32( PalletData.WrReceivingProductId),
-                                ProductName = PalletData.ProductName,
-                                Quantity = (txt_SetQuantity.Text != "" && txt_SetQuantity.Text != "0" && txt_SetQuantity.Text != null) ?Convert.ToInt32( txt_SetQuantity.Text) : ((Convert.ToInt32(selected.Quantity) + 1) > Convert.ToInt32(PalletData.Quantity)) ?Convert.ToInt32( PalletData.Quantity) : (Convert.ToInt32(selected.Quantity) + 1)
-                            });
-                          
-                            int TotalQty = palletItem.Sum(a => Convert.ToInt32(a.Quantity));
-                            lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
-                            PalletList.ItemsSource = null;
-                            PalletList.ItemsSource = palletItem;
-                            txt_Barcode.Text = "";
-                            txt_SetQuantity.Text = "";
+                                if (Convert.ToInt32(selected.Quantity) >= Convert.ToInt32(PalletData.Quantity)) { await Application.Current.MainPage.DisplayAlert("Message", "No More Product Found", "OK"); }
+                                else
+                                {
+                                    palletItem.Remove(selected);
+                                    palletItem.Add(new PalletItemResponse
+                                    {
+                                        Id = 0,
+                                        Barcode = PalletData.Barcode,
+                                        LotNo = PalletData.LotNo,
+                                        WRReceivingProductsId = Convert.ToInt32(PalletData.WrReceivingProductId),
+                                        ProductName = PalletData.ProductName,
+                                        Quantity = (txt_SetQuantity.Text != "" && txt_SetQuantity.Text != "0" && txt_SetQuantity.Text != null) ? Convert.ToInt32(txt_SetQuantity.Text) : ((Convert.ToInt32(selected.Quantity) + 1) > Convert.ToInt32(PalletData.Quantity)) ? Convert.ToInt32(PalletData.Quantity) : (Convert.ToInt32(selected.Quantity) + 1)
+                                    });
+
+                                    int TotalQty = palletItem.Sum(a => Convert.ToInt32(a.Quantity));
+                                    lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
+                                    PalletList.ItemsSource = null;
+                                    PalletList.ItemsSource = palletItem;
+                                    txt_Barcode.Text = "";
+                                    txt_SetQuantity.Text = "";
+                                }
+                            }
+                            else
+                            {
+                                palletItem.Add(new PalletItemResponse
+                                {
+                                    Id = 0,
+                                    Barcode = PalletData.Barcode,
+                                    LotNo = PalletData.LotNo,
+                                    WRReceivingProductsId = Convert.ToInt32(PalletData.WrReceivingProductId),
+                                    ProductName = PalletData.ProductName,
+                                    Quantity = (txt_SetQuantity.Text != "" && txt_SetQuantity.Text != "0" && txt_SetQuantity.Text != null) ? Convert.ToInt32(txt_SetQuantity.Text) : 1
+                                }
+
+                                );
+
+                                int TotalQty = palletItem.Sum(a => Convert.ToInt32(a.Quantity));
+                                lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
+                                PalletList.ItemsSource = null;
+                                PalletList.ItemsSource = palletItem;
+                                txt_Barcode.Text = "";
+                                txt_SetQuantity.Text = "";
+                            }
                         }
                         else
                         {
                             palletItem.Add(new PalletItemResponse
                             {
-                                Id =0,
+                                Id = 0,
                                 Barcode = PalletData.Barcode,
                                 LotNo = PalletData.LotNo,
-                                WRReceivingProductsId =Convert.ToInt32( PalletData.WrReceivingProductId),
+                                WRReceivingProductsId = Convert.ToInt32(PalletData.WrReceivingProductId),
                                 ProductName = PalletData.ProductName,
-                                Quantity = (txt_SetQuantity.Text != "" && txt_SetQuantity.Text != "0" && txt_SetQuantity.Text != null) ?Convert.ToInt32( txt_SetQuantity.Text) : 1
+                                Quantity = (txt_SetQuantity.Text != "" && txt_SetQuantity.Text != "0" && txt_SetQuantity.Text != null) ? Convert.ToInt32(txt_SetQuantity.Text) : 1
                             }
 
                             );
-                           
+
                             int TotalQty = palletItem.Sum(a => Convert.ToInt32(a.Quantity));
+                            //  int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
                             lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
                             PalletList.ItemsSource = null;
                             PalletList.ItemsSource = palletItem;
                             txt_Barcode.Text = "";
                             txt_SetQuantity.Text = "";
                         }
+
                     }
-                    else
+
+                    catch (Exception ex)
                     {
-                        palletItem.Add(new PalletItemResponse
-                        {
-                            Id = 0,
-                            Barcode = PalletData.Barcode,
-                            LotNo = PalletData.LotNo,
-                            WRReceivingProductsId =Convert.ToInt32( PalletData.WrReceivingProductId),
-                            ProductName = PalletData.ProductName,
-                            Quantity = (txt_SetQuantity.Text != "" && txt_SetQuantity.Text != "0" && txt_SetQuantity.Text != null) ?Convert.ToInt32( txt_SetQuantity.Text) : 1
-                        }
-
-                        );
-                      
-                        int TotalQty = palletItem.Sum(a => Convert.ToInt32(a.Quantity));
-                        //  int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
-                        lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
-                        PalletList.ItemsSource = null;
-                        PalletList.ItemsSource = palletItem;
-                        txt_Barcode.Text = "";
-                        txt_SetQuantity.Text = "";
+                        await Application.Current.MainPage.DisplayAlert("Message", ex.ToString(), "OK");
                     }
 
                 }
-
-                catch (Exception ex)
+                else
                 {
-
+                    await Application.Current.MainPage.DisplayAlert("Message", "Product Quantity Is Smaller Than Entered Quantity ", "OK");
                 }
-
-            }
-            else
+            }catch(Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Message", "Product Quantity Is Smaller Than Entered Quantity ", "OK");
+                await Application.Current.MainPage.DisplayAlert("Message",ex.ToString(), "OK");
             }
         }
 
 
         public async void PostPalletMaintainanceDetailAsync()
         {
-
-            PalletModel PalletMaintainanceRequest = new PalletModel();
-            PalletMaintainanceRequest.Tag = txt_PalletTagNo.Text;
-            if (EditOption == true)
-            {
-                PalletMaintainanceRequest.TotalProducts = palletItem.Sum(a => a.Quantity);
-            }
-            else
-            {
-                PalletMaintainanceRequest.TotalProducts = _model.Sum(a => Convert.ToInt32(a.Quantity));
-            }
-
-            List<PalletBarcodes> PalletBarcodes = new List<PalletBarcodes>();
-
             try
             {
+                PalletModel PalletMaintainanceRequest = new PalletModel();
+                PalletMaintainanceRequest.Tag = txt_PalletTagNo.Text;
                 if (EditOption == true)
                 {
-                    foreach (var item in palletItem)
-                    {
-                        PalletBarcodes productmodel = new PalletBarcodes();
-                        productmodel.Id = item.Id;
-                        productmodel.LotNo = (item.LotNo);
-                        productmodel.WRReceivingProductsId = Convert.ToInt32(item.WRReceivingProductsId);
-                        productmodel.Quantity = Convert.ToInt32(item.Quantity);
-                        PalletBarcodes.Add(productmodel);
-
-                    }
+                    PalletMaintainanceRequest.TotalProducts = palletItem.Sum(a => a.Quantity);
                 }
                 else
                 {
-                    foreach (var item in _model)
-                    {
-                        PalletBarcodes productmodel = new PalletBarcodes();
-                        
-                        productmodel.LotNo = (item.LotNo);
-                        productmodel.WRReceivingProductsId = Convert.ToInt32(item.WrReceivingProductId);
-                        productmodel.Quantity = Convert.ToInt32(item.Quantity);
-                        PalletBarcodes.Add(productmodel);
+                    PalletMaintainanceRequest.TotalProducts = _model.Sum(a => Convert.ToInt32(a.Quantity));
+                }
 
+                List<PalletBarcodes> PalletBarcodes = new List<PalletBarcodes>();
+
+                try
+                {
+                    if (EditOption == true)
+                    {
+                        foreach (var item in palletItem)
+                        {
+                            PalletBarcodes productmodel = new PalletBarcodes();
+                            productmodel.Id = item.Id;
+                            productmodel.LotNo = (item.LotNo);
+                            productmodel.WRReceivingProductsId = Convert.ToInt32(item.WRReceivingProductsId);
+                            productmodel.Quantity = Convert.ToInt32(item.Quantity);
+                            PalletBarcodes.Add(productmodel);
+
+                        }
+                    }
+                    else
+                    {
+                        foreach (var item in _model)
+                        {
+                            PalletBarcodes productmodel = new PalletBarcodes();
+
+                            productmodel.LotNo = (item.LotNo);
+                            productmodel.WRReceivingProductsId = Convert.ToInt32(item.WrReceivingProductId);
+                            productmodel.Quantity = Convert.ToInt32(item.Quantity);
+                            PalletBarcodes.Add(productmodel);
+
+                        }
+                    }
+
+
+                    PalletMaintainanceRequest.PalletBarcodes = PalletBarcodes;
+
+                    // var RFID= int.Parse(txt_Barcode.Text);
+                    var PostDetails = await new PalletMaintainanceService().PostPalletMaintainanceDetail(PalletMaintainanceRequest, PalletMaintainanceServiceUrl.PostPalletreceivinglog);
+                    if (PostDetails.Status == 1)
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Message", "Success", "OK");
+                        ClearData();
+                    }
+                    else
+                    {
+                        if (EditOption == true) { await Application.Current.MainPage.DisplayAlert("Message", "Updation Fail", "OK"); } else { await Application.Current.MainPage.DisplayAlert("Message", "Insert Fail", "OK"); }
                     }
                 }
-               
-
-                PalletMaintainanceRequest.PalletBarcodes = PalletBarcodes;
-
-                // var RFID= int.Parse(txt_Barcode.Text);
-                var PostDetails = await new PalletMaintainanceService().PostPalletMaintainanceDetail(PalletMaintainanceRequest, PalletMaintainanceServiceUrl.PostPalletreceivinglog);
-                if (PostDetails.Status == 1)
+                catch (Exception ex)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Message", "Success", "OK");
-                    ClearData();
-                }
-                else
-                {
-                    if (EditOption == true) { await Application.Current.MainPage.DisplayAlert("Message", "Updation Fail", "OK"); } else { await Application.Current.MainPage.DisplayAlert("Message", "Insert Fail", "OK"); }
+                    await Application.Current.MainPage.DisplayAlert("Message",ex.ToString(), "OK");
                 }
             }
             catch (Exception ex)
             {
-
+                await Application.Current.MainPage.DisplayAlert("Message", ex.ToString(), "OK");
             }
         }
 
@@ -491,34 +517,39 @@ namespace WareHouseManagement.Views
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-
-            if (EditOption == true)
+            try
             {
-                if (palletItem != null && txt_PalletTagNo.Text != "" && txt_PalletTagNo.Text != null)
+                if (EditOption == true)
                 {
-                    PostPalletMaintainanceDetailAsync();
-                }
+                    if (palletItem != null && txt_PalletTagNo.Text != "" && txt_PalletTagNo.Text != null)
+                    {
+                        PostPalletMaintainanceDetailAsync();
+                    }
 
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Message", "Fill All Detail", "OK");
+                    }
+                }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("Message", "Fill All Detail", "OK");
-                }
-            }
-            else
-            {
-                if (_model != null && txt_PalletTagNo.Text != "" && txt_PalletTagNo.Text != null)
-                {
-                    PostPalletMaintainanceDetailAsync();
+                    if (_model != null && txt_PalletTagNo.Text != "" && txt_PalletTagNo.Text != null)
+                    {
+                        PostPalletMaintainanceDetailAsync();
+                    }
+
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Message", "Fill All Detail", "OK");
+                    }
                 }
 
-                else
-                {
-                    await Application.Current.MainPage.DisplayAlert("Message", "Fill All Detail", "OK");
-                }
+
             }
-                
-           
-           
+            catch(Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Message",ex.ToString(), "OK");
+            }
 
         }
 
@@ -565,9 +596,9 @@ namespace WareHouseManagement.Views
                 }
                 lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
             }
-            catch
+            catch(Exception ex)
             {
-                Console.WriteLine("Select Item ");
+                await Application.Current.MainPage.DisplayAlert("Message",ex.ToString(), "OK");
             }
 
         }
@@ -656,21 +687,24 @@ namespace WareHouseManagement.Views
             }
             catch (Exception ex)
             {
-
+                await Application.Current.MainPage.DisplayAlert("Message",ex.ToString(), "OK");
             }
         }
 
-        private void Txt_PalletTagNo_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
+        private async void Txt_PalletTagNo_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
         {
-            if (EditOption == true)
+            if (txt_PalletTagNo.Text != "")
             {
-                try
+                if (EditOption == true)
                 {
-                    GetPalletItem();
-                }
-                catch (Exception ex)
-                {
-
+                    try
+                    {
+                        GetPalletItem();
+                    }
+                    catch (Exception ex)
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Message", ex.ToString(), "OK");
+                    }
                 }
             }
         }

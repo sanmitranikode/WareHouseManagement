@@ -4,7 +4,9 @@
              x:Class="WareHouseManagement.Views.Reports">
     <ContentPage.Content>
         <StackLayout>
-            <Button     Image="clearpallet.png"  Grid.Row="3"  Grid.Column="1"  BorderRadius="5"  BackgroundColor="White"  ContentLayout="Top,30" Text="Product Report"  Clicked="Btn_ProductBinReport_Clicked"/>
+            <StackLayout>
+                <Button     Image="clearpallet.png"  Grid.Row="3"  Grid.Column="1"  BorderRadius="5"  BackgroundColor="White"  ContentLayout="Top,30" Text="Product Report"  Clicked="Btn_ProductBinReport_Clicked"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

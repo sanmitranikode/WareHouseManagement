@@ -18,7 +18,7 @@
                     <Entry x:Name="PalletTag"   VerticalOptions="Center"  Placeholder="Pallet Tag" HorizontalOptions="FillAndExpand" TextChanged="PalletTag_TextChanged"/>
                     <Entry  x:Name="Quantity"   VerticalOptions="Center"  Placeholder="Quantity" HorizontalOptions="FillAndExpand"/>
                     <StackLayout Orientation="Horizontal">
-                        <Entry  x:Name="BinTag"   VerticalOptions="Center"  Placeholder="Bin Tag" HorizontalOptions="FillAndExpand"/>
+                        <Entry  x:Name="BinTag"   VerticalOptions="Center"  Placeholder="Bin Tag" HorizontalOptions="FillAndExpand" TextChanged="BinTag_TextChanged"/>
 
                         <Button x:Name="btn_binsearch" Image="magnifier.png" HeightRequest="30" WidthRequest="30" HorizontalOptions="End" BackgroundColor="White" Clicked="btn_binsearch_Clicked"/>
 
@@ -48,13 +48,14 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <ViewCell>
-                                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center" >
-                                            <StackLayout Orientation="Vertical">
+                                        
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="20">
+                                                <Label Text = "{Binding BinCode}" FontSize="Small" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                                                 <Label Text = "{Binding BinTag}" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                                                
                                             </StackLayout>
                                            
-                                        </StackLayout>
+                                     
                                     </ViewCell>
                                 </DataTemplate>
                             </ListView.ItemTemplate>

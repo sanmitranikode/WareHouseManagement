@@ -16,7 +16,6 @@ namespace WareHouseManagement.Views
 		{
 			InitializeComponent ();
 		}
-      
         private async void Btn_ProductBinReport_Clicked(object sender, EventArgs e)
         {
 

@@ -55,6 +55,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LotNumberRecievingLogModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PageDataViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PalletlistViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PalletMaintanance Model.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PalletMaintanancedataBindingModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProductModel.cs" />

@@ -48,7 +48,7 @@ namespace WareHouseManagement.Views
             UpdateIn();
 
 
-          var getbins= await new PalletMaintainanceService().GetBinTags(GetBintagsUrl.GetBintagList);
+          var getbins= await new PalletMaintainanceService().GetPalletLog(GetBintagsUrl.GetBintagList);
             if (getbins.Status == 1)
             {
                 _bintaglist= JsonConvert.DeserializeObject<List<BinViewModel>>(getbins.Response.ToString());
@@ -241,8 +241,7 @@ namespace WareHouseManagement.Views
             }
         }
 
-
-        public void clearData()
+ public void clearData()
         {
 
             PalletTag.Text = "";
@@ -250,6 +249,7 @@ namespace WareHouseManagement.Views
             Quantity.Text = "";
             btn_save.IsEnabled = false;
         }
+       
 
         private void PalletTag_TextChanged(object sender, TextChangedEventArgs e)
         {

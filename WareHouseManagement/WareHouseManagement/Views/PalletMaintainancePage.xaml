@@ -28,37 +28,39 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout >
-            <StackLayout>
+        <AbsoluteLayout Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout   VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout>
 
-                <StackLayout Padding="10,10,10,0" Orientation="Horizontal">
-                    <forms:AutoSuggestBox x:Name="txt_lotNo" HeightRequest="40"  PlaceholderText="Lot No"   BackgroundColor="Silver" HorizontalOptions="FillAndExpand"
+                    <StackLayout Padding="10,10,10,0" Orientation="Horizontal">
+                        <forms:AutoSuggestBox x:Name="txt_lotNo" HeightRequest="40"  PlaceholderText="Lot No"   BackgroundColor="Silver" HorizontalOptions="FillAndExpand"
                                             DisplayMemberPath="LotNo"
                                   TextMemberPath="LotNo"
                                 TextChanged="srchbox_carret_TextChanged"
                            QuerySubmitted="srchbox_carret_QuerySubmitted" />
-                    <Image x:Name="RefreshButton" Source="RefreshIcon.png"  HorizontalOptions="End"  >
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer
+                        <Image x:Name="RefreshButton" Source="RefreshIcon.png"  HorizontalOptions="End"  >
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer
                                    Tapped="RefreshButton_Clicked"
                                     NumberOfTapsRequired="1"/>
-                        </Image.GestureRecognizers>
-                    </Image>
-                </StackLayout>
-                <StackLayout Padding="10,10,10,0" Orientation="Horizontal">
-                    <Entry  x:Name="txt_SetQuantity"  VerticalOptions="Start" Keyboard="Numeric"   Placeholder="Quantity" HorizontalOptions="Fill"  />
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </StackLayout>
+                    <StackLayout Padding="10,10,10,0" Orientation="Horizontal">
+                        <Entry  x:Name="txt_SetQuantity"  VerticalOptions="Start" Keyboard="Numeric"   Placeholder="Quantity" HorizontalOptions="Fill"  />
 
-                    <Entry  x:Name="txt_Barcode"   VerticalOptions="End"   TextChanged="txt_Barcode_TextChanged" Placeholder="Bar Code" HorizontalOptions="FillAndExpand"  />
-                   
-                </StackLayout>
-                <StackLayout Padding="10,10,10,0">
-                    <Label x:Name="lbl_totalQuantity" Text="Total Quantity = 0" TextColor="DarkGray" Font="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand"></Label>
+                        <Entry  x:Name="txt_Barcode"   VerticalOptions="End"   TextChanged="txt_Barcode_TextChanged" Placeholder="Bar Code" HorizontalOptions="FillAndExpand"  />
+
+                    </StackLayout>
+                    <StackLayout Padding="10,10,10,0">
+                        <Label x:Name="lbl_totalQuantity" Text="Total Quantity = 0" TextColor="DarkGray" Font="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand"></Label>
 
 
+                    </StackLayout>
+
                 </StackLayout>
-               
-            </StackLayout>
-            <!--<ContentView x:Name="popupLoginView" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <!--<ContentView x:Name="popupLoginView" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
                     <StackLayout Orientation="Vertical" HeightRequest="200" WidthRequest="300" BackgroundColor="White">
                         <Entry Margin="20,20,20,10" Placeholder="Enter Quantity"></Entry>
@@ -67,111 +69,178 @@
                     </StackLayout>
                 </StackLayout>
             </ContentView>-->
-            <!--<BoxView HeightRequest="2" BackgroundColor="#3C495A"></BoxView>-->
-            <StackLayout>
-                <Grid>
-                    <Grid.RowDefinitions>
-
-
-                        <RowDefinition Height="6*"/>
-
-
-                    </Grid.RowDefinitions>
-
-                    <Grid VerticalOptions="CenterAndExpand" Grid.Row="0" Margin="7,0,7,7" Padding="1"  RowSpacing="1" ColumnSpacing="1">
+                <!--<BoxView HeightRequest="2" BackgroundColor="#3C495A"></BoxView>-->
+                <StackLayout>
+                    <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="40" />
-                            <RowDefinition Height="*" />
+
+
+                            <RowDefinition Height="6*"/>
+
+
                         </Grid.RowDefinitions>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*" />
-                            <ColumnDefinition Width="3*" />
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="1*" />
-                        </Grid.ColumnDefinitions>
+                        <Grid VerticalOptions="CenterAndExpand" Grid.Row="0" Margin="7,0,7,7" Padding="1"  RowSpacing="1" ColumnSpacing="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
 
-                        <Label Text="Item Code"  Grid.Row="0" Style="{DynamicResource headerTablet}"/>
-                        <Label Text="Name" Grid.Column="1" Grid.Row="0"  Style="{DynamicResource headerTablet}"/>
-                        <Label Text="Qty" Grid.Column="2" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
-                        <Label Text="Lot No" Grid.Column="3" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
-                        <Label Text="X" Grid.Column="4" Grid.Row="0" BackgroundColor="#ff3232" Style="{DynamicResource headerTablet}"/>
-                        <ListView x:Name="PalletList" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" ItemsSource="{Binding MyObservableCollectionList}"     HorizontalOptions="CenterAndExpand"   >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
 
-                            <ListView.ItemTemplate >
-                                <DataTemplate>
-                                    <ViewCell>
-                                        <ScrollView>
+                            <Label Text="Item Code"  Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+                            <Label Text="Name" Grid.Column="1" Grid.Row="0"  Style="{DynamicResource headerTablet}"/>
+                            <Label Text="Qty" Grid.Column="2" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+                            <Label Text="Lot No" Grid.Column="3" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+                            <Label Text="X" Grid.Column="4" Grid.Row="0" BackgroundColor="#ff3232" Style="{DynamicResource headerTablet}"/>
+                            <ListView x:Name="PalletList" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" ItemsSource="{Binding MyObservableCollectionList}"     HorizontalOptions="CenterAndExpand"   >
+
+                                <ListView.ItemTemplate >
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <ScrollView>
 
 
 
-                                            <Grid x:Name="GridList" Padding="4" ColumnSpacing="1" RowSpacing="1"  >
-                                                <!--<Grid.GestureRecognizers>
+                                                <Grid x:Name="GridList" Padding="4" ColumnSpacing="1" RowSpacing="1"  >
+                                                    <!--<Grid.GestureRecognizers>
                                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"  />
 
                                         </Grid.GestureRecognizers>-->
 
 
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="40"></RowDefinition>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="40"></RowDefinition>
 
-                                                </Grid.RowDefinitions>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                                                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                                                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                                                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="1*"></ColumnDefinition>
 
-                                                </Grid.ColumnDefinitions>
-                                                <Label x:Name="txt_ItemCode" Grid.Row="0" Grid.Column="0"  Style="{DynamicResource detailTablet}" Text="{Binding Barcode}  "/>
-                                                <Label x:Name="txt_Name" Grid.Row="0" Grid.Column="1"   Style="{DynamicResource detailTablet}"  Text="{Binding ProductName}"/>
-                                                <Label x:Name="txt_Quantity" Grid.Row="0" Grid.Column="2" Style="{DynamicResource detailTablet}"  Text="{Binding Quantity}"/>
-                                                <Label x:Name="txt_LotNo" Grid.Row="0" Grid.Column="3" Style="{DynamicResource detailTablet}"  Text="{Binding LotNo}"/>
-                                                <Image x:Name="Img_deleteRow" Source="deleteitem.png"  Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="1"  HorizontalOptions="End"  >
-                                                    <Image.GestureRecognizers>
-                                                        <TapGestureRecognizer
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label x:Name="txt_ItemCode" Grid.Row="0" Grid.Column="0"  Style="{DynamicResource detailTablet}" Text="{Binding Barcode}  "/>
+                                                    <Label x:Name="txt_Name" Grid.Row="0" Grid.Column="1"   Style="{DynamicResource detailTablet}"  Text="{Binding ProductName}"/>
+                                                    <Label x:Name="txt_Quantity" Grid.Row="0" Grid.Column="2" Style="{DynamicResource detailTablet}"  Text="{Binding Quantity}"/>
+                                                    <Label x:Name="txt_LotNo" Grid.Row="0" Grid.Column="3" Style="{DynamicResource detailTablet}"  Text="{Binding LotNo}"/>
+                                                    <Image x:Name="Img_deleteRow" Source="deleteitem.png"  Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="1"  HorizontalOptions="End"  >
+                                                        <Image.GestureRecognizers>
+                                                            <TapGestureRecognizer
                                                          Tapped="Img_deleteRow_Clicked"
                                                          NumberOfTapsRequired="1"
                                                      CommandParameter="{Binding Id}"/>
-                                                    </Image.GestureRecognizers>
-                                                </Image>
+                                                        </Image.GestureRecognizers>
+                                                    </Image>
 
-                                            </Grid>
-                                        </ScrollView>
+                                                </Grid>
+                                            </ScrollView>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Grid>
+                    </Grid>
+                    <BoxView HeightRequest="2" BackgroundColor="#3C495A"></BoxView>
+                    <StackLayout VerticalOptions="EndAndExpand">
+
+                        <StackLayout Padding="10,0,10,10">
+                            <StackLayout Orientation="Horizontal">
+
+                                <Entry x:Name="txt_PalletTagNo"  VerticalOptions="Center" TextChanged="Txt_PalletTagNo_TextChanged" HorizontalOptions="FillAndExpand" Placeholder="Tag"  />
+                                <Label x:Name="lbl_PalletTag"  Text="Read Tag" VerticalOptions="Center" HorizontalOptions="End" />
+                            </StackLayout>
+                            <StackLayout  Spacing="10" Orientation="Horizontal" HorizontalOptions="End" >
+                                <StackLayout>
+                                    <Button x:Name="btn_Save_StockIn" Text="Save-StockIn"  BackgroundColor="#3C495A" BorderRadius="7" TextColor="White"   VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40" Clicked="Button_Clicked_1"/>
+                                </StackLayout>
+                                <StackLayout >
+                                    <Button x:Name="SaveUpdateButton"  Text="Save/Print" BackgroundColor="#3C495A" BorderRadius="7" TextColor="White"   VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40"  Clicked="Button_Clicked"/>
+                                </StackLayout>
+
+                            </StackLayout>
+                        </StackLayout>
+
+
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+            <ContentView x:Name="popupStockInView" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+
+                    <StackLayout Orientation="Vertical" HeightRequest="300" WidthRequest="300" BackgroundColor="White" Padding="10" >
+                        <StackLayout HorizontalOptions="CenterAndExpand" >
+                            <Label Text="Stock In" FontSize="Medium" TextColor="#3C495A" HeightRequest="30" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalOptions="Center"/>
+
+                        </StackLayout>
+                        <BoxView HeightRequest="2" BackgroundColor="#3C495A" HorizontalOptions="FillAndExpand"/>
+
+
+                        <StackLayout VerticalOptions="Center"  Spacing="20" HorizontalOptions="FillAndExpand">
+
+                            <StackLayout>
+
+                            </StackLayout>
+                            <Entry x:Name="PalletTag"   VerticalOptions="Center"  Placeholder="Pallet Tag" HorizontalOptions="FillAndExpand" />
+                            <Entry  x:Name="Quantity"   VerticalOptions="Center"  Placeholder="Quantity" HorizontalOptions="FillAndExpand"/>
+                            <StackLayout Orientation="Horizontal">
+                                <Entry  x:Name="BinTag"   VerticalOptions="Center"  Placeholder="Bin Tag" HorizontalOptions="FillAndExpand" />
+
+                                <Button x:Name="btn_binsearch" Image="magnifier.png" HeightRequest="30" WidthRequest="30" HorizontalOptions="End" BackgroundColor="White" Clicked="btn_binsearch_Clicked" />
+
+                            </StackLayout>
+
+
+
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="Center">
+                            <Button x:Name="btn_save"  Text="Save"  BackgroundColor="#3C495A" TextColor="White" BorderRadius="7" HeightRequest="40" Clicked="btn_save_Clicked" />
+                            <Button x:Name="btn_clear" Text="Clear" BackgroundColor="#3C495A" TextColor="White" BorderRadius="7" HeightRequest="40"  Clicked="btn_clear_Clicked"/>
+                            <Button x:Name="btn_close" Text="Close" BackgroundColor="#3C495A" TextColor="White" BorderRadius="7"  HeightRequest="40" Clicked="btn_close_Clicked" />
+
+
+                        </StackLayout>
+
+                    </StackLayout>
+                </StackLayout>
+            </ContentView>
+            <ContentView x:Name="popupListView" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                    <StackLayout Orientation="Vertical" HeightRequest="400" WidthRequest="250" BackgroundColor="White">
+                        <Label Text="BinTags" FontSize="14" TextColor="#3C495A" HeightRequest="30" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalOptions="Center"/>
+                        <ListView x:Name="sampleList" ItemSelected="sampleList_ItemSelected">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="20">
+                                            <Label Text = "{Binding BinCode}" FontSize="Small" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                                            <Label Text = "{Binding BinTag}" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+
+                                        </StackLayout>
+
+
                                     </ViewCell>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
-                    </Grid>
-                </Grid>
-                <BoxView HeightRequest="2" BackgroundColor="#3C495A"></BoxView>
-                <StackLayout VerticalOptions="EndAndExpand">
-
-                    <StackLayout Padding="10,0,10,10">
-                        <StackLayout Orientation="Horizontal">
-
-                            <Entry x:Name="txt_PalletTagNo"  VerticalOptions="Center" TextChanged="Txt_PalletTagNo_TextChanged" HorizontalOptions="FillAndExpand" Placeholder="Tag"  />
-                            <Label x:Name="lbl_PalletTag"  Text="Read Tag" VerticalOptions="Center" HorizontalOptions="End" />
-                        </StackLayout>
-                        <StackLayout  Spacing="10" Orientation="Horizontal" HorizontalOptions="End" >
-                            <StackLayout>
-                                <Button Text="List" Clicked="Button_Clicked_1"/>
-                            </StackLayout>
-                            <StackLayout >
-                                <Button x:Name="SaveUpdateButton"  Text="Save" BackgroundColor="#3C495A" BorderRadius="7" TextColor="White"   VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40"  Clicked="Button_Clicked"/>
-                            </StackLayout>
-                            <StackLayout >
-                                <Button  Text="Close" BackgroundColor="#3C495A" BorderRadius="7" TextColor="White" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40"/>
-                            </StackLayout>
-                        </StackLayout>
                     </StackLayout>
-
-                 
                 </StackLayout>
-            </StackLayout>
-        </StackLayout>
+            </ContentView>
+
+
+
+
+        </AbsoluteLayout>
+      
     </ContentPage.Content>
 
 </ContentPage>

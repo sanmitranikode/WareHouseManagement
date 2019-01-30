@@ -32,6 +32,7 @@ namespace WareHouseManagement.Views
         public event PropertyChangedEventHandler PropertyChanged;
         ReaderModel rfidModel = ReaderModel.readerModel;
         public List<TagItem> Tags = new List<TagItem>();
+        public List<BinViewModel> _bintaglist = new List<BinViewModel>();
         private Object tagreadlock = new object();
         private static Dictionary<String, int> tagListDict = new Dictionary<string, int>();
         object item;
@@ -480,7 +481,14 @@ namespace WareHouseManagement.Views
                     var PostDetails = await new PalletMaintainanceService().PostPalletMaintainanceDetail(PalletMaintainanceRequest, PalletMaintainanceServiceUrl.PostPalletreceivinglog);
                     if (PostDetails.Status == 1)
                     {
-                        await Application.Current.MainPage.DisplayAlert("Message", "Success", "OK");
+                        if (EditOption == false)
+                        {
+                            popupStockInView.IsVisible = true;
+                            PalletTag.Text = txt_PalletTagNo.Text;
+                            Quantity.Text = PalletBarcodes.Sum(a=>a.Quantity).ToString();
+                        }
+
+                           // await Application.Current.MainPage.DisplayAlert("Message", "Success", "OK");
                         ClearData();
                     }
                     else
@@ -639,7 +647,8 @@ namespace WareHouseManagement.Views
             {
                  EditOption = false;
                 BtnEditpencil.Icon = "edit_icon.png";
-                SaveUpdateButton.Text = "Save";
+                SaveUpdateButton.Text = "Save/Print";
+                btn_Save_StockIn.IsEnabled = true;
             }
             else
             {
@@ -647,6 +656,7 @@ namespace WareHouseManagement.Views
                 txt_PalletTagNo.Focus();
                 BtnEditpencil.Icon = "Save_icon.png";
                 SaveUpdateButton.Text = "Update";
+                btn_Save_StockIn.IsEnabled = false;
             }
 
             PalletList.ItemsSource = null;
@@ -711,7 +721,100 @@ namespace WareHouseManagement.Views
 
         private async void Button_Clicked_1(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new PalletList());
+            try
+            {
+                
+                if (EditOption == false)
+                {
+                    if (_model != null && txt_PalletTagNo.Text != "" && txt_PalletTagNo.Text != null)
+                    {
+                        PostPalletMaintainanceDetailAsync();
+                    }
+
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Message", "Fill All Detail", "OK");
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Message", ex.ToString(), "OK");
+            }
+        }
+        private async void btn_save_Clicked(object sender, EventArgs e)
+        {
+            btn_save.IsEnabled = false;
+            try
+            {
+                StockInPalletModel _model = new StockInPalletModel
+                {
+                    PalletTag = PalletTag.Text,
+                    BinTag = BinTag.Text,
+                    Quantity = int.Parse(Quantity.Text)
+
+                };
+
+                var PostDetails = await new StockInPalletService().PostStockInDetail(_model, StockInServiceUrl.PostStockIn);
+                if (PostDetails.Status == 1)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Message", "Success", "OK");
+                    clearData();
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Message", "Inser Fail" + "(" + PostDetails.Response.ToString() + ")", "OK");
+                }
+            }
+            catch (Exception ex)
+            { }
+
+            btn_save.IsEnabled = true;
+            popupStockInView.IsVisible = false;
+
+        }
+        public void clearData()
+        {
+
+            PalletTag.Text = "";
+            BinTag.Text = "";
+            Quantity.Text = "";
+
+        }
+        private void btn_close_Clicked(object sender, EventArgs e)
+        {
+            popupStockInView.IsVisible = false;
+        }
+
+        private void btn_clear_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void btn_binsearch_Clicked(object sender, EventArgs e)
+        {
+            var getbins = await new PalletMaintainanceService().GetPalletLog(GetBintagsUrl.GetBintagList);
+            if (getbins.Status == 1)
+            {
+                _bintaglist = JsonConvert.DeserializeObject<List<BinViewModel>>(getbins.Response.ToString());
+                sampleList.ItemsSource = _bintaglist;
+            }
+            popupListView.IsVisible = true;
+        }
+
+        private void sampleList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var item = (BinViewModel)e.SelectedItem;
+            if (item != null)
+            {
+                BinTag.Text = item.BinTag;
+                ((ListView)sender).SelectedItem = null;
+            }
+
+            popupListView.IsVisible = false;
+
         }
     }
 }

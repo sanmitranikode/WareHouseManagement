@@ -73,5 +73,9 @@ namespace WareHouseManagement.PCL.Common
     {
         public static string GetBintagList = "BinsList";
     }
+    public struct GetPalletListUrl
+    {
+        public static string getpalletlist = "Pallet/GetPalletList";
+    }
 
 }

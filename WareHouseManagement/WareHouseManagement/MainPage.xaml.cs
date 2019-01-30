@@ -74,7 +74,7 @@ namespace WareHouseManagement
 
             await Task.Delay(700);
 
-            await Navigation.PushAsync(new PalletMaintainancePage());
+            await Navigation.PushAsync(new PalletList());
             popupLoadingView.IsVisible = false;
             activityIndicator.IsRunning = false;
 

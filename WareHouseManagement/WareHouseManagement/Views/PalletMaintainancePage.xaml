@@ -156,6 +156,9 @@
                             <Label x:Name="lbl_PalletTag"  Text="Read Tag" VerticalOptions="Center" HorizontalOptions="End" />
                         </StackLayout>
                         <StackLayout  Spacing="10" Orientation="Horizontal" HorizontalOptions="End" >
+                            <StackLayout>
+                                <Button Text="List" Clicked="Button_Clicked_1"/>
+                            </StackLayout>
                             <StackLayout >
                                 <Button x:Name="SaveUpdateButton"  Text="Save" BackgroundColor="#3C495A" BorderRadius="7" TextColor="White"   VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40"  Clicked="Button_Clicked"/>
                             </StackLayout>

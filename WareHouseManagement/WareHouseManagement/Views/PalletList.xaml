@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WareHouseManagement.Views.PalletList"
+             Title="Pallet List">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid VerticalOptions="CenterAndExpand"  Margin="7" Padding="1"  RowSpacing="1" ColumnSpacing="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="3*" />
+                   
+                </Grid.ColumnDefinitions>
+
+                <Label Text="ID"  Grid.Row="0" TextColor="White" FontAttributes="Bold" BackgroundColor="Silver" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
+                <Label Text="LOT No" Grid.Column="1" Grid.Row="0" TextColor="White" FontAttributes="Bold" BackgroundColor="Silver" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
+                <Label Text="Quantity" Grid.Column="2" Grid.Row="0"  TextColor="White" FontAttributes="Bold" BackgroundColor="Silver" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
+               
+
+                <ListView x:Name="listofpallets" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding MyObservableCollectionList}"     HorizontalOptions="CenterAndExpand"   >
+
+                    <ListView.ItemTemplate >
+                        <DataTemplate>
+                            <ViewCell>
+
+                                <Grid x:Name="GridList" Padding="4" ColumnSpacing="1" RowSpacing="1"  >
+                                    <!--<Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" CommandParameter="{Binding Id}"/>
+                                    </Grid.GestureRecognizers>-->
+
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40"></RowDefinition>
+
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                                      
+
+
+                                    </Grid.ColumnDefinitions>
+                                    <Label x:Name="txt_id" Grid.Row="0" Grid.Column="0" HorizontalTextAlignment="Center" TextColor="Black" BackgroundColor="White" FontSize="9" Text="{Binding CustomerName}  "/>
+                                    <Label x:Name="txt_lotno" Grid.Row="0" Grid.Column="1"  HorizontalTextAlignment="Center" TextColor="Black" BackgroundColor="White" FontSize="9" Text="{Binding PONo}"/>
+                                    <Label x:Name="txt_quantity" Grid.Row="0" Grid.Column="2" HorizontalTextAlignment="Center" TextColor="Black" BackgroundColor="White" FontSize="9"  Text="{Binding ContainerNo}"/>
+                                   
+
+                                   
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                </ListView>
+
+
+            </Grid>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

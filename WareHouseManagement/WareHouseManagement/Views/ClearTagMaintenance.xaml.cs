@@ -19,9 +19,9 @@ namespace WareHouseManagement.Views
 
         private async void btn_ClrPalletTag_Clicked(object sender, EventArgs e)
         {
-          ;
+            ;
             await Navigation.PushAsync(new ClearPalletAndBinTagPage());
-     
+
         }
         private async void btn_binTag_Clicked(object sender, EventArgs e)
         {

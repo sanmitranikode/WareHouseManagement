@@ -219,7 +219,7 @@ namespace WareHouseManagement.Views
             catch(Exception ex)
             { }
            
-            btn_save.IsEnabled = false;
+          
 
         }
 
@@ -248,6 +248,7 @@ namespace WareHouseManagement.Views
             PalletTag.Text = "";
             BinTag.Text = "";
             Quantity.Text = "";
+            btn_save.IsEnabled = false;
         }
 
         private void PalletTag_TextChanged(object sender, TextChangedEventArgs e)
@@ -278,6 +279,11 @@ namespace WareHouseManagement.Views
             popupListView.IsVisible = false;
 
 
+        }
+
+        private void BinTag_TextChanged(object sender, TextChangedEventArgs e)
+        {
+           
         }
     }
 }

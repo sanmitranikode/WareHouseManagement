@@ -61,5 +61,10 @@ namespace WareHouseManagement.Views
         {
             var tappedHier = e;
         }
+
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new CreateWrReceivingLogProduct());
+        }
     }
 }

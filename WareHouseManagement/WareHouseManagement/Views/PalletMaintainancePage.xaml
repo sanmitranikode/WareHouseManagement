@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WareHouseManagement.Views.PalletMaintainancePage"
+             xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              xmlns:forms="clr-namespace:dotMorten.Xamarin.Forms;assembly=dotMorten.Xamarin.Forms.AutoSuggestBox"
              Title="PALLET MAINTENANCE">
 
@@ -51,6 +52,15 @@
                         <Entry  x:Name="txt_SetQuantity"  VerticalOptions="Start" Keyboard="Numeric"   Placeholder="Quantity" HorizontalOptions="Fill"  />
 
                         <Entry  x:Name="txt_Barcode"   VerticalOptions="End"   TextChanged="txt_Barcode_TextChanged" Placeholder="Bar Code" HorizontalOptions="FillAndExpand"  />
+                        <Image Source="magnifier.png" HorizontalOptions="End" VerticalOptions="Center">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer
+                                                         Tapped="SearchTapped_Tapped"
+                                                         NumberOfTapsRequired="1"   />
+
+                            </Image.GestureRecognizers>
+                        </Image>
+
 
                     </StackLayout>
                     <StackLayout Padding="10,10,10,0">
@@ -215,7 +225,19 @@
             <ContentView x:Name="popupListView" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
                     <StackLayout Orientation="Vertical" HeightRequest="400" WidthRequest="250" BackgroundColor="White">
-                        <Label Text="BinTags" FontSize="14" TextColor="#3C495A" HeightRequest="30" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalOptions="Center"/>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="FillAndExpand" >
+                            <Label Text="BinTags" FontSize="14" TextColor="#3C495A" HeightRequest="30" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
+                            <Image Source="deleteitem.png" HorizontalOptions="End" VerticalOptions="Start">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                                         Tapped="TapGestureRecognizer_Tapped"
+                                                         NumberOfTapsRequired="1"   />
+
+                                </Image.GestureRecognizers>
+
+                            </Image>
+
+                        </StackLayout>
                         <ListView x:Name="sampleList" ItemSelected="sampleList_ItemSelected">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
@@ -232,6 +254,79 @@
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
+                    </StackLayout>
+                </StackLayout>
+            </ContentView>
+
+
+            <ContentView x:Name="popupListViewBarcode" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                    <StackLayout Orientation="Vertical" HeightRequest="300" WidthRequest="250" BackgroundColor="White">
+                        <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="FillAndExpand" >
+                            <Label Text="Bar Code" FontSize="14" TextColor="#3C495A" HeightRequest="30" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
+                            <Image Source="deleteitem.png" HorizontalOptions="End" VerticalOptions="Start">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                                         Tapped="SearchBarCode_Tapped"
+                                                         NumberOfTapsRequired="1"   />
+
+                                </Image.GestureRecognizers>
+
+                            </Image>
+
+                        </StackLayout>
+                        <StackLayout Padding="3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                  
+
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Label Text="Bar Code"  Grid.Row="0" Grid.Column="0" TextColor="Black" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"  />
+                                <Label Text="Quantity" Grid.Column="1" Grid.Row="0" TextColor="Black" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"  />
+                               
+
+                                <ListView x:Name="barcodeList" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemSelected="barcodeList_ItemSelected">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ViewCell>
+
+                                                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            
+
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="40"/>
+                                                           
+                                                        </Grid.RowDefinitions>
+                                                       <controls:CheckBox x:Name="checkbox" Grid.Row="0" Grid.Column="0" DefaultText="{Binding Barcode}" CheckedChanged="checkbox_CheckedChanged" Checked="{Binding Barcode}"   VerticalOptions="CenterAndExpand" HorizontalOptions="Center" />
+                                                        <Label Text = "{Binding Quantity }" Grid.Row="0" Grid.Column="1"  FontSize="Small" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                                                       
+
+                                                    </Grid>
+
+                                                    
+                                                </StackLayout>
+
+
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </Grid>
+                            
+                        </StackLayout>
+
+                       
                     </StackLayout>
                 </StackLayout>
             </ContentView>

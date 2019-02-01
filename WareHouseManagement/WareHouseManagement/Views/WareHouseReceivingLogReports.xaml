@@ -4,6 +4,12 @@
              x:Class="WareHouseManagement.Views.WareHouseReceivingLogReports"
              Title="Warehouse Receiving Log"
              >
+
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem Icon="add.png" Clicked="ToolbarItem_Clicked" />
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="headerTablet" TargetType="Label">

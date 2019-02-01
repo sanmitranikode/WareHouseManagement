@@ -120,6 +120,7 @@ namespace WareHouseManagement.Views
 
         private async void btn_binsearch_Clicked(object sender, EventArgs e)
         {
+            btn_binsearch.IsEnabled = false;
             var getbins = await new PalletMaintainanceService().GetPalletLog(GetBintagsUrl.GetBintagList);
             if (getbins.Status == 1)
             {
@@ -127,6 +128,7 @@ namespace WareHouseManagement.Views
                 sampleList.ItemsSource = _bintaglist;
             }
             popupListView.IsVisible = true;
+            btn_binsearch.IsEnabled = true;
         }
 
         private void sampleList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -138,6 +140,11 @@ namespace WareHouseManagement.Views
                 ((ListView)sender).SelectedItem = null;
             }
 
+            popupListView.IsVisible = false;
+        }
+
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
             popupListView.IsVisible = false;
         }
     }

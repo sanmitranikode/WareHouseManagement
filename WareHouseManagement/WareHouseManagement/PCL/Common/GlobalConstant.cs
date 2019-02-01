@@ -78,6 +78,12 @@ namespace WareHouseManagement.PCL.Common
     {
         public static string getpalletlist = "Pallet/GetPalletList";
     }
+    public struct GetCustomerAndVender
+    {
+        public static string getcustomerlist = "WrReceivingLogProduct/UserCustomerList";
+        public static string getvenderlist = "WrReceivingLogProduct/GetVendorList";
+        public static string getproductlist = "WrReceivingLogProduct/GetProductNameList?keyword=";
+    }
     
 
 }

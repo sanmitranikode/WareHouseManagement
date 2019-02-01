@@ -22,6 +22,10 @@ namespace WareHouseManagement.ViewModels
 
         public string CustomerFullName { get; set; }
 
+        public int WRReceivingLogStatusId { get; set; }
+
+        public int UserId { get; set; }
+
         public string PONo { get; set; }
 
         public decimal TotalWeight { get; set; }
@@ -56,6 +60,7 @@ namespace WareHouseManagement.ViewModels
         public decimal Weight { get; set; }
         public decimal Cubic { get; set; }
         public string ProductName { get; set; }
+        public int ProductStatusId { get; set; }
         public ProductStatus ProductStatus { get; set; }
         public string Status { get; set; }
     }

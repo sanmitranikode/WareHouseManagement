@@ -40,6 +40,7 @@ namespace WareHouseManagement.Views
         object item;
 
         bool EditOption = false;
+        bool checkQty = false;
 
         List<ProductBarcodeResponseModel> _model = new List<ProductBarcodeResponseModel>();
         List<PalletItemResponseModel> data = new List<PalletItemResponseModel>();
@@ -857,38 +858,27 @@ namespace WareHouseManagement.Views
 
         private void SearchBarCode_Tapped(object sender, EventArgs e)
         {
+            txt_Barcode.Text = null;
+            txt_SetQuantity.Text = null;
             popupListViewBarcode.IsVisible = false;
         }
 
-        private void barcodeList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            var item = (ProductBarcodeResponseModel)e.SelectedItem;
-            if (item != null)
-            {
-                txt_SetQuantity.Text = item.Quantity;
-                 txt_Barcode.Text = item.Barcode;
-                
-                ((ListView)sender).SelectedItem = null;
-            }
-
-            popupListViewBarcode.IsVisible = false;
-        }
+       
 
         private void checkbox_CheckedChanged(object sender, XLabs.EventArgs<bool> e)
         {
-           
-              CheckBox isCheckedOrNot = (CheckBox)sender;
-            string barcode = isCheckedOrNot.Text;
-              var PalletDetail = isCheckedOrNot.BindingContext as ProductBarcodeResponseModel;
-            ProductBarcodeRequestModel _User = new ProductBarcodeRequestModel
+          
+            
+                CheckBox isCheckedOrNot = (CheckBox)sender;
+            if (isCheckedOrNot.Checked == true)
             {
-                Barcode = barcode,
-                LotNo = txt_lotNo.Text,
-                CheckQuantity =Convert.ToInt32( PalletDetail.Quantity)
-
-
-            };
-            addproductingrid(_User);
+                string barcode = isCheckedOrNot.Text;
+                var PalletDetail = isCheckedOrNot.BindingContext as ProductBarcodeResponseModel;
+                txt_SetQuantity.Text = PalletDetail.Quantity;
+                txt_Barcode.Text = barcode;
+               
+            }
+            
         }
     }
 }

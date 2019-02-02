@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AppCenter.Crashes;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,10 @@ namespace WareHouseManagement.Views
                     PalletList.ItemsSource = _Model;
                 }
             }
-            catch(Exception ex) { }
+            catch(Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
 
         }
         public async void GetProductListByBarcode()
@@ -54,7 +58,7 @@ namespace WareHouseManagement.Views
                     PalletList.ItemsSource = _Model;
                 }
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { Crashes.TrackError(ex); }
 
         }
 
@@ -80,6 +84,7 @@ namespace WareHouseManagement.Views
             }catch(Exception ex)
             {
                 await Application.Current.MainPage.DisplayAlert("Message", "Product Is Not Available in Bin", "OK");
+
             }
         }
     }

@@ -26,6 +26,25 @@ namespace WareHouseManagement.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_dialog_actioned_on_disabled_toast = global::WareHouseManagement.Droid.Resource.String.appcenter_distribute_dialog_actioned_on_disabled_toast;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_download_progress_number_format = global::WareHouseManagement.Droid.Resource.String.appcenter_distribute_download_progress_number_format;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_downloading_mandatory_update = global::WareHouseManagement.Droid.Resource.String.appcenter_distribute_downloading_mandatory_update;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_install = global::WareHouseManagement.Droid.Resource.String.appcenter_distribute_install;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_install_ready_message = global::WareHouseManagement.Droid.Resource.String.appcenter_distribute_install_ready_message;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_install_ready_title = global::WareHouseManagement.Droid.Resource.String.appcenter_distribute_install_ready_title;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_notification_category = global::WareHouseManagement.Droid.Resource.String.appcenter_distribute_notification_category;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_unknown_sources_dialog_message = global::WareHouseManagement.Droid.Resource.String.appcenter_distribute_unknown_sources_dialog_message;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_unknown_sources_dialog_settings = global::WareHouseManagement.Droid.Resource.String.appcenter_distribute_unknown_sources_dialog_settings;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_dialog_download = global::WareHouseManagement.Droid.Resource.String.appcenter_distribute_update_dialog_download;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_dialog_message_mandatory = global::WareHouseManagement.Droid.Resource.String.appcenter_distribute_update_dialog_message_mandatory;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_dialog_message_optional = global::WareHouseManagement.Droid.Resource.String.appcenter_distribute_update_dialog_message_optional;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_dialog_postpone = global::WareHouseManagement.Droid.Resource.String.appcenter_distribute_update_dialog_postpone;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_dialog_title = global::WareHouseManagement.Droid.Resource.String.appcenter_distribute_update_dialog_title;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_dialog_view_release_notes = global::WareHouseManagement.Droid.Resource.String.appcenter_distribute_update_dialog_view_release_notes;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_failed_dialog_ignore = global::WareHouseManagement.Droid.Resource.String.appcenter_distribute_update_failed_dialog_ignore;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_failed_dialog_message = global::WareHouseManagement.Droid.Resource.String.appcenter_distribute_update_failed_dialog_message;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_failed_dialog_reinstall = global::WareHouseManagement.Droid.Resource.String.appcenter_distribute_update_failed_dialog_reinstall;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_failed_dialog_title = global::WareHouseManagement.Droid.Resource.String.appcenter_distribute_update_failed_dialog_title;
 			global::ModernHttpClient.Resource.String.library_name = global::WareHouseManagement.Droid.Resource.String.library_name;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::WareHouseManagement.Droid.Resource.Attribute.actionBarSize;
 			global::XLabs.Forms.Resource.Animation.abc_fade_in = global::WareHouseManagement.Droid.Resource.Animation.abc_fade_in;
@@ -3748,26 +3767,26 @@ namespace WareHouseManagement.Droid
 			// aapt resource value: 0x7f020055
 			public const int avd_hide_password = 2130837589;
 			
-			// aapt resource value: 0x7f020164
-			public const int avd_hide_password_1 = 2130837860;
-			
-			// aapt resource value: 0x7f020165
-			public const int avd_hide_password_2 = 2130837861;
-			
 			// aapt resource value: 0x7f020166
-			public const int avd_hide_password_3 = 2130837862;
+			public const int avd_hide_password_1 = 2130837862;
+			
+			// aapt resource value: 0x7f020167
+			public const int avd_hide_password_2 = 2130837863;
+			
+			// aapt resource value: 0x7f020168
+			public const int avd_hide_password_3 = 2130837864;
 			
 			// aapt resource value: 0x7f020056
 			public const int avd_show_password = 2130837590;
 			
-			// aapt resource value: 0x7f020167
-			public const int avd_show_password_1 = 2130837863;
-			
-			// aapt resource value: 0x7f020168
-			public const int avd_show_password_2 = 2130837864;
-			
 			// aapt resource value: 0x7f020169
-			public const int avd_show_password_3 = 2130837865;
+			public const int avd_show_password_1 = 2130837865;
+			
+			// aapt resource value: 0x7f02016a
+			public const int avd_show_password_2 = 2130837866;
+			
+			// aapt resource value: 0x7f02016b
+			public const int avd_show_password_3 = 2130837867;
 			
 			// aapt resource value: 0x7f020057
 			public const int calendar = 2130837591;
@@ -4477,11 +4496,11 @@ namespace WareHouseManagement.Droid
 			// aapt resource value: 0x7f020142
 			public const int notification_icon_background = 2130837826;
 			
-			// aapt resource value: 0x7f020162
-			public const int notification_template_icon_bg = 2130837858;
+			// aapt resource value: 0x7f020164
+			public const int notification_template_icon_bg = 2130837860;
 			
-			// aapt resource value: 0x7f020163
-			public const int notification_template_icon_low_bg = 2130837859;
+			// aapt resource value: 0x7f020165
+			public const int notification_template_icon_low_bg = 2130837861;
 			
 			// aapt resource value: 0x7f020143
 			public const int notification_tile_bg = 2130837827;
@@ -4493,88 +4512,94 @@ namespace WareHouseManagement.Droid
 			public const int palletmaintance = 2130837829;
 			
 			// aapt resource value: 0x7f020146
-			public const int PickUpList = 2130837830;
+			public const int pencil = 2130837830;
 			
 			// aapt resource value: 0x7f020147
-			public const int pickuplistPng = 2130837831;
+			public const int PickUpList = 2130837831;
 			
 			// aapt resource value: 0x7f020148
-			public const int power = 2130837832;
+			public const int pickuplistPng = 2130837832;
 			
 			// aapt resource value: 0x7f020149
-			public const int power_1 = 2130837833;
+			public const int power = 2130837833;
 			
 			// aapt resource value: 0x7f02014a
-			public const int price_tag2 = 2130837834;
+			public const int power_1 = 2130837834;
 			
 			// aapt resource value: 0x7f02014b
-			public const int printer = 2130837835;
+			public const int price_tag2 = 2130837835;
 			
 			// aapt resource value: 0x7f02014c
-			public const int RefreshIcon = 2130837836;
+			public const int printer = 2130837836;
 			
 			// aapt resource value: 0x7f02014d
-			public const int reportPng = 2130837837;
+			public const int RefreshIcon = 2130837837;
 			
 			// aapt resource value: 0x7f02014e
-			public const int rfidconnect = 2130837838;
+			public const int reportPng = 2130837838;
 			
 			// aapt resource value: 0x7f02014f
-			public const int rfidnotconnectred = 2130837839;
+			public const int rfidconnect = 2130837839;
 			
 			// aapt resource value: 0x7f020150
-			public const int Save_icon = 2130837840;
+			public const int rfidnotconnectred = 2130837840;
 			
 			// aapt resource value: 0x7f020151
-			public const int SaveIcon = 2130837841;
+			public const int Save_icon = 2130837841;
 			
 			// aapt resource value: 0x7f020152
-			public const int smartphone = 2130837842;
+			public const int SaveIcon = 2130837842;
 			
 			// aapt resource value: 0x7f020153
-			public const int StockIn = 2130837843;
+			public const int smartphone = 2130837843;
 			
 			// aapt resource value: 0x7f020154
-			public const int stockoutPng = 2130837844;
+			public const int StockIn = 2130837844;
 			
 			// aapt resource value: 0x7f020155
-			public const int storage = 2130837845;
+			public const int stockoutPng = 2130837845;
 			
 			// aapt resource value: 0x7f020156
-			public const int storage2 = 2130837846;
+			public const int storage = 2130837846;
 			
 			// aapt resource value: 0x7f020157
-			public const int tooltip_frame_dark = 2130837847;
+			public const int storage2 = 2130837847;
 			
 			// aapt resource value: 0x7f020158
-			public const int tooltip_frame_light = 2130837848;
+			public const int tooltip_frame_dark = 2130837848;
 			
 			// aapt resource value: 0x7f020159
-			public const int wareback = 2130837849;
+			public const int tooltip_frame_light = 2130837849;
 			
 			// aapt resource value: 0x7f02015a
-			public const int wareback11 = 2130837850;
+			public const int ViewDetails = 2130837850;
 			
 			// aapt resource value: 0x7f02015b
-			public const int wareback12 = 2130837851;
+			public const int wareback = 2130837851;
 			
 			// aapt resource value: 0x7f02015c
-			public const int wareback13 = 2130837852;
+			public const int wareback11 = 2130837852;
 			
 			// aapt resource value: 0x7f02015d
-			public const int warehouse = 2130837853;
+			public const int wareback12 = 2130837853;
 			
 			// aapt resource value: 0x7f02015e
-			public const int warehouse2 = 2130837854;
+			public const int wareback13 = 2130837854;
 			
 			// aapt resource value: 0x7f02015f
-			public const int warehousestockin = 2130837855;
+			public const int warehouse = 2130837855;
 			
 			// aapt resource value: 0x7f020160
-			public const int waresplashscreen = 2130837856;
+			public const int warehouse2 = 2130837856;
 			
 			// aapt resource value: 0x7f020161
-			public const int waresplashscreen1 = 2130837857;
+			public const int warehousestockin = 2130837857;
+			
+			// aapt resource value: 0x7f020162
+			public const int waresplashscreen = 2130837858;
+			
+			// aapt resource value: 0x7f020163
+			public const int waresplashscreen1 = 2130837859;
 			
 			static Drawable()
 			{
@@ -5646,6 +5671,63 @@ namespace WareHouseManagement.Droid
 			
 			// aapt resource value: 0x7f08003b
 			public const int appbar_scrolling_view_behavior = 2131230779;
+			
+			// aapt resource value: 0x7f080044
+			public const int appcenter_distribute_dialog_actioned_on_disabled_toast = 2131230788;
+			
+			// aapt resource value: 0x7f080045
+			public const int appcenter_distribute_download_progress_number_format = 2131230789;
+			
+			// aapt resource value: 0x7f080046
+			public const int appcenter_distribute_downloading_mandatory_update = 2131230790;
+			
+			// aapt resource value: 0x7f080047
+			public const int appcenter_distribute_install = 2131230791;
+			
+			// aapt resource value: 0x7f080048
+			public const int appcenter_distribute_install_ready_message = 2131230792;
+			
+			// aapt resource value: 0x7f080049
+			public const int appcenter_distribute_install_ready_title = 2131230793;
+			
+			// aapt resource value: 0x7f08004a
+			public const int appcenter_distribute_notification_category = 2131230794;
+			
+			// aapt resource value: 0x7f08004b
+			public const int appcenter_distribute_unknown_sources_dialog_message = 2131230795;
+			
+			// aapt resource value: 0x7f08004c
+			public const int appcenter_distribute_unknown_sources_dialog_settings = 2131230796;
+			
+			// aapt resource value: 0x7f08004d
+			public const int appcenter_distribute_update_dialog_download = 2131230797;
+			
+			// aapt resource value: 0x7f08004e
+			public const int appcenter_distribute_update_dialog_message_mandatory = 2131230798;
+			
+			// aapt resource value: 0x7f08004f
+			public const int appcenter_distribute_update_dialog_message_optional = 2131230799;
+			
+			// aapt resource value: 0x7f080050
+			public const int appcenter_distribute_update_dialog_postpone = 2131230800;
+			
+			// aapt resource value: 0x7f080051
+			public const int appcenter_distribute_update_dialog_title = 2131230801;
+			
+			// aapt resource value: 0x7f080052
+			public const int appcenter_distribute_update_dialog_view_release_notes = 2131230802;
+			
+			// aapt resource value: 0x7f080053
+			public const int appcenter_distribute_update_failed_dialog_ignore = 2131230803;
+			
+			// aapt resource value: 0x7f080054
+			public const int appcenter_distribute_update_failed_dialog_message = 2131230804;
+			
+			// aapt resource value: 0x7f080055
+			public const int appcenter_distribute_update_failed_dialog_reinstall = 2131230805;
+			
+			// aapt resource value: 0x7f080056
+			public const int appcenter_distribute_update_failed_dialog_title = 2131230806;
 			
 			// aapt resource value: 0x7f08003c
 			public const int bottom_sheet_behavior = 2131230780;

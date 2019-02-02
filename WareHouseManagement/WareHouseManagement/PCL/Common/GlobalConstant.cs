@@ -34,7 +34,7 @@ namespace WareHouseManagement.PCL.Common
         public static string DeletePalletItem = "Pallet/DeletePalletItem";
 
         public static string GetPalletItemByTagId = "Pallet/GetPalletItemByTag";
-        public static string GetReportRecord = "PalletBarcode/GetPalletMaintainanceReportDetail";
+        public static string GetReportRecord = "PalletBarcode/GetPalletMaintainanceReportDetail?Count=";
         public static string GetBarcode = "PalletBarcode/GetBarcodeList?LotNo=";
     }
 
@@ -56,6 +56,7 @@ namespace WareHouseManagement.PCL.Common
     {
         public static string GetProduct = "BinDetailByProduct/GetProductList";
         public static string GetProductDetails = "BinDetailByProduct/GetBinsDetail";
+        public static string postproducts = "WrReceivingLogProduct/AddProductWrRecLog";
     }
 
     public struct ClearBinTagUrl

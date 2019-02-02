@@ -83,6 +83,22 @@ namespace WareHouseManagement.PCL.Service
                 return resp;
             }
         }
-       
+        public async Task<ResultModel> PostWRReceivingProduct(WRReceivingLogModel model, string Url)
+        {
+            ResultModel _User = new ResultModel();
+            try
+            {
+
+                _User = await _helper.PostData<WRReceivingLogModel>(model, Url);
+
+                return _User;
+            }
+            catch (Exception ex)
+            {
+                // Crashes.TrackError(ex);
+                return _User;
+            }
+        }
+
     }
 }

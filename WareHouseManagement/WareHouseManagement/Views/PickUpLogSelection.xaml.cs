@@ -1,4 +1,5 @@
 ﻿using Com.Zebra.Rfid.Api3;
+using Microsoft.AppCenter.Crashes;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -144,6 +145,7 @@ namespace WareHouseManagement.Views
             {
                 rfidModel.StopInventory();
                 rfidModel.TagRead -= TagReadEvent;
+                Crashes.TrackError(ex);
             }
 
         }

@@ -41,8 +41,8 @@
                             </Image>
                         </StackLayout>
                         <StackLayout  Orientation="Horizontal">
-                            <Entry x:Name="txt_lotNo"    Placeholder="Lot No"  HorizontalOptions="FillAndExpand"  />
-                            <Entry x:Name="txt_Container"   Placeholder="Container"   HorizontalOptions="FillAndExpand"  />
+                            <Entry x:Name="txt_lotNo"   Keyboard="Numeric"  Placeholder="Lot No"  HorizontalOptions="FillAndExpand"  />
+                            <Entry x:Name="txt_Container"  Keyboard="Numeric"  Placeholder="Container"   HorizontalOptions="FillAndExpand"  />
                             <StackLayout WidthRequest="28">
 
                             </StackLayout>
@@ -127,7 +127,7 @@
                                                     <ColumnDefinition Width="1*" />
 
                                                 </Grid.ColumnDefinitions>
-                                                <Label x:Name="txt_Itemname" Grid.Row="0" Grid.Column="0"  Style="{DynamicResource detailTablet}" Text="{Binding Name}  "/>
+                                                <Label x:Name="txt_Itemname" Grid.Row="0" Grid.Column="0"  Style="{DynamicResource detailTablet}" Text="{Binding ProductName}  "/>
                                                 <Label x:Name="txt_quantity" Grid.Row="0" Grid.Column="1"   Style="{DynamicResource detailTablet}"  Text="{Binding Quantity}"/>
                                                 <Label x:Name="txt_weight" Grid.Row="0" Grid.Column="2" Style="{DynamicResource detailTablet}"  Text="{Binding Weight}"/>
                                                 <Label x:Name="txt_cubic" Grid.Row="0" Grid.Column="3" Style="{DynamicResource detailTablet}"  Text="{Binding Cubic}"/>
@@ -262,7 +262,7 @@
                                     <DataTemplate>
 
 
-                                        <TextCell Text="{Binding Name}" TextColor="#353434"
+                                        <TextCell Text="{Binding ProductName}" TextColor="#353434"
                                                     Detail="{Binding Sku}" />
 
                                                 <!--<StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
@@ -288,9 +288,9 @@
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
-                            <Entry x:Name="txt_Quantity" Placeholder="Quantity" HorizontalOptions="FillAndExpand"/>
-                            <Entry x:Name="txt_Weight" Placeholder="Weight" HorizontalOptions="FillAndExpand"/>
-                            <Entry x:Name="txt_Cubic" Placeholder="Cubic" HorizontalOptions="FillAndExpand"/>
+                            <Entry x:Name="txt_Quantity" Placeholder="Quantity" Keyboard="Numeric" HorizontalOptions="FillAndExpand"/>
+                            <Entry x:Name="txt_Weight" Placeholder="Weight" Keyboard="Numeric" HorizontalOptions="FillAndExpand"/>
+                            <Entry x:Name="txt_Cubic" Placeholder="Cubic" Keyboard="Numeric" HorizontalOptions="FillAndExpand"/>
                             <Entry x:Name="txt_ProductId"  IsVisible="False" />
                             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
 
@@ -311,6 +311,15 @@
                     </StackLayout>
                 </StackLayout>
             </ContentView>
+            <ContentView x:Name="popupLoadingView" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                    <StackLayout Orientation="Vertical" HeightRequest="150" WidthRequest="200" BackgroundColor="Transparent">
+                        <ActivityIndicator x:Name="activityIndicator" IsVisible="True" Margin="0,50,0,0" VerticalOptions="Center" HorizontalOptions="Center" Color="#3C495A" WidthRequest="30" HeightRequest="30" ></ActivityIndicator>
+                        <Label x:Name="lblLoadingText" TextColor="#3C495A" VerticalOptions="Center" HorizontalOptions="Center" VerticalTextAlignment="Center" Text="Loading..."></Label>
+                    </StackLayout>
+                </StackLayout>
+            </ContentView>
+
 
 
 

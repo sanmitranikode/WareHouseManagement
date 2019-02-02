@@ -86,8 +86,24 @@ namespace WareHouseManagement.ViewModels
         public DateTime LastUpdateDate { get; set; }
         public string LotNo { get; set; }
     }
+    public class CustomerViewModel
+    {
+        public int Id { get; set; }
+        public string CustomerName { get; set; }
+        public string Email { get; set; }
+        public bool Status { get; set; }
 
-   
+    }
+    public class VendorModel
+    {
+
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public bool Active { get; set; }
+    }
+
+
     public enum WRPickUplistStatusModel
     {
 

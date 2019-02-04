@@ -1,5 +1,6 @@
 ﻿using Android.Text;
 using Com.Zebra.Rfid.Api3;
+using Microsoft.AppCenter.Crashes;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
@@ -150,6 +151,7 @@ namespace WareHouseManagement.Views
             {
                 rfidModel.StopInventory();
                 rfidModel.TagRead -= TagReadEvent;
+                Crashes.TrackError(ex);
             }
 
         }
@@ -322,7 +324,7 @@ namespace WareHouseManagement.Views
 
                         catch (Exception ex)
                         {
-
+                            Crashes.TrackError(ex);
                         }
 
                     }
@@ -776,7 +778,7 @@ namespace WareHouseManagement.Views
                 }
             }
             catch (Exception ex)
-            { }
+            { Crashes.TrackError(ex); }
 
             btn_save.IsEnabled = true;
             popupStockInView.IsVisible = false;

@@ -5,6 +5,9 @@ using WareHouseManagement.PCL.Helper;
 using WareHouseManagement.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace WareHouseManagement
@@ -39,6 +42,8 @@ namespace WareHouseManagement
 
         protected override void OnStart()
         {
+            AppCenter.Start("android=e2d55bf9-f053-49d9-89af-d3e4762aa019;" ,
+                  typeof(Analytics), typeof(Crashes));
             // Handle when your app starts
         }
 

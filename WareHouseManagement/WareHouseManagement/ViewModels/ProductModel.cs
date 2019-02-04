@@ -14,9 +14,11 @@ namespace WareHouseManagement.ViewModels
         public decimal Weight { get; set; }
         public decimal Cubic { get; set; }
         public string Name { get; set; }
+        public string ProductName { get; set; }
 
         //prductDetail
         public string ShortDescription { get; set; }
+        public int ProductStatusId { get; set; }
         public int VendorId { get; set; }
         public int CustomerId { get; set; }
         public string Sku { get; set; }

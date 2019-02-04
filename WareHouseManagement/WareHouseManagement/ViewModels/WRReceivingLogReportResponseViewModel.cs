@@ -52,6 +52,7 @@ namespace WareHouseManagement.ViewModels
 
     public class WRReceivingProducts
     {
+        public int Id { get; set; }
         public int WRReceivingLogId { get; set; }
         public int WRReceivingProductId { get; set; }
         public int ProductId { get; set; }

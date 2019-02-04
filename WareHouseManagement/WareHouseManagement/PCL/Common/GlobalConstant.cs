@@ -57,6 +57,8 @@ namespace WareHouseManagement.PCL.Common
         public static string GetProduct = "BinDetailByProduct/GetProductList";
         public static string GetProductDetails = "BinDetailByProduct/GetBinsDetail";
         public static string postproducts = "WrReceivingLogProduct/AddProductWrRecLog";
+        public static string postEditproducts = "WrReceivingLogProduct/EditProductWrRecLog";
+        public static string postdeleteproducts = "WrReceivingLogProduct/DeleteWrReceivingLogProduct";
     }
 
     public struct ClearBinTagUrl

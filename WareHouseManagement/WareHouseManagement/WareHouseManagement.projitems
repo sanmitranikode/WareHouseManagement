@@ -42,11 +42,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\UserModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ValidationMessages.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\WRReceivingLog.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\WRReceivingProducts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\ClearPalletTagService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\PalletMaintainanceService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\StockInPalletService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\StockOutPalletService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\WRRecievingLogService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BinsDetailByProductModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BinViewModel.cs" />

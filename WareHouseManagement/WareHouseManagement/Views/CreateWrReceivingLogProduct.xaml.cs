@@ -41,13 +41,14 @@ namespace WareHouseManagement.Views
                 txt_CustomerId.Text = wrReceivinglogmodel.CustomerId.ToString();
             var detail = wrReceivinglogmodel.wrReceivingProducts.Select(a=>new ProductModel
             {
-                Id=a.ProductId,
+                Id=a.Id,
                 ProductId = a.ProductId,
                 ProductName = a.ProductName,
                 Quantity = a.Quantity,
                 Weight = a.Weight,
                 Cubic = a.Cubic,
-                ExDate = a.ExDate
+                ExDate = a.ExDate,
+                WRReceivingLogId=a.WRReceivingLogId
 
             }).ToList();
             _Productlist = detail;
@@ -224,14 +225,55 @@ namespace WareHouseManagement.Views
 
         }
 
-        private void DeleteProductitem_Tapped(object sender, EventArgs e)
+        private async void DeleteProductitem_Tapped(object sender, EventArgs e)
         {
+            popupLoadingView.IsVisible = true;
+            activityIndicator.IsRunning = true;
             var dataproduct = ((TappedEventArgs)e).Parameter;
+            if (EditOption == true)
+            {
+                var listitems = (from itm in _Productlist where itm.Id == Convert.ToInt32(dataproduct) select itm).FirstOrDefault<ProductModel>();
+                WRReceivingProducts postdata = new WRReceivingProducts();
+                postdata.Id = listitems.Id;
+                postdata.Quantity = listitems.Quantity;
+                postdata.WRReceivingLogId = listitems.WRReceivingLogId;
+                
 
-            var listitems = (from itm in _Productlist where itm.Id == Convert.ToInt32(dataproduct) select itm).FirstOrDefault<ProductModel>();
-            //var Postlistitems = (from itm in _wrReceivinglogmodel.wrReceivingProducts where itm.ProductId == Convert.ToInt32(dataproduct) select itm).FirstOrDefault<WRReceivingProducts>();
-            //_wrReceivinglogmodel.wrReceivingProducts.Remove(Postlistitems);
-            _Productlist.Remove(listitems);
+                _Productlist.Remove(listitems);
+                try
+                {
+                    var PostDetails = await new WRRecievingLogService().DeleteWRRecievingLogProduct(postdata, ProductUrl.postdeleteproducts);
+                    if (PostDetails.Status == 1)
+                    {
+                       
+                        await Application.Current.MainPage.DisplayAlert("Message", "Success", "OK");
+
+
+                    }
+                }
+                catch
+                {
+
+                }
+                popupLoadingView.IsVisible = false;
+                activityIndicator.IsRunning = false;
+
+
+
+            }
+            else
+            {
+
+                var listitems = (from itm in _Productlist where itm.Id == Convert.ToInt32(dataproduct) select itm).FirstOrDefault<ProductModel>();
+
+                _Productlist.Remove(listitems);
+                popupLoadingView.IsVisible = false;
+                activityIndicator.IsRunning = false;
+
+
+
+            }
+
             ProductGridlist.ItemsSource = null;
             ProductGridlist.ItemsSource = _Productlist;
 
@@ -262,13 +304,13 @@ namespace WareHouseManagement.Views
                 {
                     popupLoadingView.IsVisible = true;
                     activityIndicator.IsRunning = true;
-                    _wrReceivinglogmodel =new WRReceivingLogModel();
-                    _wrReceivinglogmodel.CustomerId = Convert.ToInt32(txt_CustomerId.Text);
-                    _wrReceivinglogmodel.LotNo = txt_lotNo.Text;
-                    _wrReceivinglogmodel.ReceivedDate = txt_rcvingDate.Date;
-                    _wrReceivinglogmodel.Active = true;
-                    _wrReceivinglogmodel.ContainerNo = txt_Container.Text;
-                    _wrReceivinglogmodel.WRReceivingLogStatusId = 10;
+                 var wrReceivinglogmodel =new WRReceivingLogModel();
+                    wrReceivinglogmodel.CustomerId = Convert.ToInt32(txt_CustomerId.Text);
+                    wrReceivinglogmodel.LotNo = txt_lotNo.Text;
+                    wrReceivinglogmodel.ReceivedDate = txt_rcvingDate.Date;
+                    wrReceivinglogmodel.Active = true;
+                    wrReceivinglogmodel.ContainerNo = txt_Container.Text;
+                    wrReceivinglogmodel.WRReceivingLogStatusId = 10;
                     var data = _Productlist.Select(a => new WRReceivingProducts
                     {
                         ProductId = a.ProductId,
@@ -280,8 +322,8 @@ namespace WareHouseManagement.Views
 
 
                     }).ToList();
-                    _wrReceivinglogmodel.wrReceivingProducts = data;
-                    var PostDetails = await new PalletMaintainanceService().PostWRReceivingProduct(_wrReceivinglogmodel, ProductUrl.postproducts);
+                    wrReceivinglogmodel.wrReceivingProducts = data;
+                    var PostDetails = await new PalletMaintainanceService().PostWRReceivingProduct(wrReceivinglogmodel, ProductUrl.postproducts);
                     if (PostDetails.Status == 1)
                     {
                         popupLoadingView.IsVisible = false;
@@ -300,7 +342,46 @@ namespace WareHouseManagement.Views
                 }
                 else
                 {
-                    DisplayAlert("Message", "Edit Option Is In process.", "Ok");
+                    popupLoadingView.IsVisible = true;
+                    activityIndicator.IsRunning = true;
+                     var wrReceivinglogmodel = new WRReceivingLogModel();
+                    wrReceivinglogmodel.Id = _wrReceivinglogmodel.Id;
+                    wrReceivinglogmodel.CustomerId = Convert.ToInt32(txt_CustomerId.Text);
+                    wrReceivinglogmodel.LotNo = txt_lotNo.Text;
+                    wrReceivinglogmodel.ReceivedDate = txt_rcvingDate.Date;
+                    wrReceivinglogmodel.Active = true;
+                    wrReceivinglogmodel.ContainerNo = txt_Container.Text;
+                    wrReceivinglogmodel.WRReceivingLogStatusId= _wrReceivinglogmodel.WRReceivingLogStatusId;
+                    var data = _Productlist.Select(a => new WRReceivingProducts
+                    {
+                        Id=a.Id,
+                        ProductId = a.ProductId,
+                        ProductName = a.ProductName,
+                        Quantity = a.Quantity,
+                        Weight = a.Weight,
+                        Cubic = a.Cubic,
+                        ExDate = a.ExDate
+
+
+                    }).ToList();
+                    wrReceivinglogmodel.wrReceivingProducts = data;
+                    var PostDetails = await new PalletMaintainanceService().PostWRReceivingProduct(wrReceivinglogmodel, ProductUrl.postEditproducts);
+                    if (PostDetails.Status == 1)
+                    {
+                        popupLoadingView.IsVisible = false;
+                        activityIndicator.IsRunning = false;
+                        await Application.Current.MainPage.DisplayAlert("Message", "Success", "OK");
+                        clearProductData();
+                        ClearAllData();
+
+                    }
+                    else
+                    {
+                        popupLoadingView.IsVisible = false;
+                        activityIndicator.IsRunning = false;
+                        DisplayAlert("Message", "Something Wrong Try Again ", "Ok");
+                    }
+
                 }
 
             }

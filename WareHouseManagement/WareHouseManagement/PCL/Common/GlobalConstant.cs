@@ -6,9 +6,9 @@ namespace WareHouseManagement.PCL.Common
 {
     public class GlobalConstant
     {
-        public static string BaseUrl = "http://97.74.238.15:8029/";
-        public static string BaseUrlSignalR = "http://97.74.238.15:8029";
-        public static string TokenURL = "http://97.74.238.15:8029/token";
+        public static string BaseUrl = "http://3.16.25.240:8070/";
+        public static string BaseUrlSignalR = "http://3.16.25.240";
+        public static string TokenURL = "http://3.16.25.240:8070/token";
 
         public static string AWS_ACCESS_KEY = "AWS_ACCESS_KEY";
         public static string AWS_SECRET_KEY = "AWS_SECRET_KEY";

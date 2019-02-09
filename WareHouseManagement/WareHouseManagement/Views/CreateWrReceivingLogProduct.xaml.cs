@@ -134,16 +134,7 @@ namespace WareHouseManagement.Views
 
         private async void txt_product_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (txt_product.Text == "" || txt_product.Text == null)
-            {
-                listproduct.IsVisible = false;
-                txt_Quantity.IsVisible = true;
-                txt_Weight.IsVisible = true;
-                txt_Cubic.IsVisible = true;
-                datepicker_Expiry.IsVisible = true;
-                calender.IsVisible = true;
-            }
-            else
+            if (txt_product.Text !="" && txt_product.Text != null)
             {
                 var getproductdata = await new PalletMaintainanceService().GetPalletLog(GetCustomerAndVender.getproductlist + txt_product.Text);
                 if (getproductdata.Status == 1)
@@ -157,6 +148,15 @@ namespace WareHouseManagement.Views
                 txt_Cubic.IsVisible = false;
                 datepicker_Expiry.IsVisible = false;
                 calender.IsVisible = false;
+            }
+            else
+            {
+                listproduct.IsVisible = false;
+                txt_Quantity.IsVisible = true;
+                txt_Weight.IsVisible = true;
+                txt_Cubic.IsVisible = true;
+                datepicker_Expiry.IsVisible = true;
+                calender.IsVisible = true;
             }
 
         }
@@ -194,7 +194,8 @@ namespace WareHouseManagement.Views
             {
                 _Productlist.Add(new ProductModel
                 {
-                    Id = Convert.ToInt32(txt_ProductId.Text),
+                    Id =0,
+                    
                     ProductName = txt_product.Text,
                     Quantity = Convert.ToInt32(txt_Quantity.Text),
                     Weight = Convert.ToDecimal(txt_Weight.Text),
@@ -281,108 +282,120 @@ namespace WareHouseManagement.Views
 
         private async void btn_saveproduct_Clicked(object sender, EventArgs e)
         {
-          
+            try
+            {
 
-            if ((txt_customer.Text == "" || txt_customer.Text == null) )  
-            {
-                DisplayAlert("Message", "Fill Up Customer", "Ok");
-                txt_customer.Focus();
-            }
-            else if((txt_lotNo.Text == "" || txt_lotNo.Text == null))
-            {
-                DisplayAlert("Message", "Fill Up Lot No", "Ok");
-                txt_lotNo.Focus();
-            }
-            else if ((txt_Container.Text == "" || txt_Container.Text == null))
-            {
-                DisplayAlert("Message", "Fill Up Container", "Ok");
-                txt_Container.Focus();
-            }
-            else 
-            {
-                if (EditOption == false)
+                if ((txt_customer.Text == "" || txt_customer.Text == null))
                 {
-                    popupLoadingView.IsVisible = true;
-                    activityIndicator.IsRunning = true;
-                 var wrReceivinglogmodel =new WRReceivingLogModel();
-                    wrReceivinglogmodel.CustomerId = Convert.ToInt32(txt_CustomerId.Text);
-                    wrReceivinglogmodel.LotNo = txt_lotNo.Text;
-                    wrReceivinglogmodel.ReceivedDate = txt_rcvingDate.Date;
-                    wrReceivinglogmodel.Active = true;
-                    wrReceivinglogmodel.ContainerNo = txt_Container.Text;
-                    wrReceivinglogmodel.WRReceivingLogStatusId = 10;
-                    var data = _Productlist.Select(a => new WRReceivingProducts
-                    {
-                        ProductId = a.ProductId,
-                        ProductName = a.ProductName,
-                        Quantity = a.Quantity,
-                        Weight = a.Weight,
-                        Cubic = a.Cubic,
-                        ExDate = a.ExDate
-
-
-                    }).ToList();
-                    wrReceivinglogmodel.wrReceivingProducts = data;
-                    var PostDetails = await new PalletMaintainanceService().PostWRReceivingProduct(wrReceivinglogmodel, ProductUrl.postproducts);
-                    if (PostDetails.Status == 1)
-                    {
-                        popupLoadingView.IsVisible = false;
-                        activityIndicator.IsRunning = false;
-                        await Application.Current.MainPage.DisplayAlert("Message", "Success", "OK");
-                        clearProductData();
-                        ClearAllData();
-
-                    }
-                    else
-                    {
-                        popupLoadingView.IsVisible = false;
-                        activityIndicator.IsRunning = false;
-                        DisplayAlert("Message", "Something Wrong Try Again ", "Ok");
-                    }
+                    DisplayAlert("Message", "Fill Up Customer", "Ok");
+                    txt_customer.Focus();
+                }
+                else if ((txt_lotNo.Text == "" || txt_lotNo.Text == null))
+                {
+                    DisplayAlert("Message", "Fill Up Lot No", "Ok");
+                    txt_lotNo.Focus();
+                }
+                else if ((txt_Container.Text == "" || txt_Container.Text == null))
+                {
+                    DisplayAlert("Message", "Fill Up Container", "Ok");
+                    txt_Container.Focus();
                 }
                 else
                 {
-                    popupLoadingView.IsVisible = true;
-                    activityIndicator.IsRunning = true;
-                     var wrReceivinglogmodel = new WRReceivingLogModel();
-                    wrReceivinglogmodel.Id = _wrReceivinglogmodel.Id;
-                    wrReceivinglogmodel.CustomerId = Convert.ToInt32(txt_CustomerId.Text);
-                    wrReceivinglogmodel.LotNo = txt_lotNo.Text;
-                    wrReceivinglogmodel.ReceivedDate = txt_rcvingDate.Date;
-                    wrReceivinglogmodel.Active = true;
-                    wrReceivinglogmodel.ContainerNo = txt_Container.Text;
-                    wrReceivinglogmodel.WRReceivingLogStatusId= _wrReceivinglogmodel.WRReceivingLogStatusId;
-                    var data = _Productlist.Select(a => new WRReceivingProducts
+                    if (EditOption == false)
                     {
-                        Id=a.Id,
-                        ProductId = a.ProductId,
-                        ProductName = a.ProductName,
-                        Quantity = a.Quantity,
-                        Weight = a.Weight,
-                        Cubic = a.Cubic,
-                        ExDate = a.ExDate
+                        popupLoadingView.IsVisible = true;
+                        activityIndicator.IsRunning = true;
+                        var wrReceivinglogmodel = new WRReceivingLogModel();
+                        wrReceivinglogmodel.CustomerId = Convert.ToInt32(txt_CustomerId.Text);
+                        wrReceivinglogmodel.LotNo = txt_lotNo.Text;
+                        wrReceivinglogmodel.ReceivedDate = txt_rcvingDate.Date;
+                        wrReceivinglogmodel.Active = true;
+                        wrReceivinglogmodel.ContainerNo = txt_Container.Text;
+                        wrReceivinglogmodel.WRReceivingLogStatusId = 10;
+                        var data = _Productlist.Select(a => new WRReceivingProducts
+                        {
+                            ProductId = a.ProductId,
+                            ProductName = a.ProductName,
+                            Quantity = a.Quantity,
+                            Weight = a.Weight,
+                            Cubic = a.Cubic,
+                            ExDate = a.ExDate
 
 
-                    }).ToList();
-                    wrReceivinglogmodel.wrReceivingProducts = data;
-                    var PostDetails = await new PalletMaintainanceService().PostWRReceivingProduct(wrReceivinglogmodel, ProductUrl.postEditproducts);
-                    if (PostDetails.Status == 1)
-                    {
-                        popupLoadingView.IsVisible = false;
-                        activityIndicator.IsRunning = false;
-                        await Application.Current.MainPage.DisplayAlert("Message", "Success", "OK");
-                        clearProductData();
-                        ClearAllData();
+                        }).ToList();
+                        wrReceivinglogmodel.wrReceivingProducts = data;
+                        var PostDetails = await new PalletMaintainanceService().PostWRReceivingProduct(wrReceivinglogmodel, ProductUrl.postproducts);
+                        if (PostDetails.Status == 1)
+                        {
+                            popupLoadingView.IsVisible = false;
+                            activityIndicator.IsRunning = false;
+                            await Application.Current.MainPage.DisplayAlert("Message", "Success", "OK");
+                            clearProductData();
+                            ClearAllData();
 
+                        }
+                        else
+                        {
+                            popupLoadingView.IsVisible = false;
+                            activityIndicator.IsRunning = false;
+                            DisplayAlert("Message", "Something Wrong Try Again ", "Ok");
+                        }
                     }
                     else
                     {
-                        popupLoadingView.IsVisible = false;
-                        activityIndicator.IsRunning = false;
-                        DisplayAlert("Message", "Something Wrong Try Again ", "Ok");
+
+                        //popupLoadingView.IsVisible = true;
+                        //activityIndicator.IsRunning = true;
+                        WRReceivingLogModel wrReceivinglogmodelPost = new WRReceivingLogModel();
+                        wrReceivinglogmodelPost.Id = _wrReceivinglogmodel.Id;
+                        wrReceivinglogmodelPost.CustomerId = Convert.ToInt32(txt_CustomerId.Text);
+                        wrReceivinglogmodelPost.LotNo = txt_lotNo.Text;
+                        wrReceivinglogmodelPost.ReceivedDate = txt_rcvingDate.Date;
+                        wrReceivinglogmodelPost.Active = true;
+                        wrReceivinglogmodelPost.ContainerNo = txt_Container.Text;
+                        wrReceivinglogmodelPost.WRReceivingLogStatusId = _wrReceivinglogmodel.WRReceivingLogStatusId;
+                        var ProductData = new List<WRReceivingProducts>();
+                        foreach (var a in _Productlist)
+                        {
+                            var Products = new WRReceivingProducts();
+                            Products.Id = a.Id;
+                            Products.ProductId = a.ProductId;
+                            Products.ProductName = a.ProductName;
+                            Products.Quantity = a.Quantity;
+                            Products.Weight = a.Weight;
+                            Products.Cubic = a.Cubic;
+                            Products.ExDate = a.ExDate;
+                            ProductData.Add(Products);
+                        }
+                        wrReceivinglogmodelPost.wrReceivingProducts = ProductData;
+
+                        var PostDetails = await new PalletMaintainanceService().PostWRReceivingProduct(wrReceivinglogmodelPost, ProductUrl.postEditproducts);
+                        if (PostDetails.Status == 1)
+                        {
+
+                            await Application.Current.MainPage.DisplayAlert("Message", "Success", "OK");
+                            clearProductData();
+                            ClearAllData();
+
+                        }
+                        else
+                        {
+
+                            DisplayAlert("Message", "Something Wrong Try Again ", "Ok");
+                        }
+                        //popupLoadingView.IsVisible = false;
+                        //activityIndicator.IsRunning = false;
+
                     }
 
                 }
+
+
+
+            }
+            catch
+            {
 
             }
 
@@ -412,6 +425,72 @@ namespace WareHouseManagement.Views
             ProductGridlist.ItemsSource = null;
 
 
+        }
+
+        private async void ProductGridlist_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var itemselect = (ProductModel)e.SelectedItem;
+            var answer = await DisplayAlert("Action?", "Do You want to Delete?", "Yes", "No");
+            if (answer == true)
+            {
+                if (EditOption == true)
+                {
+                    if (itemselect.Id == 0)
+                    {
+                        _Productlist.Remove(itemselect);
+
+                    }
+                    else
+                    {
+                        WRReceivingProducts postdata = new WRReceivingProducts();
+                        postdata.Id = itemselect.Id;
+                        postdata.Quantity = itemselect.Quantity;
+                        postdata.WRReceivingLogId = itemselect.WRReceivingLogId;
+
+
+
+                        try
+                        {
+                            var PostDetails = await new WRRecievingLogService().DeleteWRRecievingLogProduct(postdata, ProductUrl.postdeleteproducts);
+                            if (PostDetails.Status == 1)
+                            {
+                                _Productlist.Remove(itemselect);
+                                await Application.Current.MainPage.DisplayAlert("Message", PostDetails.Message.ToString(), "OK");
+
+
+                            }
+                        }
+                        catch
+                        {
+
+                        }
+
+                    }
+                    ProductGridlist.ItemsSource = null;
+                    ProductGridlist.ItemsSource = _Productlist;
+
+
+
+
+
+
+                }
+                else
+                {
+
+                    // var listitems = (from itm in _Productlist where itm.Id == Convert.ToInt32(dataproduct) select itm).FirstOrDefault<ProductModel>();
+
+                    _Productlist.Remove(itemselect);
+                    ProductGridlist.ItemsSource = null;
+                    ProductGridlist.ItemsSource = _Productlist;
+
+
+
+
+                }
+
+
+            }
         }
     }
 }

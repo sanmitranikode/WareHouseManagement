@@ -26,6 +26,11 @@ namespace WareHouseManagement.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Acr.BarCodes.Resource.Id.contentFrame = global::WareHouseManagement.Droid.Resource.Id.contentFrame;
+			global::Acr.BarCodes.Resource.Layout.zxingscanneractivitylayout = global::WareHouseManagement.Droid.Resource.Layout.zxingscanneractivitylayout;
+			global::Acr.BarCodes.Resource.Layout.zxingscannerfragmentlayout = global::WareHouseManagement.Droid.Resource.Layout.zxingscannerfragmentlayout;
+			global::Acr.BarCodes.Resource.String.ApplicationName = global::WareHouseManagement.Droid.Resource.String.ApplicationName;
+			global::Acr.BarCodes.Resource.String.Hello = global::WareHouseManagement.Droid.Resource.String.Hello;
 			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_dialog_actioned_on_disabled_toast = global::WareHouseManagement.Droid.Resource.String.appcenter_distribute_dialog_actioned_on_disabled_toast;
 			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_download_progress_number_format = global::WareHouseManagement.Droid.Resource.String.appcenter_distribute_download_progress_number_format;
 			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_downloading_mandatory_update = global::WareHouseManagement.Droid.Resource.String.appcenter_distribute_downloading_mandatory_update;
@@ -1395,6 +1400,9 @@ namespace WareHouseManagement.Droid
 			global::XLabs.Forms.Resource.Styleable.ViewStubCompat_android_layout = global::WareHouseManagement.Droid.Resource.Styleable.ViewStubCompat_android_layout;
 			global::XLabs.Platform.Resource.String.ApplicationName = global::WareHouseManagement.Droid.Resource.String.ApplicationName;
 			global::XLabs.Platform.Resource.String.Hello = global::WareHouseManagement.Droid.Resource.String.Hello;
+			global::ZXing.Mobile.Resource.Id.contentFrame = global::WareHouseManagement.Droid.Resource.Id.contentFrame;
+			global::ZXing.Mobile.Resource.Layout.zxingscanneractivitylayout = global::WareHouseManagement.Droid.Resource.Layout.zxingscanneractivitylayout;
+			global::ZXing.Mobile.Resource.Layout.zxingscannerfragmentlayout = global::WareHouseManagement.Droid.Resource.Layout.zxingscannerfragmentlayout;
 		}
 		
 		public partial class Animation
@@ -4758,6 +4766,9 @@ namespace WareHouseManagement.Droid
 			// aapt resource value: 0x7f0c0090
 			public const int container = 2131493008;
 			
+			// aapt resource value: 0x7f0c00cd
+			public const int contentFrame = 2131493069;
+			
 			// aapt resource value: 0x7f0c0066
 			public const int contentPanel = 2131492966;
 			
@@ -4884,8 +4895,8 @@ namespace WareHouseManagement.Droid
 			// aapt resource value: 0x7f0c0061
 			public const int list_item = 2131492961;
 			
-			// aapt resource value: 0x7f0c00ce
-			public const int masked = 2131493070;
+			// aapt resource value: 0x7f0c00cf
+			public const int masked = 2131493071;
 			
 			// aapt resource value: 0x7f0c00bd
 			public const int media_actions = 2131493053;
@@ -5223,8 +5234,8 @@ namespace WareHouseManagement.Droid
 			// aapt resource value: 0x7f0c0016
 			public const int view_offset_helper = 2131492886;
 			
-			// aapt resource value: 0x7f0c00cd
-			public const int visible = 2131493069;
+			// aapt resource value: 0x7f0c00ce
+			public const int visible = 2131493070;
 			
 			// aapt resource value: 0x7f0c00af
 			public const int volume_item_container = 2131493039;
@@ -5537,6 +5548,12 @@ namespace WareHouseManagement.Droid
 			
 			// aapt resource value: 0x7f040048
 			public const int week = 2130968648;
+			
+			// aapt resource value: 0x7f040049
+			public const int zxingscanneractivitylayout = 2130968649;
+			
+			// aapt resource value: 0x7f04004a
+			public const int zxingscannerfragmentlayout = 2130968650;
 			
 			static Layout()
 			{

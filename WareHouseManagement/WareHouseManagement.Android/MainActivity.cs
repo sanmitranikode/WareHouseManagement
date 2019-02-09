@@ -30,7 +30,8 @@ namespace WareHouseManagement.Droid
             AppCenter.Start("android=e2d55bf9-f053-49d9-89af-d3e4762aa019;",
                      typeof(Analytics), typeof(Crashes));
 
-
+          
+            global::Acr.BarCodes.BarCodes.Init(() => (Activity)Xamarin.Forms.Forms.Context);
         }
     }
 }

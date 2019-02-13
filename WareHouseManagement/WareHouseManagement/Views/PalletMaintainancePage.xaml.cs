@@ -774,11 +774,13 @@ namespace WareHouseManagement.Views
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("Message", "Inser Fail" + "(" + PostDetails.Response.ToString() + ")", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Message", "Inser Fail", "OK");
                 }
             }
             catch (Exception ex)
-            { Crashes.TrackError(ex); }
+            { Crashes.TrackError(ex);
+                await Application.Current.MainPage.DisplayAlert("Message", "Inser Fail" , "OK");
+            }
 
             btn_save.IsEnabled = true;
             popupStockInView.IsVisible = false;

@@ -36,6 +36,7 @@ namespace WareHouseManagement.Views
             if (getpalletdata.Status == 1)
             {
                 _palletlist = JsonConvert.DeserializeObject<List<PalletlistViewModel>>(getpalletdata.Response.ToString());
+                listofpallets.ItemsSource = null;
                 listofpallets.ItemsSource = _palletlist;
             }
 
@@ -87,10 +88,11 @@ namespace WareHouseManagement.Views
                 {
                     await Application.Current.MainPage.DisplayAlert("Message", "Success", "OK");
                     clearData();
+                    loaddata();
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("Message", "Inser Fail" + "(" + PostDetails.Response.ToString() + ")", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Message", "Inser Fail", "OK");
                 }
             }
             catch (Exception ex)

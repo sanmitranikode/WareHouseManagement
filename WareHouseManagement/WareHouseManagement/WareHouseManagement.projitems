@@ -24,6 +24,8 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Common\EnumToStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Common\GlobalConstant.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PCL\Common\ISave.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PCL\Common\SaveAndroid.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Common\SharedPreference.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Helper\HttpClientHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ErrorViewModel.cs" />
@@ -63,6 +65,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserLoginViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\WRReceivingLogReportResponseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\WRReceivingLogResponseViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\BarcodeGeneratePage.xaml.cs">
+      <DependentUpon>BarcodeGeneratePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\ClearBinPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -96,6 +101,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\PickUpLogSelection.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\PrintStickerPdf.xaml.cs">
+      <DependentUpon>PrintStickerPdf.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\ProductBinDetailReport.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -104,6 +113,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\Reports.xaml.cs">
       <DependentUpon>Reports.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\UploadDamageStockImage.xaml.cs">
+      <DependentUpon>UploadDamageStockImage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\WareHouseReceivingLogReports.xaml.cs">
@@ -240,6 +253,20 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\CreateWrReceivingLogProduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Views\BarcodeGeneratePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PrintStickerPdf.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\UploadDamageStockImage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>

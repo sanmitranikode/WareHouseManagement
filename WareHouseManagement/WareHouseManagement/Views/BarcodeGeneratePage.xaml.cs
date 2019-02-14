@@ -14,7 +14,7 @@ namespace WareHouseManagement.Views
     {
         public BarcodeGeneratePage()
         {
-            InitializeComponent();
+      
             var btnCreateQR = new Button { Text = "Genrate" };
             var imgCode = new Image();
             var txtBarcode = new EntryCell { Label = "Value " };

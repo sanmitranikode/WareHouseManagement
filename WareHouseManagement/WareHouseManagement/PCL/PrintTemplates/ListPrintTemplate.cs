@@ -61,14 +61,18 @@ WriteLiteral(" href=\"primer.css\"");
             WriteLiteral(" href=\"bootstrap.css\"");
             WriteLiteral("rel=\"stylesheet\"");
 
-   WriteLiteral(">\n\t</head>\n\t<body>\n\t\t<div");
+            WriteLiteral(">\n\t\t<script type =\"text/javascript\"");
+            WriteLiteral("src=\"bootstrap.js\"");
+                WriteLiteral(">\n\t\t</script>\n\t</head>\n\t<body>\n\t\t<div");
 
-            WriteLiteral(" class=\"blankslate \"");
+            WriteLiteral(" class=\"blankslate blankslate-spacious\"");
 
-  WriteLiteral(">\n\t\t\t<h3>Dunblare Import-Export INC</h3>\n\t\t\t<p>11305 N.W. 122nd St.<br/>" +
-            " MEDLEY, FL 33178<br/>"+
-        "(308)883 - 1194<br/>"+
-      " WWW.DUNBLARE.COM</p>\n\t\t</div><div");
+            WriteLiteral(">\n\t\t\t<h3>Dunblare Import-Export INC</h3>\n\t\t\t<p>11305 N.W. 122nd St.<br/>" +
+                      " MEDLEY, FL 33178<br/>" +
+                  "(308)883 - 1194<br/>" +
+                " WWW.DUNBLARE.COM</p>\n\t\t</div><div");
+            WriteLiteral("class=\"container\"");
+            WriteLiteral(">\n\t\t<div");
 
             WriteLiteral(" class=\"top-bottom-border\"");
             WriteLiteral(">\n\t<h4");
@@ -90,29 +94,22 @@ WriteLiteral(" href=\"primer.css\"");
             WriteLiteral("Neal And Massy");
             WriteLiteral("\n\t</label>");
             WriteLiteral("\n\t\t</div>\n\t\t</div>\n\t\t<div");
-            WriteLiteral(" class=\"row\"");
+            WriteLiteral(" class=\"one columns\"");
             WriteLiteral(">\n\t\t<div");
-            WriteLiteral(" class=\"col-md-12\"");
-            WriteLiteral(">\n\t\t\t<div");
-            WriteLiteral(" class=\"col-md-4 text-center\"");
-            WriteLiteral(">\n\t<h4>Receiving Log#:</h4>\n\t\t\t</div>\n\t\t<div");
-          
-            WriteLiteral(" class=\"col-md-4 text-center\"");
-            WriteLiteral(">\n\t\t\t<h4>User id:SJOSEPH");
-           
-            WriteLiteral("\n\t</h4>\n\t\t\t</div>\n\t\t\t<div");
-           
-            WriteLiteral(" class=\"col-md-4 text-center\"");
-            WriteLiteral(">\n\t\t\t<h4>DateIn:");
-            WriteLiteral("01/02/2019");
-            WriteLiteral("\n\t\t\t</h4>\n\t\t\t</div>\n\t\t\t</div>\n\t\t\t</div>\n\t\t<div");
+                WriteLiteral(" class=\"one-third column\"");
+
+            WriteLiteral(">\n\t\t<h4>Receiving_Log#:</h4>\n\t</div>\n\t<div");
+            WriteLiteral(" class=\"one-third column\"");
+            WriteLiteral(">\n\t\t\t<h4>User_id:SJOSEPH</h4>\n\t\t</div>\n\t\t<div");
+            WriteLiteral(" class=\"one-third column\"");
+            WriteLiteral(">\n\t\t<h4>DateIn:01/02/2019</h4>\n\t\t</div>\n\t</div>\n\t\t<div");
             WriteLiteral(" class=\"text-center bottom-border\"");
             WriteLiteral(">\n\t<label class=\"textsize\">");
             WriteLiteral("\n\t001359");
             WriteLiteral("\n\t</label>\n\t\t</div>\n\t<div");
-             WriteLiteral(" class=\"row bottom-border\"");
+             WriteLiteral(" class=\"columns bottom-border\"");
             WriteLiteral(">\n\t\t<div");
-            WriteLiteral(" class=\"col-md-12\"");
+            WriteLiteral(" class= \"col-md-12\"");
             WriteLiteral(">\n\t<div");
             WriteLiteral(" class=\"col-md-6\"");
             WriteLiteral(">\n\t<h4>Boxes:</h4>");
@@ -120,7 +117,7 @@ WriteLiteral(" href=\"primer.css\"");
             WriteLiteral("\n\t2,140");
             WriteLiteral("\n\t\t</label>\n\t\t</div>\n\t\t<div");
             WriteLiteral(" class=\"col-md-6 left-border\"");
-            WriteLiteral(" class=\"div.border\"");
+            
             
             WriteLiteral(">\n\t<h4>Pieces:</h4>");
             WriteLiteral("\n\t<label");
@@ -147,7 +144,7 @@ WriteLiteral(" href=\"primer.css\"");
             WriteLiteral(" class=\"text-center\"");
             WriteLiteral(">\n\t<label class=\"textsize\">");
             WriteLiteral("Massy US");
-            WriteLiteral("</label>\n\t\t</div>\n\t\t</div>\n\t\t</body>\n</html>");
+            WriteLiteral("</label>\n\t\t</div>\n\t\t</div>\n\t\t</div>\n\t\t</body>\n</html>");
            
 
         }

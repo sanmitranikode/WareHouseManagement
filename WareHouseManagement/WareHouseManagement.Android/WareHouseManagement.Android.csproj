@@ -350,6 +350,12 @@
     <AndroidAsset Include="Assets\bootstrap\dist\js\npm.js" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\bootstrap.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\bootstrap.min.js" />
+  </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="Resources\xml\file_paths.xml">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>

@@ -102,6 +102,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DroidPrintService.cs" />
     <Compile Include="GradientColorStackRenderer.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -109,6 +110,16 @@
     <Compile Include="splashscreen.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\bootstrap\.bower.json" />
+    <AndroidAsset Include="Assets\bootstrap\LICENSE" />
+    <AndroidAsset Include="Assets\bootstrap-theme.css.map" />
+    <AndroidAsset Include="Assets\bootstrap-theme.min.css.map" />
+    <AndroidAsset Include="Assets\bootstrap.css.map" />
+    <AndroidAsset Include="Assets\bootstrap.min.css.map" />
+    <AndroidAsset Include="Assets\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" />
+    <AndroidAsset Include="Assets\bootstrap\dist\fonts\glyphicons-halflings-regular.ttf" />
+    <AndroidAsset Include="Assets\bootstrap\dist\fonts\glyphicons-halflings-regular.woff" />
+    <AndroidAsset Include="Assets\bootstrap\dist\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml">
@@ -134,6 +145,7 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Assets\bootstrap\dist\css\" />
     <Folder Include="Resources\drawable-hdpi\" />
     <Folder Include="Resources\drawable-xhdpi\" />
     <Folder Include="Resources\drawable-xxhdpi\" />
@@ -303,6 +315,33 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\pencil.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\primer.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\bootstrap-theme.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\bootstrap-theme.min.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\bootstrap.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\bootstrap.min.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\bootstrap\dist\fonts\glyphicons-halflings-regular.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\bootstrap\dist\js\bootstrap.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\bootstrap\dist\js\bootstrap.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\bootstrap\dist\js\npm.js" />
   </ItemGroup>
   <Import Project="..\WareHouseManagement\WareHouseManagement.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

@@ -1,4 +1,4 @@
-﻿using Android.Content.PM;
+﻿ using Android.Content.PM;
 using Android.Support.V4.App;
 using Android.Support.V4.Content;
 using Plugin.Media;

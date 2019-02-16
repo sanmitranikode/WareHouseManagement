@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using WareHouseManagement.PCL.Common;
@@ -23,22 +25,41 @@ namespace WareHouseManagement.Views
         }
         void PrintList(object sender, System.EventArgs e)
         {
-            // New up the Razor template
-            var printTemplate = new ListPrintTemplate();
-
-            // Set the model property (ViewModel is a custom property within containing view - FYI)
-            printTemplate.Model = ViewModel.ezPrints.ToList();
-
-            // Generate the HTML
-            var htmlString = printTemplate.GenerateString();
-
-            // Create a source for the webview
-            var htmlSource = new HtmlWebViewSource();
-            htmlSource.Html = htmlString;
-
-            // Create and populate the Xamarin.Forms.WebView
+            var source = new HtmlWebViewSource();
             var browser = new WebView();
-            browser.Source = htmlSource;
+            var htmlSource = new HtmlWebViewSource();
+            //var assembly = typeof(resi).GetTypeInfo().Assembly;
+            //Stream stream = assembly.GetManifestResourceStream("JavaScript1.js");
+            string html = "";
+
+           
+            var assembly = IntrospectionExtensions.GetTypeInfo(typeof(App)).Assembly;
+            Stream stream = assembly.GetManifestResourceStream("WareHouseManagement.Droid.index.html");
+            foreach (var res in assembly.GetManifestResourceNames())
+            {
+                System.Diagnostics.Debug.WriteLine("found resource: " + res);
+            }
+            try
+            {
+                using (var sr = new StreamReader(stream))
+                {
+                    html = sr.ReadToEnd();
+                    source.Html = html;
+                }
+
+
+                browser.Source = source;
+                Content = browser;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+
+        
+
+
 
             var printService = DependencyService.Get<IPrintService>();
             printService.Print(browser);

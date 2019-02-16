@@ -343,6 +343,12 @@
   <ItemGroup>
     <AndroidAsset Include="Assets\bootstrap\dist\js\npm.js" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\bootstrap.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\bootstrap.min.js" />
+  </ItemGroup>
   <Import Project="..\WareHouseManagement\WareHouseManagement.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

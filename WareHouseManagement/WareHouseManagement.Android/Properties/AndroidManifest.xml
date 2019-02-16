@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="TheThinker.WarehouseManagement.App" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="TheThinker.WarehouseManagement.App" android:installLocation="preferExternal">
 	<uses-sdk android:minSdkVersion="19" android:targetSdkVersion="27" />
-	<application android:label="WareHouseManagement.Android" android:icon="@drawable/Logo"></application>
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <application android:label="WareHouseManagement.Android" android:icon="@drawable/Logo">
+    <provider android:name="android.support.v4.content.FileProvider" android:authorities="TheThinker.WarehouseManagement.App.fileprovider" android:exported="false" android:grantUriPermissions="true">
+      <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"></meta-data>
+    </provider>
+  </application>
 </manifest>

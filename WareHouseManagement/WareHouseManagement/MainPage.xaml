@@ -8,6 +8,7 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="rfidReader" Icon="{Binding readerConnectionicon}" Clicked="rfidReader_Clicked"/>
+        <ToolbarItem x:Name="print" Icon="printer.png" Clicked="print_Clicked"/>
         <ToolbarItem Icon="power_1.PNG" Clicked="OnLogoutButtonClicked" />
     </ContentPage.ToolbarItems>
 

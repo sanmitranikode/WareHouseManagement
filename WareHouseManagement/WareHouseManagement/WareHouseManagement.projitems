@@ -24,11 +24,13 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Common\EnumToStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Common\GlobalConstant.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PCL\Common\IPrintService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Common\ISave.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Common\SaveAndroid.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Common\SharedPreference.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Helper\HttpClientHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ErrorViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\EZPrintModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\Pallet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\PalletBarcodeModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\PalletItemResponseModel.cs" />
@@ -44,6 +46,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\UserModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ValidationMessages.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\WRReceivingLog.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PCL\PrintTemplates\ListPrintTemplate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\ClearPalletTagService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\PalletMaintainanceService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\StockInPalletService.cs" />
@@ -52,6 +55,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BinsDetailByProductModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BinViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EZPrintListViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\GradientColorStack.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HeatMapConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LotNumberRecievingLogModel.cs" />
@@ -83,6 +87,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\CreateWrReceivingLogProduct.xaml.cs">
       <DependentUpon>CreateWrReceivingLogProduct.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\EZPrintListPage.xaml.cs">
+      <DependentUpon>EZPrintListPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\LocateTag.xaml.cs">
@@ -270,5 +278,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\EZPrintListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)PCL\PrintTemplates\ListPrintTemplate.cshtml" />
   </ItemGroup>
 </Project>

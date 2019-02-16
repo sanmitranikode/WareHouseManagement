@@ -420,8 +420,8 @@ namespace WareHouseManagement.Views
             txt_rcvingDate.Date = DateTime.UtcNow;
             txt_Vendor.Text = null;
             clearProductData();
-            _wrReceivinglogmodel = null;
-            _Productlist = null;
+            _wrReceivinglogmodel = new WRReceivingLogModel();
+            _Productlist = new List<ProductModel>(); ;
             ProductGridlist.ItemsSource = null;
 
 

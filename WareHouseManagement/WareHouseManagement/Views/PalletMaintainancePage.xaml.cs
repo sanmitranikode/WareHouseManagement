@@ -80,18 +80,18 @@ namespace WareHouseManagement.Views
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            bool EditOption = false;
-            BtnEditpencil.Icon = "edit_icon.png";
+            try
+            {
+                bool EditOption = false;
+                BtnEditpencil.Icon = "edit_icon.png";
 
-            LoadLotNo();
-            // GetUserLoginAsync();
-            PalletList.ItemsSource = _model;
+                LoadLotNo();
+                // GetUserLoginAsync();
+                PalletList.ItemsSource = _model;
 
-            UpdateIn();
-
-
-
-
+                UpdateIn();
+            }
+            catch (Exception ex){ }
 
         }
 

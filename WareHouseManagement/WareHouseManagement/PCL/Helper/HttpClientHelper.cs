@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WareHouseManagement.PCL.Common;
 using WareHouseManagement.PCL.Model;
+using WareHouseManagement.PCL.Model;
 
 namespace WareHouseManagement.PCL.Helper
 {

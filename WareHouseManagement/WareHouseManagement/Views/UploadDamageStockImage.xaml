@@ -2,19 +2,251 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:local="clr-namespace:WareHouseManagement.Views"   
-             Title="Camera Access"   
-             x:Class="WareHouseManagement.Views.UploadDamageStockImage">
+              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+             Title="Camera Access" 
+            xmlns:forms="clr-namespace:dotMorten.Xamarin.Forms;assembly=dotMorten.Xamarin.Forms.AutoSuggestBox"
+             x:Class="WareHouseManagement.Views.UploadDamageStockImage"  xmlns:converters="clr-namespace:WareHouseManagement.PCL.Common;assembly=ByteToImageFieldConverter">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="takePhoto"  Icon="photo_camera.png"   Clicked="TakePhoto_Clicked"/>
+    </ContentPage.ToolbarItems>
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <Style x:Key="headerTablet" TargetType="Label">
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="BackgroundColor" Value="Silver" />
+        <Setter Property="VerticalTextAlignment" Value="Center" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+      </Style>
+      <Style x:Key="detailTablet" TargetType="Label">
+        <Setter Property="TextColor" Value="Black" />
+        <Setter Property="BackgroundColor" Value="White" />
+        <Setter Property="FontSize" Value="9"/>
+        <Setter Property="VerticalTextAlignment" Value="Center" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+      </Style>
+    </ResourceDictionary>
+  </ContentPage.Resources>
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout>
-                
-                <Label Text="Welcome to Camera Access In Xamarin forms"/>
-                <Button Text="Take a Photo"    
-                    x:Name="takePhoto"    
-                    BackgroundColor="Fuchsia"    
-                    Clicked="TakePhoto_Clicked"/>
-                <Image x:Name="image"/>
+        <AbsoluteLayout Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout   VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout>
+                 
+                  
+                    <StackLayout Padding="10,10,10,0" Orientation="Horizontal">
+                        <forms:AutoSuggestBox x:Name="txt_lotNo" HeightRequest="40"  PlaceholderText="Lot No"   BackgroundColor="Silver" HorizontalOptions="FillAndExpand"
+                                            DisplayMemberPath="LotNo"
+                                  TextMemberPath="LotNo"
+                                TextChanged="srchbox_carret_TextChanged"
+                           QuerySubmitted="srchbox_carret_QuerySubmitted"   />
+                        <Image x:Name="RefreshButton" Source="RefreshIcon.png"  HorizontalOptions="End"  >
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer
+                                   Tapped="RefreshButton_Clicked"
+                                    NumberOfTapsRequired="1"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </StackLayout>
+                    <StackLayout Padding="10,10,10,0" Orientation="Horizontal">
+                        <Entry  x:Name="txt_SetQuantity"  VerticalOptions="Start" Keyboard="Numeric"   Placeholder="Quantity" HorizontalOptions="Fill"  />
+
+                        <Entry  x:Name="txt_Barcode"   VerticalOptions="End"    Placeholder="Bar Code" HorizontalOptions="FillAndExpand"  />
+                        <Image Source="magnifier.png" HorizontalOptions="End" VerticalOptions="Center">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer
+                                                         Tapped="SearchTapped_Tapped"
+                                                         NumberOfTapsRequired="1"   />
+
+                            </Image.GestureRecognizers>
+                        </Image>
+
+
+                    </StackLayout>
+                  
+                        <StackLayout Padding="10,10,10,0">
+                         
+                            <Grid x:Name="maingrid">
+                              <Grid.RowDefinitions>
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="*" />
+                              </Grid.RowDefinitions>
+
+                              <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="3*" />
+
+                              </Grid.ColumnDefinitions>
+
+                              <Label Text="Barcode"  Grid.Row="0" Grid.Column="0"  Style="{DynamicResource headerTablet}" />
+                              <Label Text="Image" Grid.Column="1" Grid.Row="0"  Style="{DynamicResource headerTablet}" />
+                             
+                                  <Grid x:Name="imagesgrid" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" >
+                                    <Grid.RowDefinitions>
+
+                                      <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                      <ColumnDefinition Width="2*" />
+                                      <ColumnDefinition Width="3*" />
+
+                                    </Grid.ColumnDefinitions>
+                                  </Grid>
+
+
+
+                               
+                              
+                              
+
+                              <!--<ListView x:Name="DamagestockListView" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"  HorizontalOptions="CenterAndExpand"   >
+
+                                    <ListView.ItemTemplate >
+                                        <DataTemplate>
+                                            <ViewCell>
+                                              
+                                                <ScrollView>
+                                                  <Grid x:Name="GridList" Padding="4" ColumnSpacing="1" RowSpacing="1"  >
+                                                    
+
+
+                                                    <Grid.RowDefinitions>
+                                                      <RowDefinition Height="*"></RowDefinition>
+
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                      <ColumnDefinition Width="*"></ColumnDefinition>
+                                                      <ColumnDefinition Width="*"></ColumnDefinition>
+                                                     
+
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label x:Name="txt_Barcode" Grid.Row="0" Grid.Column="0"  Style="{DynamicResource detailTablet}" Text="{Binding Barcode}  "/>
+                                                   
+                                                    <Image x:Name="Img_Damage"   Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1"  HorizontalOptions="End" Source="{Binding ImagePath}"  >
+                                                    
+                                                    </Image>
+
+                                                  </Grid>
+
+
+
+
+                                                </ScrollView>
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+
+                                </ListView>-->
+
+                            </Grid>
+                         
+                         
+                           
+                          
+                            
+                           
+                        </StackLayout>
+
+
+
+
+                  <StackLayout Padding="10,0,10,10"  Spacing="10" Orientation="Horizontal"  HorizontalOptions="EndAndExpand" >
+                        <StackLayout>
+                            <Button x:Name="btn_Save_DamageStock" Text="Save"  BackgroundColor="#3C495A" BorderRadius="7" TextColor="White"   VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40" Clicked="btn_Save_DamageStock_Clicked" />
+                        </StackLayout>
+                        <StackLayout >
+                            <Button x:Name="btn_ClearDamage"  Text="Clear" BackgroundColor="#3C495A" BorderRadius="7" TextColor="White"   VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40" Clicked="btn_ClearDamage_Clicked"  />
+                        </StackLayout>
+
+                    </StackLayout>
+
+                </StackLayout>
             </StackLayout>
-        </ScrollView>
+            <ContentView x:Name="popupLoadingView" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                    <StackLayout Orientation="Vertical" HeightRequest="150" WidthRequest="200" BackgroundColor="Transparent">
+                        <ActivityIndicator x:Name="activityIndicator" IsVisible="True" Margin="0,50,0,0" VerticalOptions="Center" HorizontalOptions="Center" Color="#3C495A" WidthRequest="30" HeightRequest="30" ></ActivityIndicator>
+                        <Label x:Name="lblLoadingText" TextColor="#3C495A" VerticalOptions="Center" HorizontalOptions="Center" VerticalTextAlignment="Center" Text="Loading..."></Label>
+                    </StackLayout>
+                </StackLayout>
+            </ContentView>
+
+            <ContentView x:Name="popupListViewBarcode" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                    <StackLayout Orientation="Vertical" HeightRequest="300" WidthRequest="250" BackgroundColor="White">
+                        <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="FillAndExpand" >
+                            <Label Text="Bar Code" FontSize="14" TextColor="#3C495A" HeightRequest="30" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
+                            <Image Source="deleteitem.png" HorizontalOptions="End" VerticalOptions="Start">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                                         Tapped="SearchBarCode_Tapped"
+                                                         NumberOfTapsRequired="1"   />
+
+                                </Image.GestureRecognizers>
+
+                            </Image>
+
+                        </StackLayout>
+                        <StackLayout Padding="3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+
+
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Label Text="Bar Code"  Grid.Row="0" Grid.Column="0" TextColor="Black" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"  />
+                                <Label Text="Quantity" Grid.Column="1" Grid.Row="0" TextColor="Black" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"  />
+
+
+                                <ListView x:Name="barcodeList" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ViewCell>
+
+                                                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="*"/>
+
+
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="40"/>
+
+                                                        </Grid.RowDefinitions>
+                                                        <controls:CheckBox x:Name="checkbox" Grid.Row="0" Grid.Column="0" DefaultText="{Binding Barcode}" CheckedChanged="checkbox_CheckedChanged" Checked="{Binding Barcode}"   VerticalOptions="CenterAndExpand" HorizontalOptions="Center" />
+                                                        <Label Text = "{Binding Quantity }" Grid.Row="0" Grid.Column="1"  FontSize="Small" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+
+
+                                                    </Grid>
+
+
+                                                </StackLayout>
+
+
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </Grid>
+
+                        </StackLayout>
+
+
+                    </StackLayout>
+                </StackLayout>
+            </ContentView>
+
+
+
+
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

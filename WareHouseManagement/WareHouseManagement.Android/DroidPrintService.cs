@@ -4,6 +4,7 @@ using Xamarin.Forms.Platform.Android;
 using Android.Print;
 using Android.Content;
 using WareHouseManagement.Droid;
+using WareHouseManagement.PCL.Model;
 using WareHouseManagement.PCL.Common;
 
 [assembly: Xamarin.Forms.Dependency(typeof(DroidPrintService))]

@@ -12,6 +12,7 @@ namespace WareHouseManagement.ViewModels
 
     public class LotNumberList
     {
+        public int WrReceivingLogId { get; set; }
         public string LotNo { get; set; }
 
     }

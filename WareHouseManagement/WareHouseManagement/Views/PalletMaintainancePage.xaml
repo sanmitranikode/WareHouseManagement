@@ -39,7 +39,7 @@
                                             DisplayMemberPath="LotNo"
                                   TextMemberPath="LotNo"
                                 TextChanged="srchbox_carret_TextChanged"
-                           QuerySubmitted="srchbox_carret_QuerySubmitted" />
+                           QuerySubmitted="srchbox_carret_QuerySubmitted" Unfocused="txt_LotNo_Unfocused"  />
                         <Image x:Name="RefreshButton" Source="RefreshIcon.png"  HorizontalOptions="End"  >
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer
@@ -51,7 +51,7 @@
                     <StackLayout Padding="10,10,10,0" Orientation="Horizontal">
                         <Entry  x:Name="txt_SetQuantity"  VerticalOptions="Start" Keyboard="Numeric"   Placeholder="Quantity" HorizontalOptions="Fill"  />
 
-                        <Entry  x:Name="txt_Barcode"   VerticalOptions="End"   TextChanged="txt_Barcode_TextChanged" Placeholder="Bar Code" HorizontalOptions="FillAndExpand"  />
+                        <Entry  x:Name="txt_Barcode" Unfocused="txt_Barcode_Unfocused"  VerticalOptions="End"   TextChanged="txt_Barcode_TextChanged" Placeholder="Bar Code" HorizontalOptions="FillAndExpand"  />
                         <Image Source="magnifier.png" HorizontalOptions="End" VerticalOptions="Center">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer
@@ -159,10 +159,10 @@
                         </Grid>
                     </Grid>
                     <BoxView HeightRequest="2" BackgroundColor="#3C495A"></BoxView>
-                    <StackLayout VerticalOptions="EndAndExpand">
+                    <StackLayout VerticalOptions="EndAndExpand" >
 
                         <StackLayout Padding="10,0,10,10">
-                            <StackLayout Orientation="Horizontal">
+                            <StackLayout Orientation="Horizontal" x:Name="stk_pallettag" >
 
                                 <Entry x:Name="txt_PalletTagNo"  VerticalOptions="Center" TextChanged="Txt_PalletTagNo_TextChanged" HorizontalOptions="FillAndExpand" Placeholder="Tag"  />
                                 <Label x:Name="lbl_PalletTag"  Text="Read Tag" VerticalOptions="Center" HorizontalOptions="End" />

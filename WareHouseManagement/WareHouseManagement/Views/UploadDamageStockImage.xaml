@@ -5,13 +5,17 @@
               xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              Title="Camera Access" 
             xmlns:forms="clr-namespace:dotMorten.Xamarin.Forms;assembly=dotMorten.Xamarin.Forms.AutoSuggestBox"
-             x:Class="WareHouseManagement.Views.UploadDamageStockImage"  xmlns:converters="clr-namespace:WareHouseManagement.PCL.Common;assembly=ByteToImageFieldConverter">
+             x:Class="WareHouseManagement.Views.UploadDamageStockImage"  xmlns:converters="clr-namespace:WareHouseManagement.PCL.Common "
+             xmlns:converters2="clr-namespace:WareHouseManagement.PCL.Common ">
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="takePhoto"  Icon="photo_camera.png"   Clicked="TakePhoto_Clicked"/>
     </ContentPage.ToolbarItems>
   <ContentPage.Resources>
+        
     <ResourceDictionary>
-      <Style x:Key="headerTablet" TargetType="Label">
+            <converters2:ImageFileToImageSourceConverter x:Key="ImageFileToImageSourceConverter" />
+            <converters:ByteToImageFieldConverter x:Key="bytetoconverter"/>
+            <Style x:Key="headerTablet" TargetType="Label">
         <Setter Property="TextColor" Value="White" />
         <Setter Property="FontAttributes" Value="Bold" />
         <Setter Property="BackgroundColor" Value="Silver" />
@@ -66,7 +70,7 @@
                   
                         <StackLayout Padding="10,10,10,0">
                          
-                            <Grid x:Name="maingrid">
+                            <Grid x:Name="maingrid" >
                               <Grid.RowDefinitions>
                                 <RowDefinition Height="40" />
                                 <RowDefinition Height="*" />
@@ -81,18 +85,7 @@
                               <Label Text="Barcode"  Grid.Row="0" Grid.Column="0"  Style="{DynamicResource headerTablet}" />
                               <Label Text="Image" Grid.Column="1" Grid.Row="0"  Style="{DynamicResource headerTablet}" />
                              
-                                  <Grid x:Name="imagesgrid" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" >
-                                    <Grid.RowDefinitions>
-
-                                      <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-
-                                    <Grid.ColumnDefinitions>
-                                      <ColumnDefinition Width="2*" />
-                                      <ColumnDefinition Width="3*" />
-
-                                    </Grid.ColumnDefinitions>
-                                  </Grid>
+                                 
 
 
 
@@ -100,11 +93,14 @@
                               
                               
 
-                              <!--<ListView x:Name="DamagestockListView" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"  HorizontalOptions="CenterAndExpand"   >
+                              <!--<ListView x:Name="DamagestockListView" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" HasUnevenRows="True" HorizontalOptions="CenterAndExpand"   >
 
                                     <ListView.ItemTemplate >
                                         <DataTemplate>
-                                            <ViewCell>
+                                       
+
+                                        <ViewCell>
+                                              
                                               
                                                 <ScrollView>
                                                   <Grid x:Name="GridList" Padding="4" ColumnSpacing="1" RowSpacing="1"  >
@@ -112,7 +108,7 @@
 
 
                                                     <Grid.RowDefinitions>
-                                                      <RowDefinition Height="*"></RowDefinition>
+                                                      <RowDefinition Height="250"></RowDefinition>
 
                                                     </Grid.RowDefinitions>
                                                     <Grid.ColumnDefinitions>
@@ -121,9 +117,11 @@
                                                      
 
                                                     </Grid.ColumnDefinitions>
-                                                    <Label x:Name="txt_Barcode" Grid.Row="0" Grid.Column="0"  Style="{DynamicResource detailTablet}" Text="{Binding Barcode}  "/>
-                                                   
-                                                    <Image x:Name="Img_Damage"   Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1"  HorizontalOptions="End" Source="{Binding ImagePath}"  >
+                                                    <Label x:Name="txt_Barcode" Grid.Row="0" Grid.Column="0"  HorizontalOptions="CenterAndExpand" Text="{Binding BarCode}  "/>
+                                                    <Image x:Name="Img_Damage"   Grid.Row="0" Grid.Column="1"   HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" Source="{Binding imageSourceForImageControl}"  >
+
+
+                                                        --><!--<Image x:Name="Img_Damage"   Grid.Row="0" Grid.Column="1"   HorizontalOptions="End" Source="{Binding ImagePath, Converter={StaticResource ImageFileToImageSourceConverter}}"  >--><!--
                                                     
                                                     </Image>
 
@@ -140,6 +138,33 @@
                                 </ListView>-->
 
                             </Grid>
+                        <StackLayout>
+                            <ScrollView>
+                                <Grid x:Name="GridList" Padding="4"  >
+
+
+
+                                    <!--<Grid.RowDefinitions>
+                                        <RowDefinition Height="300"></RowDefinition>
+
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+
+
+                                    </Grid.ColumnDefinitions>-->
+                                    <!--<Label x:Name="txt_Barcode" Grid.Row="0" Grid.Column="0"  HorizontalOptions="CenterAndExpand" Text="{Binding BarCode}  "/>
+                                    <Image x:Name="Img_Damage"   Grid.Row="0" Grid.Column="1"   HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" Source="{Binding imageSourceForImageControl}"  >-->
+
+
+                                        <!--<Image x:Name="Img_Damage"   Grid.Row="0" Grid.Column="1"   HorizontalOptions="End" Source="{Binding ImagePath, Converter={StaticResource ImageFileToImageSourceConverter}}"  >-->
+
+                                    <!--</Image>-->
+
+                                </Grid>
+                            </ScrollView>
+                        </StackLayout>
                          
                          
                            

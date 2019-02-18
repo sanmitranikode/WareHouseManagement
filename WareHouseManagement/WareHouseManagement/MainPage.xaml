@@ -50,7 +50,7 @@
                         </Button>
 
 
-                        <Button x:Name="btn_StockOut" Image="stockoutPng.png"   Grid.Row="1"  Grid.Column="1" BorderRadius="5"  BackgroundColor="White" ContentLayout="Top,30"   Text="Stock Out"  Clicked="btn_StockOut_Clicked">
+                        <Button x:Name="btn_StockOut" Image="stockoutPng.png"   Grid.Row="1"  Grid.Column="1" BorderRadius="5"  BackgroundColor="White" ContentLayout="Top,30"   Text="Damage Stock"  Clicked="btn_StockOut_Clicked">
 
                         </Button>
 

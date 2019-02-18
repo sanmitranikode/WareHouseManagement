@@ -23,7 +23,7 @@ namespace WareHouseManagement.Views
 	public partial class UploadDamageStockImage : ContentPage
 	{
         List<LotNumberList> LotNumberList;
-        public ObservableCollection<DamageStockImageListModel> lotnumberlist { get; set; }
+      
         byte[] damagepic = null;
         List<DamageStockImageListModel> damagelist=new List<DamageStockImageListModel>();
         public List<ProductBarcodeResponseModel> _barcodelist = new List<ProductBarcodeResponseModel>();
@@ -43,7 +43,13 @@ namespace WareHouseManagement.Views
 
             private async void TakePhoto_Clicked(object sender, EventArgs e)
         {
-            try
+           if(txt_Barcode.Text=="" || txt_Barcode.Text == null)
+            {
+                DisplayAlert("Alert!", "Fill up Barcode", "OK");
+                txt_Barcode.Focus();
+
+            }
+            else
             {
 
                 if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
@@ -60,54 +66,75 @@ namespace WareHouseManagement.Views
                     CustomPhotoSize = 50,
                     PhotoSize = PhotoSize.MaxWidthHeight,
                     MaxWidthHeight = 2000,
-                    DefaultCamera = CameraDevice.Front
+                    DefaultCamera = CameraDevice.Rear
                 });
-                
+
                 if (file == null)
                     return;
-              
+             
+                byte[] value = ImageToBinary(file.Path);
+
+
+                System.IO.FileInfo info = new System.IO.FileInfo(file.Path);
+                string fileName = info.Name;
+                Bitmap val = BitmapFactory.DecodeByteArray(value, 0, value.Length);
+                var source = ImageSource.FromStream(() =>
+                  {
+                      var stream = file.GetStream();
+                      file.Dispose();
+                      return stream;
+                  });
+
+                damagelist.Add(new DamageStockImageListModel() { BarCode = txt_Barcode.Text, imageProperty = value, ImagePath = file.Path, bitMapImage = val, imageSourceForImageControl = source });
+
+                //  DamagestockListView.ItemsSource = damagelist;
                 for (int rowIndex = 0; rowIndex < 1; rowIndex++)
                 {
                     for (int columnIndex = 0; columnIndex < 1; columnIndex++)
                     {
 
                         //var product = productArrayList[productIndex];
-                        var lblbarcode = new Label {
-                            Text = "Sanmitra",
+                        var lblbarcode = new Label
+                        {
+                            Text = txt_Barcode.Text,
                             VerticalOptions = LayoutOptions.Center,
                             HorizontalOptions = LayoutOptions.Center,
                             VerticalTextAlignment = TextAlignment.Center,
-                            HorizontalTextAlignment=TextAlignment.Center
-                           
+                            HorizontalTextAlignment = TextAlignment.Center
+
 
                         };
-                        
+
                         var image = new Image
                         {
-                            
+                            HorizontalOptions = LayoutOptions.Start,
+                            VerticalOptions = LayoutOptions.Center
                         };
-                        image.Source = ImageSource.FromStream(() =>
-                        {
-                            var stream = file.GetStream();
-                            file.Dispose();
-                            return stream;
-                        });
-                        imagesgrid.Children.Add(lblbarcode, 0, forgrid);
-                        imagesgrid.Children.Add(image, 1, forgrid);
-                        
+                            image.Source = ImageSource.FromStream(() =>
+                            {
+                                var stream = file.GetStream();
+                                file.Dispose();
+                                return stream;
+                            });
+                        GridList.RowDefinitions.Add(new RowDefinition { Height = new GridLength(250) });
+                        GridList.Children.Add(lblbarcode, 0, forgrid);
+                        GridList.Children.Add(image, 1, forgrid);
+
                     }
                 }
                 forgrid = forgrid + 1;
 
-                // DisplayAlert("File Location", file.Path, "OK");
-
-               
-
             }
-            catch (Exception ex)
-            { }
+
+
+            // DisplayAlert("File Location", file.Path, "OK");
+
+
+
+
         }
-     
+      
+
 
         public byte[] ImageToBinary(string imagePath)
         {
@@ -122,10 +149,24 @@ namespace WareHouseManagement.Views
         private void btn_Save_DamageStock_Clicked(object sender, EventArgs e)
         {
 
+             DisplayAlert("Massage", "Saved SuccessFully" , "OK");
+
         }
 
         private void btn_ClearDamage_Clicked(object sender, EventArgs e)
         {
+            var children = GridList.Children.ToList();
+            foreach (var child in children)
+            {
+                GridList.Children.Remove(child);
+            }
+            damagelist = null;
+            txt_SetQuantity.Text = null;
+            txt_Barcode.Text = null;
+            //foreach (var child in children)
+            //{
+            //    Grid.SetRow(child, Grid.GetRow(child) - 1);
+            //}
 
         }
         public async void LoadLotNo()

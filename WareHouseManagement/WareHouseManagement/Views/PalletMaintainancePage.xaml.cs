@@ -88,7 +88,7 @@ namespace WareHouseManagement.Views
                 LoadLotNo();
                 // GetUserLoginAsync();
                 PalletList.ItemsSource = _model;
-
+                stk_pallettag.IsVisible = false;
                 UpdateIn();
             }
             catch (Exception ex){ }
@@ -443,6 +443,7 @@ namespace WareHouseManagement.Views
             {
                 PalletModel PalletMaintainanceRequest = new PalletModel();
                 PalletMaintainanceRequest.Tag = txt_PalletTagNo.Text;
+                PalletMaintainanceRequest.LotNo = txt_lotNo.Text;
                 if (EditOption == true)
                 {
                     PalletMaintainanceRequest.TotalProducts = palletItem.Sum(a => a.Quantity);
@@ -529,6 +530,7 @@ namespace WareHouseManagement.Views
             PalletList.ItemsSource = items.Items;
             txt_lotNo.Text = "";
             lbl_totalQuantity.Text = "Total Quantity = " +"0";
+            stk_pallettag.IsVisible = false;
         }
 
 
@@ -658,6 +660,7 @@ namespace WareHouseManagement.Views
                 BtnEditpencil.Icon = "edit_icon.png";
                 SaveUpdateButton.Text = "Save/Print";
                 btn_Save_StockIn.IsEnabled = true;
+                stk_pallettag.IsVisible = false;
             }
             else
             {
@@ -666,6 +669,7 @@ namespace WareHouseManagement.Views
                 BtnEditpencil.Icon = "Save_icon.png";
                 SaveUpdateButton.Text = "Update";
                 btn_Save_StockIn.IsEnabled = false;
+                stk_pallettag.IsVisible = true;
             }
 
             PalletList.ItemsSource = null;
@@ -735,7 +739,7 @@ namespace WareHouseManagement.Views
                 
                 if (EditOption == false)
                 {
-                    if (_model != null && txt_PalletTagNo.Text != "" && txt_PalletTagNo.Text != null)
+                    if (_model != null)
                     {
                         PostPalletMaintainanceDetailAsync();
                     }
@@ -839,7 +843,7 @@ namespace WareHouseManagement.Views
             {
                 if (txt_lotNo.Text != null && txt_lotNo.Text != "")
                 {
-                    var getbarcode = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetBarcode+ txt_lotNo.Text);
+                    var getbarcode = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetBarcode+LotNumberList.Where(a=>a.LotNo==txt_lotNo.Text.Trim()).FirstOrDefault().WrReceivingLogId);
                     if (getbarcode.Status == 1)
                     {
                         _barcodelist = JsonConvert.DeserializeObject<List<ProductBarcodeResponseModel>>(getbarcode.Response.ToString());
@@ -884,5 +888,15 @@ namespace WareHouseManagement.Views
             }
             
         }
+        private void txt_LotNo_Unfocused(object sender, FocusEventArgs e)
+        {
+
+
+        }
+        private void txt_Barcode_Unfocused(object sender, FocusEventArgs e)
+        {
+
+        }
+    
     }
 }

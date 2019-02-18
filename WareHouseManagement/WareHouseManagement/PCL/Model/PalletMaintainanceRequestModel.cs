@@ -10,7 +10,7 @@ namespace WareHouseManagement.PCL.Model
         public string PalletId { get; set; }
         public string Sku { get; set; }
         public int TotalProducts { get; set; }
-
+        public string LotNo { get; set; }
 
         public List<PalletBarcodes> PalletBarcodes { get; set; }
     }

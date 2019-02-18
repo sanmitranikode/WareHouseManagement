@@ -308,7 +308,7 @@
                                                             <RowDefinition Height="40"/>
                                                            
                                                         </Grid.RowDefinitions>
-                                                       <controls:CheckBox x:Name="checkbox" Grid.Row="0" Grid.Column="0" DefaultText="{Binding Barcode}" CheckedChanged="checkbox_CheckedChanged" Checked="{Binding Barcode}"   VerticalOptions="CenterAndExpand" HorizontalOptions="Center" />
+                                                       <controls:CheckBox x:Name="checkbox" Grid.Row="0" Grid.Column="0" DefaultText="{Binding Barcode}" CheckedChanged="checkbox_CheckedChanged" Checked="{Binding Barcode}"   VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" />
                                                         <Label Text = "{Binding Quantity }" Grid.Row="0" Grid.Column="1"  FontSize="Small" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                                                        
 

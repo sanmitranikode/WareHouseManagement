@@ -25,6 +25,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Common\ByteToImageFieldConverter .cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Common\EnumToStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Common\GlobalConstant.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PCL\Common\ImageFileToImageSourceConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Common\IPrintService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Common\ISave.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Common\SaveAndroid.cs" />
@@ -287,5 +288,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)PCL\PrintTemplates\ListPrintTemplate.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)index.html" />
   </ItemGroup>
 </Project>

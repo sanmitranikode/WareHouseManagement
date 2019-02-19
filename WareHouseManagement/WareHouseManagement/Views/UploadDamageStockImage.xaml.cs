@@ -20,30 +20,30 @@ using System.Collections.ObjectModel;
 namespace WareHouseManagement.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class UploadDamageStockImage : ContentPage
-	{
+    public partial class UploadDamageStockImage : ContentPage
+    {
         List<LotNumberList> LotNumberList;
-      
+
         byte[] damagepic = null;
-        List<DamageStockImageListModel> damagelist=new List<DamageStockImageListModel>();
+        List<DamagedStockPicture> damagelist = new List<DamagedStockPicture>();
         public List<ProductBarcodeResponseModel> _barcodelist = new List<ProductBarcodeResponseModel>();
         bool EditOption = false;
-        int forgrid=0;
-        public UploadDamageStockImage ()
-		{
-			InitializeComponent ();
-		}
+        int forgrid = 0;
+        public UploadDamageStockImage()
+        {
+            InitializeComponent();
+        }
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-           LoadLotNo();
+            LoadLotNo();
 
             bool EditOption = false;
         }
 
-            private async void TakePhoto_Clicked(object sender, EventArgs e)
+        private async void TakePhoto_Clicked(object sender, EventArgs e)
         {
-           if(txt_Barcode.Text=="" || txt_Barcode.Text == null)
+            if (txt_Barcode.Text == "" || txt_Barcode.Text == null)
             {
                 DisplayAlert("Alert!", "Fill up Barcode", "OK");
                 txt_Barcode.Focus();
@@ -60,32 +60,30 @@ namespace WareHouseManagement.Views
 
                 var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
                 {
-                    Directory = "Test",
+                    Directory = "Damage Stock Images",
                     SaveToAlbum = true,
                     CompressionQuality = 75,
                     CustomPhotoSize = 50,
-                    PhotoSize = PhotoSize.MaxWidthHeight,
+                    PhotoSize = PhotoSize.Custom,
                     MaxWidthHeight = 2000,
                     DefaultCamera = CameraDevice.Rear
                 });
 
                 if (file == null)
                     return;
-             
-                byte[] value = ImageToBinary(file.Path);
 
-
+                byte[] ByteImage = ImageToBinary(file.Path);
                 System.IO.FileInfo info = new System.IO.FileInfo(file.Path);
                 string fileName = info.Name;
-                Bitmap val = BitmapFactory.DecodeByteArray(value, 0, value.Length);
+                Bitmap BitmapImage = BitmapFactory.DecodeByteArray(ByteImage, 0, ByteImage.Length);
+
                 var source = ImageSource.FromStream(() =>
                   {
                       var stream = file.GetStream();
                       file.Dispose();
                       return stream;
                   });
-
-                damagelist.Add(new DamageStockImageListModel() { BarCode = txt_Barcode.Text, imageProperty = value, ImagePath = file.Path, bitMapImage = val, imageSourceForImageControl = source });
+                damagelist.Add(new DamagedStockPicture() { BarCode = txt_Barcode.Text, PictureBinary = ByteImage, PicturePath = file.Path, PictureName = fileName, bitMapImage = BitmapImage, imageSourceForImageControl = source });
 
                 //  DamagestockListView.ItemsSource = damagelist;
                 for (int rowIndex = 0; rowIndex < 1; rowIndex++)
@@ -110,12 +108,12 @@ namespace WareHouseManagement.Views
                             HorizontalOptions = LayoutOptions.Start,
                             VerticalOptions = LayoutOptions.Center
                         };
-                            image.Source = ImageSource.FromStream(() =>
-                            {
-                                var stream = file.GetStream();
-                                file.Dispose();
-                                return stream;
-                            });
+                        image.Source = ImageSource.FromStream(() =>
+                        {
+                            var stream = file.GetStream();
+                            file.Dispose();
+                            return stream;
+                        });
                         GridList.RowDefinitions.Add(new RowDefinition { Height = new GridLength(250) });
                         GridList.Children.Add(lblbarcode, 0, forgrid);
                         GridList.Children.Add(image, 1, forgrid);
@@ -133,8 +131,6 @@ namespace WareHouseManagement.Views
 
 
         }
-      
-
 
         public byte[] ImageToBinary(string imagePath)
         {
@@ -146,10 +142,43 @@ namespace WareHouseManagement.Views
             return buffer;
         }
 
-        private void btn_Save_DamageStock_Clicked(object sender, EventArgs e)
+        private async void btn_Save_DamageStock_Clicked(object sender, EventArgs e)
         {
+            if (damagelist == null)
+            {
+                DisplayAlert("Massage", " Please Insert Images", "OK");
+            }
+            else
+            {
+                List<DamagedStockPicture> _PictureList = new List<DamagedStockPicture>();
+                var damageStock = new DamageStock
+                {
+                    Quantity = Convert.ToInt32(txt_SetQuantity.Text),
+                    ShortDescription = txt_Description.Text,
+                    WRReceivingLogProductId = Convert.ToInt32(WrReceivingLogProductId.Text),
+                    CreatedOnUtc = DateTime.UtcNow,
+                    UpdatedOnUtc = DateTime.UtcNow,
+                    damagedStockPictures = damagelist.Select(x =>
+                    {
+                        return new DamagedStockPicture
+                        {
+                            PictureBinary = x.PictureBinary,
+                            PictureName = x.PictureName,
+                            PicturePath = x.PicturePath
+                        };
+                    }).ToList()
 
-             DisplayAlert("Massage", "Saved SuccessFully" , "OK");
+                };
+                var getbins = await new DamageStockService().InsertDamageStock(damageStock, DamageStockUrl.InsertDamageStock);
+                if (getbins.Status == 1)
+                {
+                    DisplayAlert("Massage", "Saved SuccessFully", "OK");
+                }
+                else
+                {
+                    DisplayAlert("Massage", "Insertion Fail", "OK");
+                }
+            }
 
         }
 
@@ -197,34 +226,38 @@ namespace WareHouseManagement.Views
         }
         private async void SearchTapped_Tapped(object sender, EventArgs e)
         {
-            if (EditOption == false)
+            try
             {
-                if (txt_lotNo.Text != null && txt_lotNo.Text != "")
+                if (EditOption == false)
                 {
-                    var getbarcode = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetBarcode + LotNumberList.Where(a => a.LotNo == txt_lotNo.Text.Trim()).FirstOrDefault().WrReceivingLogId);
-                    if (getbarcode.Status == 1)
+                    if (txt_lotNo.Text != null && txt_lotNo.Text != "")
                     {
-                        _barcodelist = JsonConvert.DeserializeObject<List<ProductBarcodeResponseModel>>(getbarcode.Response.ToString());
-                        barcodeList.ItemsSource = _barcodelist;
+                        var getbarcode = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetBarcode + LotNumberList.Where(a => a.LotNo == txt_lotNo.Text.Trim()).FirstOrDefault().WrReceivingLogId);
+                        if (getbarcode.Status == 1)
+                        {
+                            _barcodelist = JsonConvert.DeserializeObject<List<ProductBarcodeResponseModel>>(getbarcode.Response.ToString());
+                            barcodeList.ItemsSource = _barcodelist;
+                        }
+                        popupListViewBarcode.IsVisible = true;
                     }
-                    popupListViewBarcode.IsVisible = true;
+                    else
+                    {
+                        DisplayAlert("Message", "Fill Lot No", "Ok");
+                        txt_lotNo.Focus();
+                    }
                 }
                 else
                 {
-                    DisplayAlert("Message", "Fill Lot No", "Ok");
-                    txt_lotNo.Focus();
+                    DisplayAlert("Message", "Select Save Option", "Ok");
                 }
             }
-            else
-            {
-                DisplayAlert("Message", "Select Save Option", "Ok");
-            }
+            catch (Exception ex) { }
 
         }
         private void SearchBarCode_Tapped(object sender, EventArgs e)
         {
-            txt_Barcode.Text = null;
-            txt_SetQuantity.Text = null;
+            //txt_Barcode.Text = null;
+            //txt_SetQuantity.Text = null;
             popupListViewBarcode.IsVisible = false;
         }
         private void checkbox_CheckedChanged(object sender, XLabs.EventArgs<bool> e)
@@ -238,6 +271,7 @@ namespace WareHouseManagement.Views
                 var PalletDetail = isCheckedOrNot.BindingContext as ProductBarcodeResponseModel;
                 txt_SetQuantity.Text = PalletDetail.Quantity;
                 txt_Barcode.Text = barcode;
+                WrReceivingLogProductId.Text = PalletDetail.Id.ToString();
 
             }
 

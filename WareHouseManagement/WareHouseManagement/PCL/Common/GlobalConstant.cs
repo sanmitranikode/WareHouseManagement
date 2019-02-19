@@ -87,6 +87,10 @@ namespace WareHouseManagement.PCL.Common
         public static string getvenderlist = "WrReceivingLogProduct/GetVendorList";
         public static string getproductlist = "WrReceivingLogProduct/GetProductNameList?keyword=";
     }
+    public struct DamageStockUrl
+    {
+        public static string InsertDamageStock ="DamageStock";
+    }
     
 
 }

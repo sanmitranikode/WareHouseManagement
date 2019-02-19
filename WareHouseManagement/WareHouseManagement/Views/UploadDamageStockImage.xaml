@@ -67,8 +67,11 @@
 
 
                     </StackLayout>
-                  
-                        <StackLayout Padding="10,10,10,0">
+                    <StackLayout Padding="10,10,10,0" Orientation="Horizontal">
+                        <Editor x:Name="txt_Description" VerticalOptions="Start" HeightRequest="60" HorizontalOptions="FillAndExpand" Placeholder="Description"/>
+                        <Label x:Name="WrReceivingLogProductId" IsVisible="False" Text=""></Label>
+                    </StackLayout>
+                    <StackLayout Padding="10,10,10,0">
                          
                             <Grid x:Name="maingrid" >
                               <Grid.RowDefinitions>
@@ -246,7 +249,7 @@
                                                             <RowDefinition Height="40"/>
 
                                                         </Grid.RowDefinitions>
-                                                        <controls:CheckBox x:Name="checkbox" Grid.Row="0" Grid.Column="0" DefaultText="{Binding Barcode}" CheckedChanged="checkbox_CheckedChanged" Checked="{Binding Barcode}"   VerticalOptions="CenterAndExpand" HorizontalOptions="Center" />
+                                                        <controls:CheckBox x:Name="checkbox" Grid.Row="0" Grid.Column="0" DefaultText="{Binding Barcode}" CheckedChanged="checkbox_CheckedChanged" Checked="{Binding Barcode}"   VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" />
                                                         <Label Text = "{Binding Quantity }" Grid.Row="0" Grid.Column="1"  FontSize="Small" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
 
 

@@ -36,7 +36,7 @@ namespace WareHouseManagement.Views
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-           // LoadLotNo();
+           LoadLotNo();
 
             bool EditOption = false;
         }
@@ -201,7 +201,7 @@ namespace WareHouseManagement.Views
             {
                 if (txt_lotNo.Text != null && txt_lotNo.Text != "")
                 {
-                    var getbarcode = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetBarcode + txt_lotNo.Text);
+                    var getbarcode = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetBarcode + LotNumberList.Where(a => a.LotNo == txt_lotNo.Text.Trim()).FirstOrDefault().WrReceivingLogId);
                     if (getbarcode.Status == 1)
                     {
                         _barcodelist = JsonConvert.DeserializeObject<List<ProductBarcodeResponseModel>>(getbarcode.Response.ToString());

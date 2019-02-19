@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WareHouseManagement.PCL.Common;
+using WareHouseManagement.PCL.Model;
 using WareHouseManagement.PCL.Service;
 using WareHouseManagement.ViewModels;
 using Xamarin.Forms;
@@ -28,6 +29,26 @@ namespace WareHouseManagement.Views
             {
                 EditOption = true;
                 EditWrRecData(_wrReceivinglogmodel);
+            }
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+           
+            GetLotNo();
+        }
+
+        private async void GetLotNo()
+        {
+           if(txt_lotNo.Text=="" || txt_lotNo.Text == null)
+            {
+                var getmaxlotno = await new PalletMaintainanceService().GetPalletLog(GetMaxLotNo.getmaxlotno);
+                if (getmaxlotno.Status == 1)
+                {
+                    var maxNo = JsonConvert.DeserializeObject<lotNoMax>(getmaxlotno.Response.ToString());
+                    txt_lotNo.Text = (maxNo.LotNo).ToString();
+
+                }
             }
         }
 
@@ -173,6 +194,8 @@ namespace WareHouseManagement.Views
             {
                 txt_product.Text = item.ProductName;
                 txt_ProductId.Text = item.Id.ToString();
+                txt_Weight.Text = item.Weight.ToString();
+                txt_Cubic.Text = (item.Length * item.Width * item.Height).ToString();
                 ((ListView)sender).SelectedItem = null;
             }
 
@@ -491,6 +514,22 @@ namespace WareHouseManagement.Views
 
 
             }
+        }
+
+        private void txt_Quantity_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(txt_Weight.Text=="" || txt_Weight.Text == null)
+            {
+                txt_Weight.IsEnabled = true;
+            }
+            else
+            {
+                string weight = txt_Weight.Text;
+                string quantity = txt_Quantity.Text;
+
+                txt_Weight.Text = (Convert.ToInt32(quantity) * Convert.ToInt32(weight)).ToString();
+            }
+                
         }
     }
 }

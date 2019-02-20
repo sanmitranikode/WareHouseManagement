@@ -237,7 +237,7 @@ namespace WareHouseManagement.Views
             {
                 if (EditOption == true)
                 {
-                    AddProductInGreedForUpdate(PalletDetail.Response);
+                    AddProductInGridForUpdate(PalletDetail.Response);
                 }
                 else
                 {
@@ -334,9 +334,12 @@ namespace WareHouseManagement.Views
                     }
                 }
 
+                txt_Barcode.Focus();
+
+
             }
         }
-        public async void AddProductInGreedForUpdate(object Response)
+        public async void AddProductInGridForUpdate(object Response)
         {
             try
             {
@@ -497,8 +500,12 @@ namespace WareHouseManagement.Views
                             PalletTag.Text = txt_PalletTagNo.Text;
                             Quantity.Text = PalletBarcodes.Sum(a=>a.Quantity).ToString();
                         }
-
-                           // await Application.Current.MainPage.DisplayAlert("Message", "Success", "OK");
+                       var  palletPrint= JsonConvert.DeserializeObject<PalletModel>(PostDetails.Response.ToString());
+                          var value=  await DisplayAlert("Print","Do you want to print", "Yes", "No");
+                        if (value == true)
+                        {
+                            await Navigation.PushAsync(new EZPrintListPage(palletPrint));
+                        }
                         ClearData();
                     }
                     else
@@ -552,7 +559,7 @@ namespace WareHouseManagement.Views
                 }
                 else
                 {
-                    if (_model != null && txt_PalletTagNo.Text != "" && txt_PalletTagNo.Text != null)
+                    if (_model != null )
                     {
                         PostPalletMaintainanceDetailAsync();
                     }

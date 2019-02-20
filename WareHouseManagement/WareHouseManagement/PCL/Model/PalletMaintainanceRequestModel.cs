@@ -6,13 +6,29 @@ namespace WareHouseManagement.PCL.Model
 {
     public class PalletModel
     {
+
         public string Tag { get; set; }
-        public string PalletId { get; set; }
-        public string Sku { get; set; }
+
         public int TotalProducts { get; set; }
+
+        public DateTime CreateDate { get; set; }
+
+        public DateTime LastUpdateDate { get; set; }
+
+        public PalletStatus PalletStatus { get; set; }
+
+        public IList<PalletBarcodes> PalletBarcodes { get; set; }
+
+        public string CustomerName { get; set; }
+
+        public string ReceivingDate { get; set; }
+
+
         public string LotNo { get; set; }
 
-        public List<PalletBarcodes> PalletBarcodes { get; set; }
+        public int PalletId { get; set; }
+
+
     }
     public class PalletBarcodes
     {

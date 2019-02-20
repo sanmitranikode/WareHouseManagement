@@ -154,7 +154,7 @@ namespace WareHouseManagement
 
         private async void print_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new EZPrintListPage());
+            //await Navigation.PushAsync(new EZPrintListPage());
         }
     }
 }

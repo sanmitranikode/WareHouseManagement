@@ -86,10 +86,15 @@ namespace WareHouseManagement.PCL.Common
         public static string getcustomerlist = "WrReceivingLogProduct/UserCustomerList";
         public static string getvenderlist = "WrReceivingLogProduct/GetVendorList";
         public static string getproductlist = "WrReceivingLogProduct/GetProductNameList?keyword=";
-    }
-    public struct GetMaxLotNo
-    {
         public static string getmaxlotno = "WrReceivingLogProduct/GetMaxLotNo";
+    }
+
+    public struct DamageStockUrl
+    {
+        public static string InsertDamageStock ="DamageStock";
+    }
+
+ 
     
     }
 

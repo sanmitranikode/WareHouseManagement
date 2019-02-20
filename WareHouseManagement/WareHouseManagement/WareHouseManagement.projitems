@@ -51,6 +51,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\WRReceivingLog.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\PrintTemplates\ListPrintTemplate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\ClearPalletTagService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\DamageStockService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\PalletMaintainanceService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\StockInPalletService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Service\StockOutPalletService.cs" />

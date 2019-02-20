@@ -10,6 +10,7 @@
         <ToolbarItem  x:Name="BtnEditpencil"    Clicked="EditItem_Clicked" />
     </ContentPage.ToolbarItems>
 
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="headerTablet" TargetType="Label">

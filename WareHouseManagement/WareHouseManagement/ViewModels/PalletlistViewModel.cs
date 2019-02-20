@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using WareHouseManagement.PCL.Model;
 
 namespace WareHouseManagement.ViewModels
 {
@@ -14,9 +15,18 @@ namespace WareHouseManagement.ViewModels
 
         public DateTime LastUpdateDate { get; set; }
 
+        public PalletStatus PalletStatus { get; set; }
 
+      
+
+        public string CustomerName { get; set; }
+
+        public string ReceivingDate { get; set; }
 
 
         public string LotNo { get; set; }
+
+        public int PalletId { get; set; }
+
     }
 }

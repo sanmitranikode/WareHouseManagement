@@ -43,7 +43,7 @@ namespace WareHouseManagement.Views
         {
            if(txt_lotNo.Text=="" || txt_lotNo.Text == null)
             {
-                var getmaxlotno = await new PalletMaintainanceService().GetPalletLog(GetMaxLotNo.getmaxlotno);
+                var getmaxlotno = await new PalletMaintainanceService().GetPalletLog(GetCustomerAndVender.getmaxlotno);
                 if (getmaxlotno.Status == 1)
                 {
                     var maxNo = JsonConvert.DeserializeObject<lotNoMax>(getmaxlotno.Response.ToString());

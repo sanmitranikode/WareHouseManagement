@@ -44,7 +44,7 @@ namespace WareHouseManagement.PCL.Common
 
         public static string PostStockIn = "StockInPallet";
         public static string GetQuantity = "Pallet/";
-      
+
     }
 
     public struct ClearPalletTagUrl
@@ -91,12 +91,13 @@ namespace WareHouseManagement.PCL.Common
 
     public struct DamageStockUrl
     {
-        public static string InsertDamageStock ="DamageStock";
+        public static string InsertDamageStock = "DamageStock";
     }
 
- 
-    
-    }
+
+
+
+
 
 
 }

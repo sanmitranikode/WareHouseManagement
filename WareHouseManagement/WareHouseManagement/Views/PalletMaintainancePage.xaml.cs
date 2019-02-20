@@ -43,6 +43,8 @@ namespace WareHouseManagement.Views
         bool EditOption = false;
         bool checkQty = false;
 
+
+
         List<ProductBarcodeResponseModel> _model = new List<ProductBarcodeResponseModel>();
         List<PalletItemResponseModel> data = new List<PalletItemResponseModel>();
 
@@ -440,7 +442,7 @@ namespace WareHouseManagement.Views
         }
 
 
-        public async void PostPalletMaintainanceDetailAsync()
+        public async void PostPalletMaintainanceDetailAsync(string type)
         {
             try
             {
@@ -496,17 +498,35 @@ namespace WareHouseManagement.Views
                     {
                         if (EditOption == false)
                         {
-                            popupStockInView.IsVisible = true;
-                            PalletTag.Text = txt_PalletTagNo.Text;
-                            Quantity.Text = PalletBarcodes.Sum(a=>a.Quantity).ToString();
+                            if (type == "SaveAndStockIn")
+                            {
+                                var palletPrint = JsonConvert.DeserializeObject<PalletModel>(PostDetails.Response.ToString());
+                                var value = await DisplayAlert("Print", "Do you want to print", "Yes", "No");
+                                if (value == true)
+                                {
+                                    await Navigation.PushAsync(new EZPrintListPage(palletPrint));
+                                }
+                                popupStockInView.IsVisible = true;
+                                PalletTag.Text = txt_PalletTagNo.Text;
+                                Quantity.Text = PalletBarcodes.Sum(a => a.Quantity).ToString();
+                               
+                            }
+                            else
+                            {
+                                popupStockInView.IsVisible = false;
+                                var palletPrint = JsonConvert.DeserializeObject<PalletModel>(PostDetails.Response.ToString());
+                                var value = await DisplayAlert("Print", "Do you want to print", "Yes", "No");
+                                if (value == true)
+                                {
+                                    await Navigation.PushAsync(new EZPrintListPage(palletPrint));
+                                }
+                            }
+                            ClearData();
+
                         }
-                       var  palletPrint= JsonConvert.DeserializeObject<PalletModel>(PostDetails.Response.ToString());
-                          var value=  await DisplayAlert("Print","Do you want to print", "Yes", "No");
-                        if (value == true)
-                        {
-                            await Navigation.PushAsync(new EZPrintListPage(palletPrint));
-                        }
-                        ClearData();
+                      
+                       
+                        
                     }
                     else
                     {
@@ -541,7 +561,7 @@ namespace WareHouseManagement.Views
         }
 
 
-        private async void Button_Clicked(object sender, EventArgs e)
+        private async void btn_SavePrint(object sender, EventArgs e)
         {
             try
             {
@@ -549,7 +569,7 @@ namespace WareHouseManagement.Views
                 {
                     if (palletItem != null && txt_PalletTagNo.Text != "" && txt_PalletTagNo.Text != null)
                     {
-                        PostPalletMaintainanceDetailAsync();
+                        PostPalletMaintainanceDetailAsync("SaveAndPrint" );
                     }
 
                     else
@@ -561,7 +581,7 @@ namespace WareHouseManagement.Views
                 {
                     if (_model != null )
                     {
-                        PostPalletMaintainanceDetailAsync();
+                        PostPalletMaintainanceDetailAsync("SaveAndPrint");
                     }
 
                     else
@@ -644,7 +664,7 @@ namespace WareHouseManagement.Views
 
         public async void LoadLotNo()
         {
-            var data = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetlotNoreceive);
+            var data = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetlotNoreceive+"Pallet");
             if (data.Status == 1)
             {
                 LotNumberList = JsonConvert.DeserializeObject<List<LotNumberList>>(data.Response.ToString());
@@ -739,7 +759,7 @@ namespace WareHouseManagement.Views
             }
         }
 
-        private async void Button_Clicked_1(object sender, EventArgs e)
+        private async void btn_SaveStockIn(object sender, EventArgs e)
         {
             try
             {
@@ -748,7 +768,7 @@ namespace WareHouseManagement.Views
                 {
                     if (_model != null)
                     {
-                        PostPalletMaintainanceDetailAsync();
+                        PostPalletMaintainanceDetailAsync("SaveAndStockIn");
                     }
 
                     else

@@ -843,13 +843,30 @@ namespace WareHouseManagement.Views
             {
                 if (txt_lotNo.Text != null && txt_lotNo.Text != "")
                 {
-                    var getbarcode = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetBarcode+LotNumberList.Where(a=>a.LotNo==txt_lotNo.Text.Trim()).FirstOrDefault().WrReceivingLogId);
-                    if (getbarcode.Status == 1)
+                    
+                       //var sendlot = LotNumberList.Where(a => a.LotNo.Contains(txt_lotNo.Text.Trim())).FirstOrDefault().WrReceivingLogId;
+                        bool has = LotNumberList.Any(cus => cus.LotNo == txt_lotNo.Text);
+                    if (has == true)
                     {
-                        _barcodelist = JsonConvert.DeserializeObject<List<ProductBarcodeResponseModel>>(getbarcode.Response.ToString());
-                        barcodeList.ItemsSource = _barcodelist;
+                        var sendlot = LotNumberList.Where(a => a.LotNo.Contains(txt_lotNo.Text.Trim())).FirstOrDefault().WrReceivingLogId;
+
+                        var getbarcode = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetBarcode + sendlot);
+                        if (getbarcode.Status == 1)
+                        {
+                            _barcodelist = JsonConvert.DeserializeObject<List<ProductBarcodeResponseModel>>(getbarcode.Response.ToString());
+                            barcodeList.ItemsSource = _barcodelist;
+                        }
+                        popupListViewBarcode.IsVisible = true;
                     }
-                    popupListViewBarcode.IsVisible = true;
+                    else
+                    {
+                        DisplayAlert("Alert!", "Check Lot No", "Ok");
+                        txt_lotNo.Focus();
+                    }
+
+
+
+                    
                 }
                 else
                 {

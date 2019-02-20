@@ -21,6 +21,7 @@ namespace WareHouseManagement.Views
         public List<VendorModel> _Venderlist = new List<VendorModel>();
         public List<ProductModel> _Productlist = new List<ProductModel>();
         WRReceivingLogModel _wrReceivinglogmodel = new WRReceivingLogModel();
+        decimal holdweight;
         public CreateWrReceivingLogProduct(WRReceivingLogModel wrReceivinglogmodel)
         {
             InitializeComponent();
@@ -172,6 +173,9 @@ namespace WareHouseManagement.Views
             }
             else
             {
+                txt_Weight.Text = "";
+                txt_Cubic.Text = "";
+                txt_ProductId.Text = "";
                 listproduct.IsVisible = false;
                 txt_Quantity.IsVisible = true;
                 txt_Weight.IsVisible = true;
@@ -195,6 +199,7 @@ namespace WareHouseManagement.Views
                 txt_product.Text = item.ProductName;
                 txt_ProductId.Text = item.Id.ToString();
                 txt_Weight.Text = item.Weight.ToString();
+                holdweight = item.Weight;
                 txt_Cubic.Text = (item.Length * item.Width * item.Height).ToString();
                 ((ListView)sender).SelectedItem = null;
             }
@@ -518,16 +523,13 @@ namespace WareHouseManagement.Views
 
         private void txt_Quantity_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(txt_Weight.Text=="" || txt_Weight.Text == null)
+            if(txt_Quantity.Text!="" && txt_Quantity.Text != null)
             {
-                txt_Weight.IsEnabled = true;
+                txt_Weight.Text = (Convert.ToDecimal(txt_Weight.Text) * Convert.ToDecimal(txt_Quantity.Text)).ToString();
             }
             else
             {
-                string weight = txt_Weight.Text;
-                string quantity = txt_Quantity.Text;
-
-                txt_Weight.Text = (Convert.ToInt32(quantity) * Convert.ToInt32(weight)).ToString();
+                txt_Weight.Text = holdweight.ToString();
             }
                 
         }

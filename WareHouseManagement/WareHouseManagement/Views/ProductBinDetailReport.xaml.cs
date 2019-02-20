@@ -73,6 +73,8 @@ namespace WareHouseManagement.Views
         {
             try
             {
+                activityIndicator.IsRunning = true;
+                popupLoadingView.IsVisible = true;
                 var tappedHier = ((TappedEventArgs)e).Parameter;
                 var data = await new PalletMaintainanceService().GetPalletLog(ProductUrl.GetProductDetails + "?=" + tappedHier);
                 if (data.Status == 1)
@@ -81,8 +83,14 @@ namespace WareHouseManagement.Views
                     await Navigation.PushAsync(new ProductBinDetailReportList(ProductListData));
 
                 }
-            }catch(Exception ex)
+                popupLoadingView.IsVisible = false;
+                activityIndicator.IsRunning = false;
+            }
+            catch(Exception ex)
             {
+                popupLoadingView.IsVisible = false;
+                activityIndicator.IsRunning = false;
+               
                 await Application.Current.MainPage.DisplayAlert("Message", "Product Is Not Available in Bin", "OK");
 
             }

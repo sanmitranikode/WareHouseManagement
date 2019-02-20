@@ -365,9 +365,9 @@
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
-                            <Entry x:Name="txt_Quantity" Placeholder="Quantity" Keyboard="Numeric" HorizontalOptions="FillAndExpand"/>
-                            <Entry x:Name="txt_Weight" Placeholder="Weight" Keyboard="Numeric" HorizontalOptions="FillAndExpand"/>
-                            <Entry x:Name="txt_Cubic" Placeholder="Cubic" Keyboard="Numeric" HorizontalOptions="FillAndExpand"/>
+                            <Entry x:Name="txt_Quantity" Placeholder="Quantity" Keyboard="Numeric"  TextChanged="txt_Quantity_TextChanged" HorizontalOptions="FillAndExpand"/>
+                            <Entry x:Name="txt_Weight" Placeholder="Weight" IsEnabled="False" Keyboard="Numeric" HorizontalOptions="FillAndExpand"/>
+                            <Entry x:Name="txt_Cubic" Placeholder="Cubic" IsEnabled="False" Keyboard="Numeric" HorizontalOptions="FillAndExpand"/>
                             <Entry x:Name="txt_ProductId"  IsVisible="False" />
                             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
 

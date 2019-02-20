@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using WareHouseManagement.PCL.Common;
+using WareHouseManagement.PCL.Model;
 using WareHouseManagement.PCL.PrintTemplates;
 using WareHouseManagement.ViewModels;
 using Xamarin.Forms;
@@ -17,11 +18,13 @@ namespace WareHouseManagement.Views
 	public partial class EZPrintListPage : ContentPage
 	{
         EZPrintListViewModel ViewModel;
-        public EZPrintListPage ()
+        PalletModel _model { get; set; }
+        public EZPrintListPage (PalletModel model)
 		{
 			InitializeComponent ();
             ViewModel = new EZPrintListViewModel();
             BindingContext = ViewModel;
+            _model = model;
         }
         void PrintList(object sender, System.EventArgs e)
         {
@@ -44,6 +47,12 @@ namespace WareHouseManagement.Views
                 using (var sr = new StreamReader(stream))
                 {
                     html = sr.ReadToEnd();
+
+                    html = html.Replace("#CustomerName#", _model.CustomerName);
+                    html = html.Replace("#Todaydate#", DateTime.Now.ToString("dd/MM/yyyy"));
+                    html = html.Replace("#LotNo#", _model.LotNo);
+                    html = html.Replace("#TotalProduct#", _model.TotalProducts.ToString());
+                    html = html.Replace("#BarcodeURL#", "http://3.16.25.240:8025/Barcode/"+ _model.Tag+".jpeg");
                     source.Html = html;
                 }
 

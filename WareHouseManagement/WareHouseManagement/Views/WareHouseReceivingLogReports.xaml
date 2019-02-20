@@ -96,21 +96,28 @@
                                                         <Label x:Name="txt_Customer" Grid.Row="0" Grid.Column="1"   Style="{DynamicResource detailTablet}"  Text="{Binding CustomerFullName}"/>
                                                         <Label x:Name="txt_Qty" Grid.Row="0" Grid.Column="2" Style="{DynamicResource detailTablet}"  Text="{Binding TotalQuantity}"/>
                                                         <Label x:Name="txt_Status" Grid.Row="0" Grid.Column="3" Style="{DynamicResource detailTablet}"  Text="{Binding Status}"/>
-                                                        <Image x:Name="img_Edit" Source="pencil.png" BackgroundColor="White" Grid.Row="0" Grid.Column="4"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
-                                                            <Image.GestureRecognizers>
-                                                                <TapGestureRecognizer
+                                                        <StackLayout Grid.Row="0" Grid.Column="4" BackgroundColor="White">
+                                                            <Image x:Name="img_Edit" Source="pencil.png" BackgroundColor="Transparent"   VerticalOptions="CenterAndExpand"  HorizontalOptions="CenterAndExpand" >
+                                                                <Image.GestureRecognizers>
+                                                                    <TapGestureRecognizer
                                                                   Tapped="TapEditeDetails_Tapped"
                                                                    NumberOfTapsRequired="1"  CommandParameter="{Binding Id}"/>
-                                                            </Image.GestureRecognizers>
-                                                        </Image>
-                                                        <Image x:Name="img_View" Source="ViewDetails.png" BackgroundColor="White" Grid.Row="0" Grid.Column="5" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"  >
-                                                            <Image.GestureRecognizers>
-                                                                <TapGestureRecognizer
+                                                                </Image.GestureRecognizers>
+                                                            </Image>
+
+                                                        </StackLayout>
+                                                        <StackLayout Grid.Row="0" Grid.Column="5" BackgroundColor="White">
+                                                            <Image x:Name="img_View" Source="ViewDetails.png" BackgroundColor="Transparent"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"  >
+                                                                <Image.GestureRecognizers>
+                                                                    <TapGestureRecognizer
                                                                   Tapped="TapViewDetails_Tapped"
                                                                    NumberOfTapsRequired="1"  CommandParameter="{Binding LotNo}"/>
-                                                            </Image.GestureRecognizers>
-                                                        </Image>
+                                                                </Image.GestureRecognizers>
+                                                            </Image>
 
+                                                        </StackLayout>
+                                                       
+                                                        
                                                     </Grid>
                                                 </ScrollView>
                                             </ViewCell>

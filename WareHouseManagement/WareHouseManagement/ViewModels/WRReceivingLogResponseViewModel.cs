@@ -20,4 +20,9 @@ namespace WareHouseManagement.PCL.Model
         public int WRReceivingLogStatus { get; set; }
         public string Customer { get; set; }
     }
+    public class lotNoMax
+    {
+        public string wrReceivingLogId { get; set; }
+        public string LotNo { get; set; }
+    }
 }

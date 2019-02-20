@@ -14,6 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WareHouseManagement.PCL.Common;
+using WareHouseManagement.PCL.Helper;
 using WareHouseManagement.PCL.Model;
 using WareHouseManagement.PCL.Service;
 using WareHouseManagement.ViewModels;
@@ -504,7 +505,7 @@ namespace WareHouseManagement.Views
                           var value=  await DisplayAlert("Print","Do you want to print", "Yes", "No");
                         if (value == true)
                         {
-                            await Navigation.PushAsync(new EZPrintListPage(palletPrint));
+                            printBarcode(palletPrint);
                         }
                         ClearData();
                     }
@@ -524,7 +525,27 @@ namespace WareHouseManagement.Views
             }
         }
 
+        private void printBarcode(PalletModel palletPrint)
+        {
+            CloudPrintHelper _CloudPrintHelper = new CloudPrintHelper();
 
+            var source = new HtmlWebViewSource();
+            var browser = new WebView();
+            var htmlSource = new HtmlWebViewSource();
+
+          var html=  _CloudPrintHelper.PrintData(palletPrint);
+            if (html != null)
+            {
+                source.Html = html;
+
+                browser.Source = source;
+             //   Content = browser;
+
+                var printService = DependencyService.Get<IPrintService>();
+                printService.Print(browser);
+            }
+        
+    }
 
         public void ClearData()
         {

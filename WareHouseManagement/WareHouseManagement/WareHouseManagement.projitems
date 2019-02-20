@@ -30,6 +30,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Common\ISave.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Common\SaveAndroid.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Common\SharedPreference.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PCL\Helper\CloudPrintHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Helper\HttpClientHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\DamageStockImageListModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PCL\Model\ErrorViewModel.cs" />
@@ -59,7 +60,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BinsDetailByProductModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BinViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EZPrintListViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\GradientColorStack.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HeatMapConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LotNumberRecievingLogModel.cs" />
@@ -91,10 +91,6 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\CreateWrReceivingLogProduct.xaml.cs">
       <DependentUpon>CreateWrReceivingLogProduct.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\EZPrintListPage.xaml.cs">
-      <DependentUpon>EZPrintListPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\LocateTag.xaml.cs">
@@ -279,10 +275,6 @@
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\UploadDamageStockImage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\EZPrintListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>

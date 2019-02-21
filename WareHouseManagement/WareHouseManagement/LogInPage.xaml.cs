@@ -25,20 +25,12 @@ namespace WareHouseManagement
         {
             base.OnAppearing();
             try { NavigationPage.SetHasNavigationBar(this, false); } catch { }
-
-
         }
         async void OnLoginButtonClicked(object sender, EventArgs e)
         {
-            //this.IsBusy = true;
-
-
             activity.IsRunning = true;
-
             btn_login.IsEnabled = false;
             GetUserLoginAsync();
-
-
         }
         public async void GetUserLoginAsync()
         {
@@ -52,19 +44,16 @@ namespace WareHouseManagement
             {
                 var UserData = JsonConvert.DeserializeObject<UserLoginViewModel>(UserDetail.Response.ToString());
                 GlobalConstant.AccessToken = UserData.Token;
+                GlobalConstant.UserName = UserData.Username;
+                GlobalConstant.UserPassword = UserData.Password;
                 _objShared.SaveApplicationProperty("AccessToken", GlobalConstant.AccessToken);
+                _objShared.SaveApplicationProperty("UserName", GlobalConstant.UserName);
+                _objShared.SaveApplicationProperty("UserPassword", GlobalConstant.UserPassword);
 
-                //Application.Current.Properties["UserEmail"] = userEmailEntry.Text;
-                //Application.Current.Properties["Password"] = passwordEntry.Text;
-
-
-
-
-
+               
                 App.Current.MainPage = new NavigationPage(new WareHouseManagement.MainPage());
 
-                //Navigation.InsertPageBefore(new MainPage(), this);
-                //await Navigation.PopAsync();
+              
                 btn_login.IsEnabled = true;
                 activity.IsRunning = false;
             }

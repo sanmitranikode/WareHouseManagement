@@ -55,7 +55,7 @@
                     <StackLayout Padding="10,10,10,0" Orientation="Horizontal">
                         <Entry  x:Name="txt_SetQuantity"  VerticalOptions="Start" Keyboard="Numeric"   Placeholder="Quantity" HorizontalOptions="Fill"  />
 
-                        <Entry  x:Name="txt_Barcode"   VerticalOptions="End"    Placeholder="Bar Code" HorizontalOptions="FillAndExpand"  />
+                        <Entry  x:Name="txt_Barcode"   VerticalOptions="End"    Placeholder="Bar Code" TextChanged="txt_Barcode_TextChanged" HorizontalOptions="FillAndExpand"  />
                         <Image Source="magnifier.png" HorizontalOptions="End" VerticalOptions="Center">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer
@@ -202,7 +202,7 @@
 
             <ContentView x:Name="popupListViewBarcode" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                    <StackLayout Orientation="Vertical" HeightRequest="300" WidthRequest="250" BackgroundColor="White">
+                    <StackLayout Orientation="Vertical" HeightRequest="300" WidthRequest="250" BackgroundColor="White" Padding="10">
                         <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="FillAndExpand" >
                             <Label Text="Bar Code" FontSize="14" TextColor="#3C495A" HeightRequest="30" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
                             <Image Source="deleteitem.png" HorizontalOptions="End" VerticalOptions="Start">
@@ -237,7 +237,7 @@
                                         <DataTemplate>
                                             <ViewCell>
 
-                                                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
+                                             
                                                     <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="*"/>
@@ -256,7 +256,7 @@
                                                     </Grid>
 
 
-                                                </StackLayout>
+                                        
 
 
                                             </ViewCell>

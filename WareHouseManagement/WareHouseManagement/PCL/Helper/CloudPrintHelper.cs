@@ -11,7 +11,7 @@ namespace WareHouseManagement.PCL.Helper
    public class CloudPrintHelper
     {
 
-      public string  PrintData(PalletModel _model)
+      public string  PrintData(PrintPalletModel _model)
         {
            
             string html = "";
@@ -34,6 +34,7 @@ namespace WareHouseManagement.PCL.Helper
                     html = html.Replace("#LotNo#", _model.LotNo);
                     html = html.Replace("#TotalProduct#", _model.TotalProducts.ToString());
                     html = html.Replace("#BarcodeURL#", GlobalConstant.BaseUrl+ "/Barcode/" + _model.Tag + ".jpeg");
+                    
 
                 }
 

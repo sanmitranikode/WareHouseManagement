@@ -23,6 +23,7 @@
                 <Image Source="Logo.png" VerticalOptions="End"  HorizontalOptions="Center"  />
 
 
+
             </StackLayout>
             <StackLayout Grid.Row="1" Orientation="Vertical" VerticalOptions="EndAndExpand" Padding="30" Spacing="10">
 

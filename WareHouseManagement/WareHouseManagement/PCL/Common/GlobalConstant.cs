@@ -19,6 +19,8 @@ namespace WareHouseManagement.PCL.Common
         public static string PREF_LONGITUDE = "longitude";
         public static string PREF_LATITUDE = "latitude";
         public static string AccessToken { get; set; }
+        public static string UserName { get; set; }
+        public static string UserPassword { get; set; }
         public static string Usertype { get; set; }
         public static string GoogleMapApiKey = "AIzaSyC50XshkjneoleOy4CTQxRmWAv-qYGhd8Q";
 
@@ -30,7 +32,7 @@ namespace WareHouseManagement.PCL.Common
         public static string GetUserLoginDetail = "Users/Authenticate";
         public static string GetPalletreceivinglog = "WarehouseReceiveLog";
         public static string PostPalletreceivinglog = "Pallet";
-        public static string GetlotNoreceive = "PalletBarcode/GetLotNoList";
+        public static string GetlotNoreceive = "PalletBarcode/GetLotNoList?ValueType=";
         public static string DeletePalletItem = "Pallet/DeletePalletItem";
 
         public static string GetPalletItemByTagId = "Pallet/GetPalletItemByTag";

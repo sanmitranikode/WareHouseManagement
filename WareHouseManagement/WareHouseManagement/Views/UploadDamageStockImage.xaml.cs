@@ -43,13 +43,9 @@ namespace WareHouseManagement.Views
 
         private async void TakePhoto_Clicked(object sender, EventArgs e)
         {
-            if (txt_Barcode.Text == "" || txt_Barcode.Text == null)
-            {
-                DisplayAlert("Alert!", "Fill up Barcode", "OK");
-                txt_Barcode.Focus();
+           
 
-            }
-            else
+            if (checkValidation()==true)
             {
 
                 if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
@@ -78,11 +74,11 @@ namespace WareHouseManagement.Views
                 Bitmap BitmapImage = BitmapFactory.DecodeByteArray(ByteImage, 0, ByteImage.Length);
 
                 var source = ImageSource.FromStream(() =>
-                  {
-                      var stream = file.GetStream();
-                      file.Dispose();
-                      return stream;
-                  });
+                {
+                    var stream = file.GetStream();
+                    file.Dispose();
+                    return stream;
+                });
                 damagelist.Add(new DamagedStockPicture() { BarCode = txt_Barcode.Text, PictureBinary = ByteImage, PicturePath = file.Path, PictureName = fileName, bitMapImage = BitmapImage, imageSourceForImageControl = source });
 
                 //  DamagestockListView.ItemsSource = damagelist;
@@ -121,6 +117,10 @@ namespace WareHouseManagement.Views
                     }
                 }
                 forgrid = forgrid + 1;
+            }
+            else
+            {
+
 
             }
 
@@ -130,6 +130,31 @@ namespace WareHouseManagement.Views
 
 
 
+        }
+
+        private bool checkValidation()
+        {
+            if (txt_lotNo.Text == "" || txt_lotNo.Text == null)
+            {
+                DisplayAlert("Alert!", "Fill up Lot No", "OK");
+                txt_lotNo.Focus();
+                return false;
+            }
+            else
+                if (txt_Barcode.Text == "" || txt_Barcode.Text == null)
+            {
+                DisplayAlert("Alert!", "Fill up Barcode", "OK");
+                txt_Barcode.Focus();
+                return false;
+
+            }
+            else
+            {
+                return true;
+            }
+
+
+           
         }
 
         public byte[] ImageToBinary(string imagePath)
@@ -144,54 +169,67 @@ namespace WareHouseManagement.Views
 
         private async void btn_Save_DamageStock_Clicked(object sender, EventArgs e)
         {
-            if (damagelist == null)
+            if(checkValidation()==true )
             {
-                DisplayAlert("Massage", " Please Insert Images", "OK");
-            }
-            else
-            {
-                List<DamagedStockPicture> _PictureList = new List<DamagedStockPicture>();
-                var damageStock = new DamageStock
+                if (damagelist != null && WrReceivingLogProductId.Text!="" && WrReceivingLogProductId.Text!=null)
                 {
-                    Quantity = Convert.ToInt32(txt_SetQuantity.Text),
-                    ShortDescription = txt_Description.Text,
-                    WRReceivingLogProductId = Convert.ToInt32(WrReceivingLogProductId.Text),
-                    CreatedOnUtc = DateTime.UtcNow,
-                    UpdatedOnUtc = DateTime.UtcNow,
-                    damagedStockPictures = damagelist.Select(x =>
-                    {
-                        return new DamagedStockPicture
-                        {
-                            PictureBinary = x.PictureBinary,
-                            PictureName = x.PictureName,
-                            PicturePath = x.PicturePath
-                        };
-                    }).ToList()
+                    List<DamagedStockPicture> _PictureList = new List<DamagedStockPicture>();
 
-                };
-                var getbins = await new DamageStockService().InsertDamageStock(damageStock, DamageStockUrl.InsertDamageStock);
-                if (getbins.Status == 1)
-                {
-                    DisplayAlert("Massage", "Saved SuccessFully", "OK");
+                    var damageStock = new DamageStock
+                    {
+                        Quantity = Convert.ToInt32(txt_SetQuantity.Text),
+                        ShortDescription = txt_Description.Text,
+                        WRReceivingLogProductId = Convert.ToInt32(WrReceivingLogProductId.Text),
+                        CreatedOnUtc = DateTime.UtcNow,
+                        UpdatedOnUtc = DateTime.UtcNow,
+                        damagedStockPictures = damagelist.Select(x =>
+                        {
+                            return new DamagedStockPicture
+                            {
+                                PictureBinary = x.PictureBinary,
+                                PictureName = x.PictureName,
+                                PicturePath = x.PicturePath
+                            };
+                        }).ToList()
+
+                    };
+                    var getbins = await new DamageStockService().InsertDamageStock(damageStock, DamageStockUrl.InsertDamageStock);
+                    if (getbins.Status == 1)
+                    {
+                        ClearData();
+                        DisplayAlert("Massage", "Saved SuccessFully", "OK");
+                    }
+                    else
+                    {
+                        DisplayAlert("Massage", "Insertion Fail", "OK");
+                    }
                 }
                 else
                 {
-                    DisplayAlert("Massage", "Insertion Fail", "OK");
+                    DisplayAlert("Massage", "Select Image First ", "OK");
                 }
+
             }
-
+           
         }
-
-        private void btn_ClearDamage_Clicked(object sender, EventArgs e)
+        public void ClearData()
         {
+            getBarcode();
+
             var children = GridList.Children.ToList();
             foreach (var child in children)
             {
                 GridList.Children.Remove(child);
             }
             damagelist = null;
+            txt_Description.Text = null;
             txt_SetQuantity.Text = null;
             txt_Barcode.Text = null;
+        }
+
+        private void btn_ClearDamage_Clicked(object sender, EventArgs e)
+        {
+            ClearData();
             //foreach (var child in children)
             //{
             //    Grid.SetRow(child, Grid.GetRow(child) - 1);
@@ -200,7 +238,7 @@ namespace WareHouseManagement.Views
         }
         public async void LoadLotNo()
         {
-            var data = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetlotNoreceive);
+            var data = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetlotNoreceive + "DamageStock");
             if (data.Status == 1)
             {
                 LotNumberList = JsonConvert.DeserializeObject<List<LotNumberList>>(data.Response.ToString());
@@ -222,7 +260,19 @@ namespace WareHouseManagement.Views
         {
             var data = (ViewModels.LotNumberList)e.ChosenSuggestion;
             txt_lotNo.Text = data.LotNo;
+            getBarcode();
 
+        }
+        public async void getBarcode()
+        {
+            var sendlot = LotNumberList.Where(a => a.LotNo.Contains(txt_lotNo.Text.Trim())).FirstOrDefault().WrReceivingLogId;
+
+            var getbarcode = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetBarcode + sendlot);
+            if (getbarcode.Status == 1)
+            {
+                _barcodelist = JsonConvert.DeserializeObject<List<ProductBarcodeResponseModel>>(getbarcode.Response.ToString());
+                barcodeList.ItemsSource = _barcodelist;
+            }
         }
         private async void SearchTapped_Tapped(object sender, EventArgs e)
         {
@@ -232,13 +282,22 @@ namespace WareHouseManagement.Views
                 {
                     if (txt_lotNo.Text != null && txt_lotNo.Text != "")
                     {
-                        var getbarcode = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetBarcode + LotNumberList.Where(a => a.LotNo == txt_lotNo.Text.Trim()).FirstOrDefault().WrReceivingLogId);
-                        if (getbarcode.Status == 1)
+                        bool has = LotNumberList.Any(cus => cus.LotNo == txt_lotNo.Text);
+                        if (has == true)
                         {
-                            _barcodelist = JsonConvert.DeserializeObject<List<ProductBarcodeResponseModel>>(getbarcode.Response.ToString());
-                            barcodeList.ItemsSource = _barcodelist;
+                            if (_barcodelist != null)
+                            {
+                                barcodeList.ItemsSource = _barcodelist;
+                            }
+                             
+                           
+                            popupListViewBarcode.IsVisible = true;
                         }
-                        popupListViewBarcode.IsVisible = true;
+                        else
+                        {
+                            DisplayAlert("Alert!", "Check Lot No", "Ok");
+                            txt_lotNo.Focus();
+                        }
                     }
                     else
                     {
@@ -274,7 +333,25 @@ namespace WareHouseManagement.Views
                 WrReceivingLogProductId.Text = PalletDetail.Id.ToString();
 
             }
+            popupListViewBarcode.IsVisible = false;
 
+        }
+
+        private void txt_Barcode_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_barcodelist != null)
+            {
+                var Barcodes = _barcodelist.Where(a => a.Barcode == txt_Barcode.Text).FirstOrDefault();
+                if (Barcodes != null)
+                {
+                    txt_SetQuantity.Text = Barcodes.Quantity;
+                    WrReceivingLogProductId.Text = Barcodes.Id.ToString();
+                }
+                else
+                {
+                    WrReceivingLogProductId.Text = "";
+                }
+            }
         }
     }
 }

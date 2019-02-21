@@ -43,8 +43,14 @@ namespace WareHouseManagement
             //Application.Current.Properties.Remove("UserEmail");
             //Application.Current.Properties.Remove("Password");
             //Application.Current.Properties.Clear();
+            GlobalConstant.UserName =null;
+            GlobalConstant.UserPassword = null;
             GlobalConstant.AccessToken = null;
             _objShared.SaveApplicationProperty("AccessToken", GlobalConstant.AccessToken);
+            _objShared.SaveApplicationProperty("UserName", GlobalConstant.UserName);
+            _objShared.SaveApplicationProperty("UserPassword", GlobalConstant.UserPassword);
+         
+           
 
           
 

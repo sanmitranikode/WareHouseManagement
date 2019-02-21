@@ -28,12 +28,9 @@ namespace WareHouseManagement
             base.OnAppearing();
             BindingContext = viewmodel = new MainPageViewModel();
 
-           
+            GlobalConstant.AccessToken = _objShared.LoadApplicationProperty<string>("AccessToken");
             viewmodel.UpdateIn();
         }
-
-     
-
         protected override void OnDisappearing()
         {
             base.OnDisappearing();

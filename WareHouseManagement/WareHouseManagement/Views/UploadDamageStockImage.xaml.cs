@@ -86,7 +86,6 @@ namespace WareHouseManagement.Views
                 damagelist.Add(new DamagedStockPicture() { BarCode = txt_Barcode.Text, PictureBinary = ByteImage, PicturePath = file.Path, PictureName = fileName, bitMapImage = BitmapImage, imageSourceForImageControl = source });
 
                 //  DamagestockListView.ItemsSource = damagelist;
-                
                 for (int rowIndex = 0; rowIndex < 1; rowIndex++)
                 {
                     for (int columnIndex = 0; columnIndex < 1; columnIndex++)
@@ -151,48 +150,39 @@ namespace WareHouseManagement.Views
             }
             else
             {
-                if (damagelist != null)
+                List<DamagedStockPicture> _PictureList = new List<DamagedStockPicture>();
+                var damageStock = new DamageStock
                 {
-                    List<DamagedStockPicture> _PictureList = new List<DamagedStockPicture>();
-
-                    var damageStock = new DamageStock
+                    Quantity = Convert.ToInt32(txt_SetQuantity.Text),
+                    ShortDescription = txt_Description.Text,
+                    WRReceivingLogProductId = Convert.ToInt32(WrReceivingLogProductId.Text),
+                    CreatedOnUtc = DateTime.UtcNow,
+                    UpdatedOnUtc = DateTime.UtcNow,
+                    damagedStockPictures = damagelist.Select(x =>
                     {
-                        Quantity = Convert.ToInt32(txt_SetQuantity.Text),
-                        ShortDescription = txt_Description.Text,
-                        WRReceivingLogProductId = Convert.ToInt32(WrReceivingLogProductId.Text),
-                        CreatedOnUtc = DateTime.UtcNow,
-                        UpdatedOnUtc = DateTime.UtcNow,
-                        damagedStockPictures = damagelist.Select(x =>
+                        return new DamagedStockPicture
                         {
-                            return new DamagedStockPicture
-                            {
-                                PictureBinary = x.PictureBinary,
-                                PictureName = x.PictureName,
-                                PicturePath = x.PicturePath
-                            };
-                        }).ToList()
+                            PictureBinary = x.PictureBinary,
+                            PictureName = x.PictureName,
+                            PicturePath = x.PicturePath
+                        };
+                    }).ToList()
 
-                    };
-                    var getbins = await new DamageStockService().InsertDamageStock(damageStock, DamageStockUrl.InsertDamageStock);
-                    if (getbins.Status == 1)
-                    {
-                        ClearData();
-                        DisplayAlert("Massage", "Saved SuccessFully", "OK");
-                    }
-                    else
-                    {
-                        DisplayAlert("Massage", "Insertion Fail", "OK");
-                    }
+                };
+                var getbins = await new DamageStockService().InsertDamageStock(damageStock, DamageStockUrl.InsertDamageStock);
+                if (getbins.Status == 1)
+                {
+                    DisplayAlert("Massage", "Saved SuccessFully", "OK");
                 }
                 else
                 {
-                    DisplayAlert("Massage", "Select Image First ", "OK");
+                    DisplayAlert("Massage", "Insertion Fail", "OK");
                 }
-               
             }
 
         }
-        public void ClearData()
+
+        private void btn_ClearDamage_Clicked(object sender, EventArgs e)
         {
             var children = GridList.Children.ToList();
             foreach (var child in children)
@@ -202,11 +192,6 @@ namespace WareHouseManagement.Views
             damagelist = null;
             txt_SetQuantity.Text = null;
             txt_Barcode.Text = null;
-        }
-
-        private void btn_ClearDamage_Clicked(object sender, EventArgs e)
-        {
-            ClearData();
             //foreach (var child in children)
             //{
             //    Grid.SetRow(child, Grid.GetRow(child) - 1);
@@ -215,7 +200,7 @@ namespace WareHouseManagement.Views
         }
         public async void LoadLotNo()
         {
-            var data = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetlotNoreceive+"DamageStock");
+            var data = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetlotNoreceive);
             if (data.Status == 1)
             {
                 LotNumberList = JsonConvert.DeserializeObject<List<LotNumberList>>(data.Response.ToString());
@@ -241,18 +226,13 @@ namespace WareHouseManagement.Views
         }
         private async void SearchTapped_Tapped(object sender, EventArgs e)
         {
-            if (EditOption == false)
+            try
             {
-                if (txt_lotNo.Text != null && txt_lotNo.Text != "")
+                if (EditOption == false)
                 {
-
-                    //var sendlot = LotNumberList.Where(a => a.LotNo.Contains(txt_lotNo.Text.Trim())).FirstOrDefault().WrReceivingLogId;
-                    bool has = LotNumberList.Any(cus => cus.LotNo == txt_lotNo.Text);
-                    if (has == true)
+                    if (txt_lotNo.Text != null && txt_lotNo.Text != "")
                     {
-                        var sendlot = LotNumberList.Where(a => a.LotNo.Contains(txt_lotNo.Text.Trim())).FirstOrDefault().WrReceivingLogId;
-
-                        var getbarcode = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetBarcode + sendlot);
+                        var getbarcode = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetBarcode + LotNumberList.Where(a => a.LotNo == txt_lotNo.Text.Trim()).FirstOrDefault().WrReceivingLogId);
                         if (getbarcode.Status == 1)
                         {
                             _barcodelist = JsonConvert.DeserializeObject<List<ProductBarcodeResponseModel>>(getbarcode.Response.ToString());
@@ -262,25 +242,16 @@ namespace WareHouseManagement.Views
                     }
                     else
                     {
-                        DisplayAlert("Alert!", "Check Lot No", "Ok");
+                        DisplayAlert("Message", "Fill Lot No", "Ok");
                         txt_lotNo.Focus();
                     }
-
-
-
-
                 }
                 else
                 {
-                    DisplayAlert("Message", "Fill Lot No", "Ok");
-                    txt_lotNo.Focus();
+                    DisplayAlert("Message", "Select Save Option", "Ok");
                 }
             }
-            else
-            {
-                DisplayAlert("Message", "Select Save Option", "Ok");
-            }
-
+            catch (Exception ex) { }
 
         }
         private void SearchBarCode_Tapped(object sender, EventArgs e)
@@ -301,17 +272,9 @@ namespace WareHouseManagement.Views
                 txt_SetQuantity.Text = PalletDetail.Quantity;
                 txt_Barcode.Text = barcode;
                 WrReceivingLogProductId.Text = PalletDetail.Id.ToString();
-            
-               // ((CheckBox)sender).Checked = false;
 
             }
-            popupListViewBarcode.IsVisible = false;
 
-        }
-
-        private void barcodeList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            ((ListView)sender).SelectedItem = null;
         }
     }
 }

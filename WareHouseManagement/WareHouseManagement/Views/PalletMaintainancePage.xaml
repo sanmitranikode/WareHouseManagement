@@ -170,10 +170,10 @@
                             </StackLayout>
                             <StackLayout  Spacing="10" Orientation="Horizontal" HorizontalOptions="End" >
                                 <StackLayout>
-                                    <Button x:Name="btn_Save_StockIn" Text="Save-StockIn"  BackgroundColor="#3C495A" BorderRadius="7" TextColor="White"   VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40" Clicked="btn_SaveStockIn"/>
+                                    <Button x:Name="btn_Save_StockIn" Text="Save-StockIn"  BackgroundColor="#3C495A" BorderRadius="7" TextColor="White"   VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40" Clicked="Button_Clicked_1"/>
                                 </StackLayout>
                                 <StackLayout >
-                                    <Button x:Name="SaveUpdateButton"  Text="Save/Print" BackgroundColor="#3C495A" BorderRadius="7" TextColor="White"   VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40"  Clicked="btn_SavePrint"/>
+                                    <Button x:Name="SaveUpdateButton"  Text="Save/Print" BackgroundColor="#3C495A" BorderRadius="7" TextColor="White"   VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40"  Clicked="Button_Clicked"/>
                                 </StackLayout>
 
                             </StackLayout>

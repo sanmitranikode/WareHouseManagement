@@ -35,8 +35,8 @@ namespace WareHouseManagement.Views
                 {
                     var ProductListData = JsonConvert.DeserializeObject<List<ProductModel>>(data.Response.ToString());
                     _Model = ProductListData;
-                    PalletList.ItemsSource = null;
-                    PalletList.ItemsSource = _Model;
+                    ProductBinReportList.ItemsSource = null;
+                    ProductBinReportList.ItemsSource = _Model;
                 }
             }
             catch(Exception ex)
@@ -54,8 +54,8 @@ namespace WareHouseManagement.Views
                 {
                     var ProductListData = JsonConvert.DeserializeObject<List<ProductModel>>(data.Response.ToString());
                     _Model = ProductListData;
-                    PalletList.ItemsSource = null;
-                    PalletList.ItemsSource = _Model;
+                    ProductBinReportList.ItemsSource = null;
+                    ProductBinReportList.ItemsSource = _Model;
                 }
             }
             catch (Exception ex) { Crashes.TrackError(ex); }
@@ -94,6 +94,33 @@ namespace WareHouseManagement.Views
                 await Application.Current.MainPage.DisplayAlert("Message", "Product Is Not Available in Bin", "OK");
 
             }
+        }
+
+        private void listofpallets_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+
+        }
+
+        private async void ProductBinReportList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+
+            var tappedHier = (ProductModel) e.SelectedItem;
+            activityIndicator.IsRunning = true;
+            popupLoadingView.IsVisible = true;
+            if (tappedHier != null)
+            {
+                var data = await new PalletMaintainanceService().GetPalletLog(ProductUrl.GetProductDetails + "?=" + tappedHier.Id);
+                if (data.Status == 1)
+                {
+                    var ProductListData = JsonConvert.DeserializeObject<List<BinsDetailByProductModel>>(data.Response.ToString());
+                    await Navigation.PushAsync(new ProductBinDetailReportList(ProductListData));
+
+                }
+            }
+            popupLoadingView.IsVisible = false;
+            activityIndicator.IsRunning = false;
+            ((ListView)sender).SelectedItem = null;
+
         }
     }
 }

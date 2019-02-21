@@ -63,11 +63,15 @@ namespace WareHouseManagement.Views
         private void Print_Tapped(object sender, EventArgs e)
         {
             var tappedprint = ((TappedEventArgs)e).Parameter;
+            var listitems = (from itm in _palletlist where itm.Tag == tappedprint.ToString() select itm).FirstOrDefault<PalletlistViewModel>();
+
+
         }
 
         private void listofpallets_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             ((ListView)sender).SelectedItem = null;
+          
         }
 
         private async void btn_save_Clicked(object sender, EventArgs e)

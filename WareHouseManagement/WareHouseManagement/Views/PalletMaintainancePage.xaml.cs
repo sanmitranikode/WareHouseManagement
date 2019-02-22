@@ -682,11 +682,17 @@ namespace WareHouseManagement.Views
 
         public async void LoadLotNo()
         {
-            var data = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetlotNoreceive+"Pallet");
-            if (data.Status == 1)
+            try
             {
-                LotNumberList = JsonConvert.DeserializeObject<List<LotNumberList>>(data.Response.ToString());
+                var data = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetlotNoreceive + "Pallet");
+                if (data.Status == 1)
+                {
+                    LotNumberList = JsonConvert.DeserializeObject<List<LotNumberList>>(data.Response.ToString());
+                }
+
             }
+            catch { }
+          
         }
 
         private async void RefreshButton_Clicked(object sender, EventArgs e)
@@ -855,13 +861,19 @@ namespace WareHouseManagement.Views
 
         private async void btn_binsearch_Clicked(object sender, EventArgs e)
         {
-            var getbins = await new PalletMaintainanceService().GetPalletLog(GetBintagsUrl.GetBintagList);
-            if (getbins.Status == 1)
+            try
             {
-                _bintaglist = JsonConvert.DeserializeObject<List<BinViewModel>>(getbins.Response.ToString());
-                sampleList.ItemsSource = _bintaglist;
+                var getbins = await new PalletMaintainanceService().GetPalletLog(GetBintagsUrl.GetBintagList);
+                if (getbins.Status == 1)
+                {
+                    _bintaglist = JsonConvert.DeserializeObject<List<BinViewModel>>(getbins.Response.ToString());
+                    sampleList.ItemsSource = _bintaglist;
+                }
+                popupListView.IsVisible = true;
+
             }
-            popupListView.IsVisible = true;
+            catch { }
+           
         }
 
         private void sampleList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -884,45 +896,50 @@ namespace WareHouseManagement.Views
 
         private async void SearchTapped_Tapped(object sender, EventArgs e)
         {
-            if (EditOption == false)
+            try
             {
-                if (txt_lotNo.Text != null && txt_lotNo.Text != "")
+                if (EditOption == false)
                 {
-                    
-                       //var sendlot = LotNumberList.Where(a => a.LotNo.Contains(txt_lotNo.Text.Trim())).FirstOrDefault().WrReceivingLogId;
-                        bool has = LotNumberList.Any(cus => cus.LotNo == txt_lotNo.Text);
-                    if (has == true)
+                    if (txt_lotNo.Text != null && txt_lotNo.Text != "")
                     {
-                        var sendlot = LotNumberList.Where(a => a.LotNo.Contains(txt_lotNo.Text.Trim())).FirstOrDefault().WrReceivingLogId;
 
-                        var getbarcode = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetBarcode + sendlot);
-                        if (getbarcode.Status == 1)
+                        //var sendlot = LotNumberList.Where(a => a.LotNo.Contains(txt_lotNo.Text.Trim())).FirstOrDefault().WrReceivingLogId;
+                        bool has = LotNumberList.Any(cus => cus.LotNo == txt_lotNo.Text);
+                        if (has == true)
                         {
-                            _barcodelist = JsonConvert.DeserializeObject<List<ProductBarcodeResponseModel>>(getbarcode.Response.ToString());
-                            barcodeList.ItemsSource = _barcodelist;
+                            var sendlot = LotNumberList.Where(a => a.LotNo.Contains(txt_lotNo.Text.Trim())).FirstOrDefault().WrReceivingLogId;
+
+                            var getbarcode = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetBarcode + sendlot);
+                            if (getbarcode.Status == 1)
+                            {
+                                _barcodelist = JsonConvert.DeserializeObject<List<ProductBarcodeResponseModel>>(getbarcode.Response.ToString());
+                                barcodeList.ItemsSource = _barcodelist;
+                            }
+                            popupListViewBarcode.IsVisible = true;
                         }
-                        popupListViewBarcode.IsVisible = true;
+                        else
+                        {
+                            DisplayAlert("Alert!", "Check Lot No", "Ok");
+                            txt_lotNo.Focus();
+                        }
+
+
+
+
                     }
                     else
                     {
-                        DisplayAlert("Alert!", "Check Lot No", "Ok");
+                        DisplayAlert("Message", "Fill Lot No", "Ok");
                         txt_lotNo.Focus();
                     }
-
-
-
-                    
                 }
                 else
                 {
-                    DisplayAlert("Message", "Fill Lot No", "Ok");
-                    txt_lotNo.Focus();
+                    DisplayAlert("Message", "Select Save Option", "Ok");
                 }
             }
-            else
-            {
-                DisplayAlert("Message", "Select Save Option", "Ok");
-            }
+            catch { }
+           
            
         }
 

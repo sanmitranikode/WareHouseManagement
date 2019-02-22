@@ -15,8 +15,17 @@
                     <StackLayout>
                         
                     </StackLayout>
-                    <Entry x:Name="PalletTag"   VerticalOptions="Center"  Placeholder="Pallet Tag" HorizontalOptions="FillAndExpand" TextChanged="PalletTag_TextChanged"/>
-                    <Entry  x:Name="Quantity"   VerticalOptions="Center"  Placeholder="Quantity" HorizontalOptions="FillAndExpand"/>
+                    <StackLayout Orientation="Horizontal">
+                        <Entry x:Name="PalletTag"   VerticalOptions="Center"  Placeholder="Pallet Tag" HorizontalOptions="FillAndExpand" TextChanged="PalletTag_TextChanged"/>
+                        <Button x:Name="btn_palletTagSearch" Image="magnifier.png" HeightRequest="30" WidthRequest="30" HorizontalOptions="End" BackgroundColor="White" Clicked="btn_palletTagSearch_Clicked"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Entry  x:Name="Quantity"   VerticalOptions="Center"  Placeholder="Quantity" HorizontalOptions="FillAndExpand"/>
+                        <StackLayout WidthRequest="30" HeightRequest="30"></StackLayout>
+
+                    </StackLayout>
+                   
+                   
                     <StackLayout Orientation="Horizontal">
                         <Entry  x:Name="BinTag"   VerticalOptions="Center"  Placeholder="Bin Tag" HorizontalOptions="FillAndExpand" TextChanged="BinTag_TextChanged"/>
 
@@ -50,10 +59,10 @@
                                     <ViewCell>
                                         
                                             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="20">
-                                                <Label Text = "{Binding BinCode}" FontSize="Small" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                                                <Label Text = "{Binding BinTag}" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                                               
-                                            </StackLayout>
+                                                       <Label Text = "{Binding BinCode}" FontSize="Small" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                                                        <Label Text = "{Binding BinTag}" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+
+                                             </StackLayout>
                                            
                                      
                                     </ViewCell>
@@ -63,7 +72,38 @@
                     </StackLayout>
                 </StackLayout>
             </ContentView>
-            
+            <ContentView x:Name="popupLoadingView" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                    <StackLayout Orientation="Vertical" HeightRequest="150" WidthRequest="200" BackgroundColor="Transparent">
+                        <ActivityIndicator x:Name="activityIndicator" IsVisible="True" Margin="0,50,0,0" VerticalOptions="Center" HorizontalOptions="Center" Color="#3C495A" WidthRequest="30" HeightRequest="30" ></ActivityIndicator>
+                        <Label x:Name="lblLoadingText" TextColor="#3C495A" VerticalOptions="Center" HorizontalOptions="Center" VerticalTextAlignment="Center" Text="Loading..."></Label>
+                    </StackLayout>
+                </StackLayout>
+            </ContentView>
+            <ContentView x:Name="popupPalletTAgListView" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                    <StackLayout Orientation="Vertical" HeightRequest="400" WidthRequest="250" BackgroundColor="White">
+                        <Label Text="Pallet Tag" FontSize="14" TextColor="#3C495A" HeightRequest="30" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalOptions="Center"/>
+                        <ListView x:Name="PalletTaglist" ItemSelected="PalletTaglist_ItemSelected">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="20">
+                                            <Label Text = "{Binding Tag}" FontSize="Small" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                                        
+
+                                        </StackLayout>
+
+
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                </StackLayout>
+            </ContentView>
+
         </AbsoluteLayout>
         
          

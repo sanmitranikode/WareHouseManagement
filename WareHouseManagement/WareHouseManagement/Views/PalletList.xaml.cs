@@ -32,13 +32,19 @@ namespace WareHouseManagement.Views
 
         private async void loaddata()
         {
-            var getpalletdata = await new PalletMaintainanceService().GetPalletLog(GetPalletListUrl.getpalletlist);
-            if (getpalletdata.Status == 1)
+            try
             {
-                _palletlist = JsonConvert.DeserializeObject<List<PalletlistViewModel>>(getpalletdata.Response.ToString());
-                listofpallets.ItemsSource = null;
-                listofpallets.ItemsSource = _palletlist;
+                var getpalletdata = await new PalletMaintainanceService().GetPalletLog(GetPalletListUrl.getpalletlist);
+                if (getpalletdata.Status == 1)
+                {
+                    _palletlist = JsonConvert.DeserializeObject<List<PalletlistViewModel>>(getpalletdata.Response.ToString());
+                    listofpallets.ItemsSource = null;
+                    listofpallets.ItemsSource = _palletlist;
+                }
+
             }
+            catch { }
+          
 
         }
 
@@ -126,15 +132,21 @@ namespace WareHouseManagement.Views
 
         private async void btn_binsearch_Clicked(object sender, EventArgs e)
         {
-            btn_binsearch.IsEnabled = false;
-            var getbins = await new PalletMaintainanceService().GetPalletLog(GetBintagsUrl.GetBintagList);
-            if (getbins.Status == 1)
+            try
             {
-                _bintaglist = JsonConvert.DeserializeObject<List<BinViewModel>>(getbins.Response.ToString());
-                sampleList.ItemsSource = _bintaglist;
+                btn_binsearch.IsEnabled = false;
+                var getbins = await new PalletMaintainanceService().GetPalletLog(GetBintagsUrl.GetBintagList);
+                if (getbins.Status == 1)
+                {
+                    _bintaglist = JsonConvert.DeserializeObject<List<BinViewModel>>(getbins.Response.ToString());
+                    sampleList.ItemsSource = _bintaglist;
+                }
+                popupListView.IsVisible = true;
+                btn_binsearch.IsEnabled = true;
+
             }
-            popupListView.IsVisible = true;
-            btn_binsearch.IsEnabled = true;
+            catch { }
+          
         }
 
         private void sampleList_ItemSelected(object sender, SelectedItemChangedEventArgs e)

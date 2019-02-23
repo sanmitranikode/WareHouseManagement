@@ -23,6 +23,7 @@ namespace WareHouseManagement.Views
         public event PropertyChangedEventHandler PropertyChanged;
         ReaderModel rfidModel = ReaderModel.readerModel;
         public List<TagItem> Tags = new List<TagItem>();
+        public List<PalletlistViewModel> _palleTagtlist = new List<PalletlistViewModel>();
         private Object tagreadlock = new object();
         private static Dictionary<String, int> tagListDict = new Dictionary<string, int>();
         public List<BinViewModel> _bintaglist = new List<BinViewModel>();
@@ -46,16 +47,23 @@ namespace WareHouseManagement.Views
 
 
             UpdateIn();
+            getData();
 
 
-          var getbins= await new PalletMaintainanceService().GetPalletLog(GetBintagsUrl.GetBintagList);
-            if (getbins.Status == 1)
-            {
-                _bintaglist= JsonConvert.DeserializeObject<List<BinViewModel>>(getbins.Response.ToString());
-                sampleList.ItemsSource = _bintaglist;
-            }
+          
           
 
+        }
+
+        private async void getData()
+        {
+            var getbins = await new PalletMaintainanceService().GetPalletLog(GetBintagsUrl.GetBintagList);
+            if (getbins.Status == 1)
+            {
+                _bintaglist = JsonConvert.DeserializeObject<List<BinViewModel>>(getbins.Response.ToString());
+                sampleList.ItemsSource = _bintaglist;
+            }
+           
         }
 
         protected override void OnDisappearing()
@@ -241,7 +249,7 @@ namespace WareHouseManagement.Views
             }
         }
 
- public void clearData()
+         public void clearData()
         {
 
             PalletTag.Text = "";
@@ -284,6 +292,36 @@ namespace WareHouseManagement.Views
         private void BinTag_TextChanged(object sender, TextChangedEventArgs e)
         {
            
+        }
+
+        private async void btn_palletTagSearch_Clicked(object sender, EventArgs e)
+        {
+            activityIndicator.IsRunning = true;
+            popupLoadingView.IsVisible = true;
+            var getPalletTaglist = await new PalletMaintainanceService().GetPalletLog(GetPalletListUrl.getpalletTaglist);
+            if (getPalletTaglist.Status == 1)
+            {
+                _palleTagtlist = JsonConvert.DeserializeObject<List<PalletlistViewModel>>(getPalletTaglist.Response.ToString());
+                PalletTaglist.ItemsSource = _palleTagtlist;
+            }
+            popupLoadingView.IsVisible = false;
+            activityIndicator.IsRunning = false;
+         
+            popupPalletTAgListView.IsVisible = true;
+
+        }
+
+        private void PalletTaglist_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var item = (PalletlistViewModel)e.SelectedItem;
+            if (item != null)
+            {
+                PalletTag.Text = item.Tag;
+                ((ListView)sender).SelectedItem = null;
+            }
+
+            popupPalletTAgListView.IsVisible = false;
+
         }
     }
 }

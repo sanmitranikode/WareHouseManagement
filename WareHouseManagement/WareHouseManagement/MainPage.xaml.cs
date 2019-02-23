@@ -100,7 +100,7 @@ namespace WareHouseManagement
         private async void btn_StockOut_Clicked(object sender, EventArgs e)
         {
             // await Navigation.PushAsync(new PrintStickerPdf()); 
-             await Navigation.PushAsync(new UploadDamageStockImage());
+              Navigation.PushAsync(new DamageStockReportsPage());
         }
 
         private async void btn_ReaderList_Clicked(object sender, EventArgs e)

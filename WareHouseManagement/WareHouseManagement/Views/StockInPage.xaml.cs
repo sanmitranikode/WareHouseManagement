@@ -17,42 +17,28 @@ using Xamarin.Forms.Xaml;
 
 namespace WareHouseManagement.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class StockInPage : ContentPage
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class StockInPage : ContentPage
+    {
         public event PropertyChangedEventHandler PropertyChanged;
-        ReaderModel rfidModel = ReaderModel.readerModel;
-        public List<TagItem> Tags = new List<TagItem>();
+
         public List<PalletlistViewModel> _palleTagtlist = new List<PalletlistViewModel>();
-        private Object tagreadlock = new object();
-        private static Dictionary<String, int> tagListDict = new Dictionary<string, int>();
+
         public List<BinViewModel> _bintaglist = new List<BinViewModel>();
 
 
-        public bool isConnected { get => isConnected; set => OnPropertyChanged(); }
 
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public StockInPage()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            InitializeComponent();
+
+
         }
-        public StockInPage ()
-		{
-			InitializeComponent ();
-
-
-		}
         protected async override void OnAppearing()
         {
             base.OnAppearing();
 
-
-            UpdateIn();
             getData();
-
-
-          
-          
-
         }
 
         private async void getData()
@@ -63,143 +49,21 @@ namespace WareHouseManagement.Views
                 _bintaglist = JsonConvert.DeserializeObject<List<BinViewModel>>(getbins.Response.ToString());
                 sampleList.ItemsSource = _bintaglist;
             }
-           
+
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            UpdateOut();
+          
         }
 
 
 
-        internal void UpdateIn()
-        {
-            rfidModel.TagRead += TagReadEvent;
-            rfidModel.TriggerEvent += HHTriggerEvent;
-            rfidModel.StatusEvent += StatusEvent;
-            rfidModel.ReaderConnectionEvent += ReaderConnectionEvent;
-            rfidModel.ReaderAppearanceEvent += ReaderAppearanceEvent;
-        }
-
-        internal void UpdateOut()
-        {
-            rfidModel.TagRead -= TagReadEvent;
-            rfidModel.TriggerEvent -= HHTriggerEvent;
-            rfidModel.StatusEvent -= StatusEvent;
-            rfidModel.ReaderConnectionEvent -= ReaderConnectionEvent;
-            rfidModel.ReaderAppearanceEvent -= ReaderAppearanceEvent;
-        }
-      
-        public virtual void ReaderConnectionEvent(bool connection)
-        {
-            isConnected = connection;
-        }
-
-        public virtual void ReaderAppearanceEvent(bool appeared)
-        {
-
-        }
-        public void HHTriggerEvent(bool pressed)
-        {
-            try
-            {
-
-                if (pressed)
-                {
-                    Tags.Clear();
-                    tagListDict.Clear();
-
-                    bool bret = rfidModel.PerformInventory();
-                    rfidModel.TagRead += TagReadEvent;
-                    if (bret)
-                    {
-                        Thread.Sleep(200);
-                        rfidModel.StopInventory();
-                        rfidModel.TagRead -= TagReadEvent;
-                        if (Tags.Count > 0)
-                        {
-                            Device.BeginInvokeOnMainThread(() =>
-                            {
-                                if (PalletTag.IsFocused == true)
-                                {
-
-                                    PalletTag.Text = Tags.FirstOrDefault(p => p.RelativeDistance == Tags.Max(p2 => p2.RelativeDistance)).InvID;
-                                }
-
-                                if (BinTag.IsFocused == true)
-                                {
-
-                                    BinTag.Text = Tags.FirstOrDefault(p => p.RelativeDistance == Tags.Max(p2 => p2.RelativeDistance)).InvID;
-                                }
-                            });
 
 
 
-                        }
-                    }
-                }
-                else
-                {
-                    rfidModel.StopInventory();
-                    rfidModel.TagRead -= TagReadEvent;
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-                rfidModel.StopInventory();
-                rfidModel.TagRead -= TagReadEvent;
-            }
-
-        }
-
-        public virtual void TagReadEvent(TagData[] aryTags)
-        {
-            lock (tagreadlock)
-            {
-                for (int index = 0; index < aryTags.Length; index++)
-                {
-                    //Console.WriteLine("Tag ID " + aryTags[index].TagID);
-
-                    String tagID = aryTags[index].TagID;
-                    if (tagListDict.ContainsKey(tagID))
-                    {
-                        tagListDict[tagID] = tagListDict[tagID] + aryTags[index].TagSeenCount;
-                    }
-                    else
-                    {
-                        tagListDict.Add(tagID, aryTags[index].TagSeenCount);
-                        Tags.Add(new TagItem { InvID = tagID, RSSI = 0, RelativeDistance = 0, TagCount = aryTags[index].TagSeenCount });
-                    }
-                    UpdateDistance(tagID, tagListDict[tagID], aryTags[index].PeakRSSI);
-                }
-
-
-            }
-        }
-        private void UpdateDistance(string tagID, int count, short rssi)
-        {
-            var found = Tags.FirstOrDefault(x => x.InvID == tagID);
-            if (found != null)
-            {
-                found.TagCount = count;
-                // normalize
-                int nr = rssi;
-                if (rssi < -72)
-                    nr = -72;
-                if (rssi > -22)
-                    nr = -22;
-                found.RelativeDistance = (nr + 72) * 2;
-                //Console.WriteLine("Tag ID " + found.InvID + " " + found.TagCount + " " + rssi + " " + found.RelativeDistance);
-            }
-        }
-        public virtual void StatusEvent(Com.Zebra.Rfid.Api3.Events.StatusEventData statusEvent)
-        {
-
-        }
+     
         private async void btnSave_ClickedAsync(object sender, EventArgs e)
         {
             btn_save.IsEnabled = true;
@@ -226,7 +90,7 @@ namespace WareHouseManagement.Views
                     await Application.Current.MainPage.DisplayAlert("Message", "Inser Fail", "OK");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             { }
             popupLoadingView.IsVisible = false;
             activityIndicator.IsRunning = false;
@@ -247,13 +111,14 @@ namespace WareHouseManagement.Views
                     Quantity.Text = GetData.Response.ToString();
                 }
                 else { Quantity.Text = "0"; }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-               
+
             }
         }
 
-         public void clearData()
+        public void clearData()
         {
 
             PalletTag.Text = "";
@@ -261,7 +126,7 @@ namespace WareHouseManagement.Views
             Quantity.Text = "";
             btn_save.IsEnabled = false;
         }
-       
+
 
         private void PalletTag_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -270,7 +135,7 @@ namespace WareHouseManagement.Views
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-           
+
         }
 
         private void btn_binsearch_Clicked(object sender, EventArgs e)
@@ -287,7 +152,7 @@ namespace WareHouseManagement.Views
                 BinTag.Text = item.BinTag;
                 ((ListView)sender).SelectedItem = null;
             }
-        
+
             popupListView.IsVisible = false;
 
 
@@ -295,7 +160,7 @@ namespace WareHouseManagement.Views
 
         private void BinTag_TextChanged(object sender, TextChangedEventArgs e)
         {
-           
+
         }
 
         private async void btn_palletTagSearch_Clicked(object sender, EventArgs e)
@@ -310,7 +175,7 @@ namespace WareHouseManagement.Views
             }
             popupLoadingView.IsVisible = false;
             activityIndicator.IsRunning = false;
-         
+
             popupPalletTAgListView.IsVisible = true;
 
         }

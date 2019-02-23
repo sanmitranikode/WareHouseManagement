@@ -33,12 +33,9 @@ namespace WareHouseManagement.Views
         PalletModel PalletMaintainanceRequest = new PalletModel();
         List<LotNumberList> LotNumberList;
         public event PropertyChangedEventHandler PropertyChanged;
-        ReaderModel rfidModel = ReaderModel.readerModel;
         public List<TagItem> Tags = new List<TagItem>();
         public List<BinViewModel> _bintaglist = new List<BinViewModel>();
         public List<ProductBarcodeResponseModel> _barcodelist = new List<ProductBarcodeResponseModel>();
-        private Object tagreadlock = new object();
-        private static Dictionary<String, int> tagListDict = new Dictionary<string, int>();
         object item;
         CloudPrintHelper _printHelper = new CloudPrintHelper();
 
@@ -50,33 +47,13 @@ namespace WareHouseManagement.Views
 
         public List<ProductBarcodeResponseModel> allItems;
         PalletMaintanancedataBindingModel items;
-        public bool isConnected { get => isConnected; set => OnPropertyChanged(); }
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
         public PalletMaintainancePage()
         {
             InitializeComponent();
         }
-        internal void UpdateIn()
-        {
-            rfidModel.TagRead += TagReadEvent;
-            rfidModel.TriggerEvent += HHTriggerEvent;
-            rfidModel.StatusEvent += StatusEvent;
-            rfidModel.ReaderConnectionEvent += ReaderConnectionEvent;
-            rfidModel.ReaderAppearanceEvent += ReaderAppearanceEvent;
-        }
+      
 
-        internal void UpdateOut()
-        {
-            rfidModel.TagRead -= TagReadEvent;
-            rfidModel.TriggerEvent -= HHTriggerEvent;
-            rfidModel.StatusEvent -= StatusEvent;
-            rfidModel.ReaderConnectionEvent -= ReaderConnectionEvent;
-            rfidModel.ReaderAppearanceEvent -= ReaderAppearanceEvent;
-        }
+      
 
 
         protected async override void OnAppearing()
@@ -91,7 +68,7 @@ namespace WareHouseManagement.Views
                 // GetUserLoginAsync();
                 PalletList.ItemsSource = _model;
                 stk_pallettag.IsVisible = false;
-                UpdateIn();
+              
             }
             catch (Exception ex){ }
 
@@ -100,107 +77,7 @@ namespace WareHouseManagement.Views
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            UpdateOut();
-        }
-
-        public virtual void ReaderConnectionEvent(bool connection)
-        {
-            isConnected = connection;
-        }
-
-        public virtual void ReaderAppearanceEvent(bool appeared)
-        {
-
-        }
-        public void HHTriggerEvent(bool pressed)
-        {
-            try
-            {
-
-                if (pressed)
-                {
-                    Tags.Clear();
-                    tagListDict.Clear();
-
-                    bool bret = rfidModel.PerformInventory();
-                    rfidModel.TagRead += TagReadEvent;
-                    if (bret)
-                    {
-                        Thread.Sleep(200);
-                        rfidModel.StopInventory();
-                        rfidModel.TagRead -= TagReadEvent;
-                        if (Tags.Count > 0)
-                        {
-                            Device.BeginInvokeOnMainThread(() =>
-                            {
-                                txt_PalletTagNo.Text = Tags.FirstOrDefault(p => p.RelativeDistance == Tags.Max(p2 => p2.RelativeDistance)).InvID;
-                            });
-
-
-
-                        }
-                    }
-                }
-                else
-                {
-                    rfidModel.StopInventory();
-                    rfidModel.TagRead -= TagReadEvent;
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-                rfidModel.StopInventory();
-                rfidModel.TagRead -= TagReadEvent;
-                Crashes.TrackError(ex);
-            }
-
-        }
-
-        public virtual void TagReadEvent(TagData[] aryTags)
-        {
-            lock (tagreadlock)
-            {
-                for (int index = 0; index < aryTags.Length; index++)
-                {
-                    //Console.WriteLine("Tag ID " + aryTags[index].TagID);
-
-                    String tagID = aryTags[index].TagID;
-                    if (tagListDict.ContainsKey(tagID))
-                    {
-                        tagListDict[tagID] = tagListDict[tagID] + aryTags[index].TagSeenCount;
-                    }
-                    else
-                    {
-                        tagListDict.Add(tagID, aryTags[index].TagSeenCount);
-                        Tags.Add(new TagItem { InvID = tagID, RSSI = 0, RelativeDistance = 0, TagCount = aryTags[index].TagSeenCount });
-                    }
-                    UpdateDistance(tagID, tagListDict[tagID], aryTags[index].PeakRSSI);
-                }
-
-
-            }
-        }
-        private void UpdateDistance(string tagID, int count, short rssi)
-        {
-            var found = Tags.FirstOrDefault(x => x.InvID == tagID);
-            if (found != null)
-            {
-                found.TagCount = count;
-                // normalize
-                int nr = rssi;
-                if (rssi < -72)
-                    nr = -72;
-                if (rssi > -22)
-                    nr = -22;
-                found.RelativeDistance = (nr + 72) * 2;
-                //Console.WriteLine("Tag ID " + found.InvID + " " + found.TagCount + " " + rssi + " " + found.RelativeDistance);
-            }
-        }
-        public virtual void StatusEvent(Com.Zebra.Rfid.Api3.Events.StatusEventData statusEvent)
-        {
-
+           
         }
 
         private async void txt_Barcode_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
@@ -517,7 +394,15 @@ namespace WareHouseManagement.Views
                                     printService.Print(browser);
                                 }
                                 popupStockInView.IsVisible = true;
-                                PalletTag.Text = txt_PalletTagNo.Text;
+                                if(txt_PalletTagNo.Text==""|| txt_PalletTagNo.Text == null)
+                                {
+                                    PalletTag.Text = printPalletdata.Tag;
+                                }
+                                else
+                                {
+                                    PalletTag.Text = txt_PalletTagNo.Text;
+                                }
+                              
                                 Quantity.Text = PalletBarcodes.Sum(a => a.Quantity).ToString();
 
                             }
@@ -668,8 +553,14 @@ namespace WareHouseManagement.Views
         }
         private void srchbox_carret_QuerySubmitted(object sender, dotMorten.Xamarin.Forms.AutoSuggestBoxQuerySubmittedEventArgs e)
         {
-            var data = (ViewModels.LotNumberList)e.ChosenSuggestion;
-            txt_lotNo.Text = data.LotNo;
+            try
+            {
+                var data = (ViewModels.LotNumberList)e.ChosenSuggestion;
+                txt_lotNo.Text = data.LotNo;
+
+            }
+            catch { }
+          
 
         }
         private async void srchbox_carret_TextChanged(object sender, dotMorten.Xamarin.Forms.AutoSuggestBoxTextChangedEventArgs e)

@@ -16,7 +16,7 @@ namespace WareHouseManagement
     {
 
         SharedPreference _objShared = new SharedPreference();
-        private MainPageViewModel viewmodel;
+       
         public MainPage()
         {
             InitializeComponent();
@@ -26,15 +26,15 @@ namespace WareHouseManagement
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            BindingContext = viewmodel = new MainPageViewModel();
+          
 
             GlobalConstant.AccessToken = _objShared.LoadApplicationProperty<string>("AccessToken");
-            viewmodel.UpdateIn();
+           
         }
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            viewmodel.UpdateOut();
+           
         }
         async void OnLogoutButtonClicked(object sender, EventArgs e)
         {
@@ -108,7 +108,7 @@ namespace WareHouseManagement
             activityIndicator.IsRunning = true;
             popupLoadingView.IsVisible = true;
             await Task.Delay(700);
-            await Navigation.PushAsync(new ReaderListMainPage());
+           
             popupLoadingView.IsVisible = false;
             activityIndicator.IsRunning = false;
         }
@@ -153,10 +153,7 @@ namespace WareHouseManagement
             activityIndicator.IsRunning = false;
         }
 
-        private async void rfidReader_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new ReaderListMainPage());
-        }
+       
 
         private async void print_Clicked(object sender, EventArgs e)
         {

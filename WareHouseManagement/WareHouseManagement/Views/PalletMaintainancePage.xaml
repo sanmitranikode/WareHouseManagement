@@ -292,7 +292,7 @@
                                 <Label Text="Quantity" Grid.Column="1" Grid.Row="0" TextColor="Black" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"  />
                                
 
-                                <ListView x:Name="barcodeList" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                                <ListView x:Name="barcodeList" ItemSelected="barcodeList_ItemSelected" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <ViewCell>

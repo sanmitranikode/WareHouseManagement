@@ -867,6 +867,10 @@ namespace WareHouseManagement.Views
         {
 
         }
-    
+
+        private void barcodeList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            ((ListView)sender).SelectedItem = null;
+        }
     }
 }

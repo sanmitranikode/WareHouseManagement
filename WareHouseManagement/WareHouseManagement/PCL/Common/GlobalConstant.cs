@@ -96,6 +96,7 @@ namespace WareHouseManagement.PCL.Common
     public struct DamageStockUrl
     {
         public static string InsertDamageStock = "DamageStock";
+        public static string DamageStockList = "DamageStock/GetDamageStockList";
     }
 
 

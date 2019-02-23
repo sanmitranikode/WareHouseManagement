@@ -403,6 +403,7 @@ namespace WareHouseManagement.Views
                             await Application.Current.MainPage.DisplayAlert("Message", "Success", "OK");
                             clearProductData();
                             ClearAllData();
+                            GetLotNo();
 
                         }
                         else
@@ -447,6 +448,7 @@ namespace WareHouseManagement.Views
                             await Application.Current.MainPage.DisplayAlert("Message", "Success", "OK");
                             clearProductData();
                             ClearAllData();
+                            GetLotNo();
 
                         }
                         else
@@ -480,6 +482,7 @@ namespace WareHouseManagement.Views
         private void btn_AllClear_Clicked(object sender, EventArgs e)
         {
             ClearAllData();
+            GetLotNo();
         }
 
         private void ClearAllData()
@@ -500,67 +503,73 @@ namespace WareHouseManagement.Views
         private async void ProductGridlist_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var itemselect = (ProductModel)e.SelectedItem;
-            var answer = await DisplayAlert("Action?", "Do You want to Delete?", "Yes", "No");
-            if (answer == true)
+            if (itemselect != null)
             {
-                if (EditOption == true)
+                var answer = await DisplayAlert("Action?", "Do You want to Delete?", "Yes", "No");
+                if (answer == true)
                 {
-                    if (itemselect.Id == 0)
+                    if (EditOption == true)
                     {
-                        _Productlist.Remove(itemselect);
+                        if (itemselect.Id == 0)
+                        {
+                            _Productlist.Remove(itemselect);
+
+                        }
+                        else
+                        {
+                            WRReceivingProducts postdata = new WRReceivingProducts();
+                            postdata.Id = itemselect.Id;
+                            postdata.Quantity = itemselect.Quantity;
+                            postdata.WRReceivingLogId = itemselect.WRReceivingLogId;
+
+
+
+                            try
+                            {
+                                var PostDetails = await new WRRecievingLogService().DeleteWRRecievingLogProduct(postdata, ProductUrl.postdeleteproducts);
+                                if (PostDetails.Status == 1)
+                                {
+                                    _Productlist.Remove(itemselect);
+                                    await Application.Current.MainPage.DisplayAlert("Message", PostDetails.Message.ToString(), "OK");
+
+
+                                }
+                            }
+                            catch
+                            {
+
+                            }
+
+                        }
+                        ProductGridlist.ItemsSource = null;
+                        ProductGridlist.ItemsSource = _Productlist;
+
+
+
+
+
 
                     }
                     else
                     {
-                        WRReceivingProducts postdata = new WRReceivingProducts();
-                        postdata.Id = itemselect.Id;
-                        postdata.Quantity = itemselect.Quantity;
-                        postdata.WRReceivingLogId = itemselect.WRReceivingLogId;
+
+                        // var listitems = (from itm in _Productlist where itm.Id == Convert.ToInt32(dataproduct) select itm).FirstOrDefault<ProductModel>();
+
+                        _Productlist.Remove(itemselect);
+                        ProductGridlist.ItemsSource = null;
+                        ProductGridlist.ItemsSource = _Productlist;
 
 
 
-                        try
-                        {
-                            var PostDetails = await new WRRecievingLogService().DeleteWRRecievingLogProduct(postdata, ProductUrl.postdeleteproducts);
-                            if (PostDetails.Status == 1)
-                            {
-                                _Productlist.Remove(itemselect);
-                                await Application.Current.MainPage.DisplayAlert("Message", PostDetails.Message.ToString(), "OK");
-
-
-                            }
-                        }
-                        catch
-                        {
-
-                        }
 
                     }
-                    ProductGridlist.ItemsSource = null;
-                    ProductGridlist.ItemsSource = _Productlist;
-
-
-
-
 
 
                 }
-                else
-                {
-
-                    // var listitems = (from itm in _Productlist where itm.Id == Convert.ToInt32(dataproduct) select itm).FirstOrDefault<ProductModel>();
-
-                    _Productlist.Remove(itemselect);
-                    ProductGridlist.ItemsSource = null;
-                    ProductGridlist.ItemsSource = _Productlist;
-
-
-
-
-                }
-
+             ((ListView)sender).SelectedItem = null;
 
             }
+           
         }
 
         private void txt_Quantity_TextChanged(object sender, TextChangedEventArgs e)

@@ -203,6 +203,8 @@ namespace WareHouseManagement.Views
         private async void btnSave_ClickedAsync(object sender, EventArgs e)
         {
             btn_save.IsEnabled = true;
+            activityIndicator.IsRunning = true;
+            popupLoadingView.IsVisible = true;
             try
             {
                 StockInPalletModel _model = new StockInPalletModel
@@ -226,8 +228,10 @@ namespace WareHouseManagement.Views
             }
             catch(Exception ex)
             { }
-           
-          
+            popupLoadingView.IsVisible = false;
+            activityIndicator.IsRunning = false;
+
+            btn_save.IsEnabled = false;
 
         }
 

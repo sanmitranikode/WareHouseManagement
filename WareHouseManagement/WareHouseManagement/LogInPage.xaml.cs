@@ -44,10 +44,12 @@ namespace WareHouseManagement
             {
                 var UserData = JsonConvert.DeserializeObject<UserLoginViewModel>(UserDetail.Response.ToString());
                 GlobalConstant.AccessToken = UserData.Token;
+                GlobalConstant.UserId = UserData.Id.ToString();
                 GlobalConstant.UserName = UserData.Username;
                 GlobalConstant.UserPassword = UserData.Password;
                 _objShared.SaveApplicationProperty("AccessToken", GlobalConstant.AccessToken);
                 _objShared.SaveApplicationProperty("UserName", GlobalConstant.UserName);
+                _objShared.SaveApplicationProperty("UserId", GlobalConstant.UserId);
                 _objShared.SaveApplicationProperty("UserPassword", GlobalConstant.UserPassword);
 
                

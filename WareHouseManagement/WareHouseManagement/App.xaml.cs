@@ -27,6 +27,7 @@ namespace WareHouseManagement
             InitializeComponent();
             GlobalConstant.UserName = _objShared.LoadApplicationProperty<string>("UserName");
             GlobalConstant.UserPassword = _objShared.LoadApplicationProperty<string>("UserPassword");
+            GlobalConstant.UserId = _objShared.LoadApplicationProperty<string>("UserId");
 
             LogInMethod();
 
@@ -55,15 +56,18 @@ namespace WareHouseManagement
                 var UserData = JsonConvert.DeserializeObject<UserLoginViewModel>(UserDetail.Response.ToString());
                 GlobalConstant.AccessToken = UserData.Token;
                 GlobalConstant.UserName = UserData.Username;
+                GlobalConstant.UserId = UserData.Id.ToString();
                 GlobalConstant.UserPassword = UserData.Password;
                 _objShared.SaveApplicationProperty("AccessToken", GlobalConstant.AccessToken);
                 _objShared.SaveApplicationProperty("UserName", GlobalConstant.UserName);
+                _objShared.SaveApplicationProperty("UserId", GlobalConstant.UserId);
                 _objShared.SaveApplicationProperty("UserPassword", GlobalConstant.UserPassword);
             }
             else
             {
                 GlobalConstant.AccessToken = null;
                 GlobalConstant.UserName = null;
+                GlobalConstant.UserId = null;
                 GlobalConstant.UserPassword = null;
             }
         }

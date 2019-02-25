@@ -1,4 +1,5 @@
-﻿using Com.Zebra.Rfid.Api3;
+﻿
+using Microsoft.AppCenter.Crashes;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -20,22 +21,16 @@ namespace WareHouseManagement.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ClearBinPage : ContentPage
 	{
-        public event PropertyChangedEventHandler PropertyChanged;
-       
-        public List<TagItem> Tags = new List<TagItem>();
-        private Object tagreadlock = new object();
-        private static Dictionary<String, int> tagListDict = new Dictionary<string, int>();
+
+
+        #region Declaration
 
         List<ProductBarcodeResponseModel> _model = new List<ProductBarcodeResponseModel>();
         public List<ProductBarcodeResponseModel> allItems;
         PalletMaintanancedataBindingModel items;
         PalletItemResponseModel _pendingItem = new PalletItemResponseModel();
         public bool isConnected { get => isConnected; set => OnPropertyChanged(); }
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        #endregion
 
         public ClearBinPage ()
 		{
@@ -56,14 +51,14 @@ namespace WareHouseManagement.Views
 
 
 
-       
-
-       
 
 
-      
 
-       
+
+        #region Methodes
+
+
+
 
         public async void ClearPalletTagAsync()
         {
@@ -82,22 +77,11 @@ namespace WareHouseManagement.Views
             }
             catch (Exception ex)
             {
-
-
+                Crashes.TrackError(ex);
             }
 
-        }
-
-        private async void ReadPalletTag_TextChangedAsync(object sender, TextChangedEventArgs e)
-        {
-
-            if (ReadBinTag.Text != "")
-            {
-                GetPalletItem();
-            }
 
         }
-
         private async void GetPalletItem()
         {
             try
@@ -131,15 +115,31 @@ namespace WareHouseManagement.Views
             }
             catch (Exception ex)
             {
-
+                Crashes.TrackError(ex);
             }
+
+        }
+        #endregion
+        #region Events
+
+
+        private async void ReadPalletTag_TextChangedAsync(object sender, TextChangedEventArgs e)
+        {
+
+            if (ReadBinTag.Text != "")
+            {
+                GetPalletItem();
+            }
+
         }
 
+    
 
 
         private void BtnSave_Clicked(object sender, EventArgs e)
         {
             ClearPalletTagAsync();
         }
+        #endregion
     }
 }

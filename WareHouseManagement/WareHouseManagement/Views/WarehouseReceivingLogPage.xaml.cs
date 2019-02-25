@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AppCenter.Crashes;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,7 +17,9 @@ namespace WareHouseManagement.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class WarehouseReceivingLogPage : ContentPage
     {
+        #region Declaration
         public ObservableCollection<WRReceivingLogResponseViewModel> Items { get; set; }
+        #endregion
 
         public WarehouseReceivingLogPage()
         {
@@ -25,23 +28,36 @@ namespace WareHouseManagement.Views
             GetReceiveLogAsync();
             //PalletList.ItemsSource = Items;
         }
+#region Methods
         public async void GetReceiveLogAsync()
         {
-            var PalletDetail = await new PalletMaintainanceService().GetPalletLog( PalletMaintainanceServiceUrl.GetPalletreceivinglog);
-            if (PalletDetail.Status == 1)
+            try
             {
-                var Detail = JsonConvert.DeserializeObject<List<WRReceivingLogResponseViewModel>>(PalletDetail.Response.ToString());
-             
-                PalletList.ItemsSource = Detail;
+                var PalletDetail = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetPalletreceivinglog);
+                if (PalletDetail.Status == 1)
+                {
+                    var Detail = JsonConvert.DeserializeObject<List<WRReceivingLogResponseViewModel>>(PalletDetail.Response.ToString());
+
+                    PalletList.ItemsSource = Detail;
+                }
+
             }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+
            
 
         }
+        #endregion
+        #region Events
 
         private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new PalletMaintainancePage());
         }
+        #endregion
 
         //async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         //{

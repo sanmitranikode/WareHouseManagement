@@ -1,5 +1,5 @@
 ﻿using Android.Text;
-using Com.Zebra.Rfid.Api3;
+
 using Microsoft.AppCenter.Crashes;
 using Newtonsoft.Json;
 using System;
@@ -27,7 +27,8 @@ namespace WareHouseManagement.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PalletMaintainancePage : ContentPage
     {
-      
+        #region Declaration
+
         IList<PalletItemResponse> palletItem;
         ProductBarcodeResponseModel listitem;
         PalletModel PalletMaintainanceRequest = new PalletModel();
@@ -47,6 +48,7 @@ namespace WareHouseManagement.Views
 
         public List<ProductBarcodeResponseModel> allItems;
         PalletMaintanancedataBindingModel items;
+        #endregion
         public PalletMaintainancePage()
         {
             InitializeComponent();
@@ -79,31 +81,11 @@ namespace WareHouseManagement.Views
             base.OnDisappearing();
            
         }
-
-        private async void txt_Barcode_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
-        {
-            try
-            {
-
-                if (txt_Barcode.Text != "")
-                {
-                    ProductBarcodeRequestModel _User = new ProductBarcodeRequestModel
-                    {
-                        Barcode = txt_Barcode.Text,
-                        LotNo = txt_lotNo.Text,
-                        CheckQuantity = (txt_SetQuantity.Text != "" && txt_SetQuantity.Text != "0" && txt_SetQuantity.Text != null) ? Convert.ToInt32(txt_SetQuantity.Text) : 1
+   
 
 
-                    };
-                    addproductingrid(_User);
-
-                }
-            }catch(Exception ex)
-            {
-                await Application.Current.MainPage.DisplayAlert("Message", ex.ToString(), "OK");
-            }
-        }
-       public async void addproductingrid(ProductBarcodeRequestModel _User)
+        #region Methods
+        public async void addproductingrid(ProductBarcodeRequestModel _User)
         {
             
             var PalletDetail = await new PalletMaintainanceService().GetPalletMaintainanceDetail(_User, PalletMaintainanceServiceUrl.GetPalletMaintainanceDetai);
@@ -304,6 +286,7 @@ namespace WareHouseManagement.Views
 
                     catch (Exception ex)
                     {
+                        Crashes.TrackError(ex);
                         await Application.Current.MainPage.DisplayAlert("Message", ex.ToString(), "OK");
                     }
 
@@ -314,10 +297,10 @@ namespace WareHouseManagement.Views
                 }
             }catch(Exception ex)
             {
+                Crashes.TrackError(ex);
                 await Application.Current.MainPage.DisplayAlert("Message",ex.ToString(), "OK");
             }
         }
-
 
         public async void PostPalletMaintainanceDetailAsync(string type)
         {
@@ -438,16 +421,16 @@ namespace WareHouseManagement.Views
                 }
                 catch (Exception ex)
                 {
+                    Crashes.TrackError(ex);
                     await Application.Current.MainPage.DisplayAlert("Message",ex.ToString(), "OK");
                 }
             }
             catch (Exception ex)
             {
+                Crashes.TrackError(ex);
                 await Application.Current.MainPage.DisplayAlert("Message", ex.ToString(), "OK");
             }
         }
-
-
 
         public void ClearData()
         {
@@ -462,8 +445,99 @@ namespace WareHouseManagement.Views
             lbl_totalQuantity.Text = "Total Quantity = " +"0";
             stk_pallettag.IsVisible = false;
         }
+        public async void LoadLotNo()
+        {
+            try
+            {
+                var data = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetlotNoreceive + "Pallet");
+                if (data.Status == 1)
+                {
+                    LotNumberList = JsonConvert.DeserializeObject<List<LotNumberList>>(data.Response.ToString());
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+
+        }
+        private async void GetPalletItem()
+        {
+            try
+            {
+
+                var PalletDetail = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetPalletItemByTagId + "?=" + txt_PalletTagNo.Text);
+                if (PalletDetail.Status == 1 && PalletDetail != null)
+                {
+                    var PalletData = JsonConvert.DeserializeObject<PalletItemResponseModel>(PalletDetail.Response.ToString());
+
+                    palletItem = PalletData.PalletBarcodes;
+
+                    // data.Add(PalletData);
+                    //  items = PalletData;
+                    PalletList.ItemsSource = null;
+                    PalletList.ItemsSource = palletItem;
+                    int TotalQty = palletItem.Sum(a => Convert.ToInt32(a.Quantity));
+                    //  int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
+                    lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
+                }
+                else
+                {
+                    palletItem = null;
+                    PalletList.ItemsSource = null;
+                    PalletList.ItemsSource = palletItem;
+                    int TotalQty = palletItem.Sum(a => Convert.ToInt32(a.Quantity));
+                    //  int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
+                    lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+                await Application.Current.MainPage.DisplayAlert("Message", ex.ToString(), "OK");
+            }
+        }
+        public void clearData()
+        {
+
+            PalletTag.Text = "";
+            BinTag.Text = "";
+            Quantity.Text = "";
+
+        }
 
 
+        #endregion
+
+
+        #region Events
+
+        private async void txt_Barcode_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
+        {
+            try
+            {
+
+                if (txt_Barcode.Text != "")
+                {
+                    ProductBarcodeRequestModel _User = new ProductBarcodeRequestModel
+                    {
+                        Barcode = txt_Barcode.Text,
+                        LotNo = txt_lotNo.Text,
+                        CheckQuantity = (txt_SetQuantity.Text != "" && txt_SetQuantity.Text != "0" && txt_SetQuantity.Text != null) ? Convert.ToInt32(txt_SetQuantity.Text) : 1
+
+
+                    };
+                    addproductingrid(_User);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+                await Application.Current.MainPage.DisplayAlert("Message", ex.ToString(), "OK");
+            }
+        }
         private async void btn_SavePrint(object sender, EventArgs e)
         {
             try
@@ -482,7 +556,7 @@ namespace WareHouseManagement.Views
                 }
                 else
                 {
-                    if (_model != null )
+                    if (_model != null)
                     {
                         PostPalletMaintainanceDetailAsync("SaveAndPrint");
                     }
@@ -495,9 +569,10 @@ namespace WareHouseManagement.Views
 
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Message",ex.ToString(), "OK");
+                Crashes.TrackError(ex);
+                await Application.Current.MainPage.DisplayAlert("Message", ex.ToString(), "OK");
             }
 
         }
@@ -515,16 +590,16 @@ namespace WareHouseManagement.Views
                 int TotalQty = 0;
                 if (EditOption == true)
                 {
-                    
-                    var listitems = (from itm in palletItem where itm.Id ==Convert.ToInt32( item) select itm).FirstOrDefault<PalletItemResponse>();
-                    var PalletDetailDelete = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.DeletePalletItem + "?ItemTag="+txt_PalletTagNo.Text+"&Id="+listitems.Id);
+
+                    var listitems = (from itm in palletItem where itm.Id == Convert.ToInt32(item) select itm).FirstOrDefault<PalletItemResponse>();
+                    var PalletDetailDelete = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.DeletePalletItem + "?ItemTag=" + txt_PalletTagNo.Text + "&Id=" + listitems.Id);
                     if (PalletDetailDelete.Status == 1)
                     {
                         palletItem.Remove(listitems);
                         PalletList.ItemsSource = null;
                         PalletList.ItemsSource = palletItem;
-                      
-                        
+
+
                     }
                     else
                     {
@@ -533,21 +608,22 @@ namespace WareHouseManagement.Views
                         PalletList.ItemsSource = palletItem;
                     }
                     TotalQty = palletItem.Sum(a => Convert.ToInt32(a.Quantity));
-                   
+
                 }
                 else
                 {
                     listitem = (from itm in items.Items where itm.Id == Convert.ToInt32(item) select itm).FirstOrDefault<ProductBarcodeResponseModel>();
                     items.Items.Remove(listitem);
                     _model.Remove(listitem);
-                     TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
-                   
+                    TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
+
                 }
                 lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Message",ex.ToString(), "OK");
+                Crashes.TrackError(ex);
+                await Application.Current.MainPage.DisplayAlert("Message", ex.ToString(), "OK");
             }
 
         }
@@ -559,8 +635,11 @@ namespace WareHouseManagement.Views
                 txt_lotNo.Text = data.LotNo;
 
             }
-            catch { }
-          
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+
 
         }
         private async void srchbox_carret_TextChanged(object sender, dotMorten.Xamarin.Forms.AutoSuggestBoxTextChangedEventArgs e)
@@ -569,21 +648,6 @@ namespace WareHouseManagement.Views
             {
                 txt_lotNo.ItemsSource = string.IsNullOrWhiteSpace(txt_lotNo.Text) ? null : LotNumberList.Where(x => x.LotNo.StartsWith(txt_lotNo.Text, StringComparison.CurrentCultureIgnoreCase)).ToList();
             }
-        }
-
-        public async void LoadLotNo()
-        {
-            try
-            {
-                var data = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetlotNoreceive + "Pallet");
-                if (data.Status == 1)
-                {
-                    LotNumberList = JsonConvert.DeserializeObject<List<LotNumberList>>(data.Response.ToString());
-                }
-
-            }
-            catch { }
-          
         }
 
         private async void RefreshButton_Clicked(object sender, EventArgs e)
@@ -620,42 +684,7 @@ namespace WareHouseManagement.Views
 
 
 
-        private async void GetPalletItem()
-        {
-            try
-            {
-
-                var PalletDetail = await new PalletMaintainanceService().GetPalletLog(PalletMaintainanceServiceUrl.GetPalletItemByTagId + "?=" + txt_PalletTagNo.Text);
-                if (PalletDetail.Status == 1 && PalletDetail != null)
-                {
-                    var PalletData = JsonConvert.DeserializeObject<PalletItemResponseModel>(PalletDetail.Response.ToString());
-
-                    palletItem = PalletData.PalletBarcodes;
-
-                    // data.Add(PalletData);
-                    //  items = PalletData;
-                    PalletList.ItemsSource = null;
-                    PalletList.ItemsSource = palletItem;
-                    int TotalQty = palletItem.Sum(a => Convert.ToInt32(a.Quantity));
-                    //  int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
-                    lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
-                }
-                else
-                {
-                    palletItem = null;
-                    PalletList.ItemsSource = null;
-                    PalletList.ItemsSource = palletItem;
-                    int TotalQty = palletItem.Sum(a => Convert.ToInt32(a.Quantity));
-                    //  int TotalQty = items.Items.Sum(a => Convert.ToInt32(a.Quantity));
-                    lbl_totalQuantity.Text = "Total Quantity = " + TotalQty.ToString();
-                }
-            }
-            catch (Exception ex)
-            {
-                await Application.Current.MainPage.DisplayAlert("Message",ex.ToString(), "OK");
-            }
-        }
-
+        
         private async void Txt_PalletTagNo_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
         {
             if (txt_PalletTagNo.Text != "")
@@ -696,6 +725,8 @@ namespace WareHouseManagement.Views
             }
             catch (Exception ex)
             {
+                Crashes.TrackError(ex);
+
                 await Application.Current.MainPage.DisplayAlert("Message", ex.ToString(), "OK");
             }
         }
@@ -732,14 +763,7 @@ namespace WareHouseManagement.Views
             popupStockInView.IsVisible = false;
 
         }
-        public void clearData()
-        {
-
-            PalletTag.Text = "";
-            BinTag.Text = "";
-            Quantity.Text = "";
-
-        }
+      
         private void btn_close_Clicked(object sender, EventArgs e)
         {
             popupStockInView.IsVisible = false;
@@ -763,7 +787,7 @@ namespace WareHouseManagement.Views
                 popupListView.IsVisible = true;
 
             }
-            catch { }
+            catch (Exception ex) { Crashes.TrackError(ex); }
            
         }
 
@@ -829,7 +853,7 @@ namespace WareHouseManagement.Views
                     DisplayAlert("Message", "Select Save Option", "Ok");
                 }
             }
-            catch { }
+            catch (Exception ex){ Crashes.TrackError(ex); }
            
            
         }
@@ -872,5 +896,6 @@ namespace WareHouseManagement.Views
         {
             ((ListView)sender).SelectedItem = null;
         }
+        #endregion
     }
 }

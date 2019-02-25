@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AppCenter.Crashes;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,10 @@ namespace WareHouseManagement.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PickUpLogList : ContentPage
     {
+        #region Declaration
         IList<WRPickupListProductModel> _model;
-       
+        #endregion
+
 
         public PickUpLogList(IList<WRPickupListProductModel> _Data)
         {
@@ -36,18 +39,27 @@ namespace WareHouseManagement.Views
 
 
         }
+        #region Methods
 
         public async void GetPickUpLIstAsync()
         {
-
-            var GetPickUpList = await new PalletMaintainanceService().GetPalletLog(GetPickUpListUrl.GetPickUpList);
-            if (GetPickUpList.Status == 1)
+            try
             {
-               var _model = JsonConvert.DeserializeObject<List<WRPickupListProductModel>>(GetPickUpList.Response.ToString());
-           
-                PalletList.ItemsSource = null;
-                PalletList.ItemsSource = _model;
+                var GetPickUpList = await new PalletMaintainanceService().GetPalletLog(GetPickUpListUrl.GetPickUpList);
+                if (GetPickUpList.Status == 1)
+                {
+                    var _model = JsonConvert.DeserializeObject<List<WRPickupListProductModel>>(GetPickUpList.Response.ToString());
+
+                    PalletList.ItemsSource = null;
+                    PalletList.ItemsSource = _model;
+                }
             }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+     
         }
+        #endregion
     }
 }

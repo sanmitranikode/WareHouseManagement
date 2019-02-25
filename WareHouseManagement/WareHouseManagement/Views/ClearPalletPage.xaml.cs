@@ -1,4 +1,5 @@
-﻿using Com.Zebra.Rfid.Api3;
+﻿
+using Microsoft.AppCenter.Crashes;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -20,14 +21,13 @@ namespace WareHouseManagement.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ClearPalletPage : ContentPage
 	{
-       
-     
-
+        #region Declaration
         List<ProductBarcodeResponseModel> _model = new List<ProductBarcodeResponseModel>();
         public List<ProductBarcodeResponseModel> allItems;
         PalletMaintanancedataBindingModel items;
         PalletItemResponseModel _pendingItem = new PalletItemResponseModel();
-    
+        #endregion
+
         public ClearPalletPage ()
 		{
 			InitializeComponent ();
@@ -44,21 +44,7 @@ namespace WareHouseManagement.Views
          
             PalletList.ItemsSource = _model;
         }
-
-
-
-      
-
-       
-        
-
-    
-        public virtual void StatusEvent(Com.Zebra.Rfid.Api3.Events.StatusEventData statusEvent)
-        {
-
-        }
-
-
+        #region Declaration
         public async void ClearPalletTagAsync()
         {
             try
@@ -76,21 +62,13 @@ namespace WareHouseManagement.Views
             }
             catch (Exception ex)
             {
-
-
+                Crashes.TrackError(ex);
             }
+
 
         }
 
-        private async void ReadPalletTag_TextChangedAsync(object sender, TextChangedEventArgs e)
-        {
-
-            if (ReadPalletTag.Text != "")
-            {
-                GetPalletItem();
-            }
-
-        }
+       
 
         private async void GetPalletItem()
         {
@@ -125,15 +103,26 @@ namespace WareHouseManagement.Views
             }
             catch (Exception ex)
             {
-
+                Crashes.TrackError(ex);
             }
+
         }
+        #endregion
 
+        #region Events
+        private async void ReadPalletTag_TextChangedAsync(object sender, TextChangedEventArgs e)
+        {
 
+            if (ReadPalletTag.Text != "")
+            {
+                GetPalletItem();
+            }
 
+        }
         private void BtnSave_Clicked(object sender, EventArgs e)
         {
             ClearPalletTagAsync();
         }
+        #endregion
     }
 }

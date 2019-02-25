@@ -46,13 +46,15 @@ namespace WareHouseManagement
             GlobalConstant.UserName =null;
             GlobalConstant.UserPassword = null;
             GlobalConstant.AccessToken = null;
+            GlobalConstant.UserId = null;
             _objShared.SaveApplicationProperty("AccessToken", GlobalConstant.AccessToken);
             _objShared.SaveApplicationProperty("UserName", GlobalConstant.UserName);
             _objShared.SaveApplicationProperty("UserPassword", GlobalConstant.UserPassword);
-         
-           
+            _objShared.SaveApplicationProperty("UserId", GlobalConstant.UserId);
 
-          
+
+
+
 
             Navigation.InsertPageBefore(new LogInPage(), this);
                 await Navigation.PopAsync();

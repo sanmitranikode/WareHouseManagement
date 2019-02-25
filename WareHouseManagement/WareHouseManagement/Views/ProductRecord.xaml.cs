@@ -14,9 +14,10 @@ namespace WareHouseManagement.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ProductRecord : ContentPage
 	{
-
+        #region Declaration
         List<ViewModels.WRReceivingProducts> product= new List<ViewModels.WRReceivingProducts>();
-      
+        #endregion
+
         public ProductRecord(List<ViewModels.WRReceivingProducts> _product)
 		{
             product = _product;
@@ -25,12 +26,14 @@ namespace WareHouseManagement.Views
 
 
         }
+        #region Methods
 
         private async void GetDetailAsync()
         {
          
             PalletList.ItemsSource = product;
         }
+        #endregion
 
         protected override void OnAppearing()
         {

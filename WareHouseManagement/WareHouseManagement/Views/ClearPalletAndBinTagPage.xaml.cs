@@ -1,4 +1,4 @@
-﻿using Com.Zebra.Rfid.Api3;
+﻿
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -20,6 +20,7 @@ namespace WareHouseManagement.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ClearPalletAndBinTagPage : TabbedPage
     {
+        #region Declaration
         public event PropertyChangedEventHandler PropertyChanged;
        
         public List<TagItem> Tags = new List<TagItem>();
@@ -30,9 +31,9 @@ namespace WareHouseManagement.Views
         public List<ProductBarcodeResponseModel> allItems;
         PalletMaintanancedataBindingModel items;
         PalletItemResponseModel _pendingItem = new PalletItemResponseModel();
-       
 
-      
+
+        #endregion
 
         public ClearPalletAndBinTagPage()
 		{

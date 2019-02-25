@@ -12,7 +12,9 @@ namespace WareHouseManagement.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ProductBinDetailReportList : ContentPage
 	{
+        #region Declaration
         List<BinsDetailByProductModel> _model = new List<BinsDetailByProductModel>();
+        #endregion
         public ProductBinDetailReportList(List<BinsDetailByProductModel> model)
 		{
 			InitializeComponent ();

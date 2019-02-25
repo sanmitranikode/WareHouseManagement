@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AppCenter.Crashes;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,10 @@ namespace WareHouseManagement.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class DamageStockReportsPage : ContentPage
 	{
+        #region Declaration
         List<DamageProductModel> _damageProductlist = new List<DamageProductModel>();
-		public DamageStockReportsPage ()
+        #endregion
+        public DamageStockReportsPage ()
 		{
 			InitializeComponent ();
 		}
@@ -27,6 +30,7 @@ namespace WareHouseManagement.Views
 
             
         }
+        #region Methods
 
         private async void LoadDamageList()
         {
@@ -41,8 +45,14 @@ namespace WareHouseManagement.Views
                 }
 
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+
         }
+        #endregion
+        #region Events
 
         private async void btn_newAddDamage_Clicked_1(object sender, EventArgs e)
         {
@@ -60,5 +70,6 @@ namespace WareHouseManagement.Views
         {
 
         }
+        #endregion
     }
 }

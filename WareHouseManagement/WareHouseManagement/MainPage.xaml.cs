@@ -78,9 +78,9 @@ namespace WareHouseManagement
             activityIndicator.IsRunning = true;
             popupLoadingView.IsVisible = true;
 
-            await Task.Delay(700);
+           await Task.Delay(700);
 
-            await Navigation.PushAsync(new PalletList());
+           await Navigation.PushAsync(new PalletList());
             popupLoadingView.IsVisible = false;
             activityIndicator.IsRunning = false;
 
@@ -99,8 +99,13 @@ namespace WareHouseManagement
 
         private async void btn_StockOut_Clicked(object sender, EventArgs e)
         {
+            activityIndicator.IsRunning = true;
+            popupLoadingView.IsVisible = true;
+            await Task.Delay(700);
             // await Navigation.PushAsync(new PrintStickerPdf()); 
-              Navigation.PushAsync(new DamageStockReportsPage());
+            Navigation.PushAsync(new DamageStockReportsPage());
+            popupLoadingView.IsVisible = false;
+            activityIndicator.IsRunning = false;
         }
 
         private async void btn_ReaderList_Clicked(object sender, EventArgs e)

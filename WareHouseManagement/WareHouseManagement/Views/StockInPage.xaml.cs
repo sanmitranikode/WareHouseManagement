@@ -1,4 +1,5 @@
-﻿using Com.Zebra.Rfid.Api3;
+﻿
+using Microsoft.AppCenter.Crashes;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -20,11 +21,13 @@ namespace WareHouseManagement.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class StockInPage : ContentPage
     {
+        #region Declaration
         public event PropertyChangedEventHandler PropertyChanged;
 
         public List<PalletlistViewModel> _palleTagtlist = new List<PalletlistViewModel>();
 
         public List<BinViewModel> _bintaglist = new List<BinViewModel>();
+        #endregion
 
 
 
@@ -41,16 +44,7 @@ namespace WareHouseManagement.Views
             getData();
         }
 
-        private async void getData()
-        {
-            var getbins = await new PalletMaintainanceService().GetPalletLog(GetBintagsUrl.GetBintagList);
-            if (getbins.Status == 1)
-            {
-                _bintaglist = JsonConvert.DeserializeObject<List<BinViewModel>>(getbins.Response.ToString());
-                sampleList.ItemsSource = _bintaglist;
-            }
-
-        }
+       
 
         protected override void OnDisappearing()
         {
@@ -58,12 +52,55 @@ namespace WareHouseManagement.Views
           
         }
 
+        #region Methods
+        private async void getData()
+        {
+            try
+            {
+                var getbins = await new PalletMaintainanceService().GetPalletLog(GetBintagsUrl.GetBintagList);
+                if (getbins.Status == 1)
+                {
+                    _bintaglist = JsonConvert.DeserializeObject<List<BinViewModel>>(getbins.Response.ToString());
+                    sampleList.ItemsSource = _bintaglist;
+                }
 
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
 
+          
 
+        }
+       public async void GetQuantityByPalletId()
+        {
+            try
+            {
 
+                var GetData = await new PalletMaintainanceService().GetPalletLog(StockInServiceUrl.GetQuantity + PalletTag.Text);
+                if (GetData.Status == 1)
+                {
+                    Quantity.Text = GetData.Response.ToString();
+                }
+                else { Quantity.Text = "0"; }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+        }
 
-     
+        public void clearData()
+        {
+
+            PalletTag.Text = "";
+            BinTag.Text = "";
+            Quantity.Text = "";
+            btn_save.IsEnabled = false;
+        }
+        #endregion
+        #region Events
         private async void btnSave_ClickedAsync(object sender, EventArgs e)
         {
             btn_save.IsEnabled = true;
@@ -91,40 +128,12 @@ namespace WareHouseManagement.Views
                 }
             }
             catch (Exception ex)
-            { }
+            { Crashes.TrackError(ex); }
             popupLoadingView.IsVisible = false;
             activityIndicator.IsRunning = false;
 
             btn_save.IsEnabled = false;
 
-        }
-
-
-        public async void GetQuantityByPalletId()
-        {
-            try
-            {
-
-                var GetData = await new PalletMaintainanceService().GetPalletLog(StockInServiceUrl.GetQuantity + PalletTag.Text);
-                if (GetData.Status == 1)
-                {
-                    Quantity.Text = GetData.Response.ToString();
-                }
-                else { Quantity.Text = "0"; }
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-
-        public void clearData()
-        {
-
-            PalletTag.Text = "";
-            BinTag.Text = "";
-            Quantity.Text = "";
-            btn_save.IsEnabled = false;
         }
 
 
@@ -165,32 +174,52 @@ namespace WareHouseManagement.Views
 
         private async void btn_palletTagSearch_Clicked(object sender, EventArgs e)
         {
-            activityIndicator.IsRunning = true;
-            popupLoadingView.IsVisible = true;
-            var getPalletTaglist = await new PalletMaintainanceService().GetPalletLog(GetPalletListUrl.getpalletTaglist);
-            if (getPalletTaglist.Status == 1)
+            try
             {
-                _palleTagtlist = JsonConvert.DeserializeObject<List<PalletlistViewModel>>(getPalletTaglist.Response.ToString());
-                PalletTaglist.ItemsSource = _palleTagtlist;
-            }
-            popupLoadingView.IsVisible = false;
-            activityIndicator.IsRunning = false;
+                activityIndicator.IsRunning = true;
+                popupLoadingView.IsVisible = true;
+                var getPalletTaglist = await new PalletMaintainanceService().GetPalletLog(GetPalletListUrl.getpalletTaglist);
+                if (getPalletTaglist.Status == 1)
+                {
+                    _palleTagtlist = JsonConvert.DeserializeObject<List<PalletlistViewModel>>(getPalletTaglist.Response.ToString());
+                    PalletTaglist.ItemsSource = _palleTagtlist;
+                }
+                popupLoadingView.IsVisible = false;
+                activityIndicator.IsRunning = false;
 
-            popupPalletTAgListView.IsVisible = true;
+                popupPalletTAgListView.IsVisible = true;
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+
+           
 
         }
 
         private void PalletTaglist_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var item = (PalletlistViewModel)e.SelectedItem;
-            if (item != null)
+            try
             {
-                PalletTag.Text = item.Tag;
-                ((ListView)sender).SelectedItem = null;
+                var item = (PalletlistViewModel)e.SelectedItem;
+                if (item != null)
+                {
+                    PalletTag.Text = item.Tag;
+                    ((ListView)sender).SelectedItem = null;
+                }
+
+                popupPalletTAgListView.IsVisible = false;
+            }
+         
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
             }
 
-            popupPalletTAgListView.IsVisible = false;
+
 
         }
+        #endregion
     }
 }

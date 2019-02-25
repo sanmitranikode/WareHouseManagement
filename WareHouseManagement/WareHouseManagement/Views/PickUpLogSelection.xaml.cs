@@ -1,4 +1,4 @@
-﻿using Com.Zebra.Rfid.Api3;
+﻿
 using Microsoft.AppCenter.Crashes;
 using Newtonsoft.Json;
 using System;
@@ -21,12 +21,13 @@ namespace WareHouseManagement.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class PiclUpLogSelection : ContentPage
 	{
+        #region Declaration
         WrPickupListModel _model = new WrPickupListModel();
         WrPickupListResponseViewModel _Responce = new WrPickupListResponseViewModel();
 
-        
+        #endregion
 
-        
+
         public PiclUpLogSelection()
         {
             InitializeComponent();
@@ -34,7 +35,7 @@ namespace WareHouseManagement.Views
         }
 
 
-               protected async override void OnAppearing()
+        protected async override void OnAppearing()
         {
             base.OnAppearing();
           
@@ -42,22 +43,34 @@ namespace WareHouseManagement.Views
             GetPickedUpList();
 
         }
+        #region Methods
 
         public async void GetPickedUpList()
         {
-
-
-            var data = await new PalletMaintainanceService().GetPalletLog(GetPickUpListUrl.GetPickUpList);
-            if (data.Status == 1)
+            try
             {
-             
-                var PickUpListData = JsonConvert.DeserializeObject<List<WrPickupListModel>> (data.Response.ToString());
-                _Responce.WrPickupListModel = PickUpListData;
-                  PalletList.ItemsSource = null;
-                PalletList.ItemsSource = _Responce.WrPickupListModel;
+
+                var data = await new PalletMaintainanceService().GetPalletLog(GetPickUpListUrl.GetPickUpList);
+                if (data.Status == 1)
+                {
+
+                    var PickUpListData = JsonConvert.DeserializeObject<List<WrPickupListModel>>(data.Response.ToString());
+                    _Responce.WrPickupListModel = PickUpListData;
+                    PalletList.ItemsSource = null;
+                    PalletList.ItemsSource = _Responce.WrPickupListModel;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
             }
 
+
+
+
         }
+        #endregion
 
         protected override void OnDisappearing()
         {
@@ -65,26 +78,26 @@ namespace WareHouseManagement.Views
            
         }
 
-      
-
-       
-       
-
-     
-
-        public virtual void StatusEvent(Com.Zebra.Rfid.Api3.Events.StatusEventData statusEvent)
-        {
-
-        }
-
+        #region Events
         public async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-            WrPickupListModel _modelResponse = new WrPickupListModel();
-            var tappedHier = ((TappedEventArgs)e).Parameter;
-          
-            var data = _Responce.WrPickupListModel.Where(a => a.Id == Convert.ToInt32(tappedHier)).FirstOrDefault();
+            try
+            {
 
-            await Navigation.PushAsync(new PickUpLogList(data.WRPickupListProducts));
+                WrPickupListModel _modelResponse = new WrPickupListModel();
+                var tappedHier = ((TappedEventArgs)e).Parameter;
+
+                var data = _Responce.WrPickupListModel.Where(a => a.Id == Convert.ToInt32(tappedHier)).FirstOrDefault();
+
+                await Navigation.PushAsync(new PickUpLogList(data.WRPickupListProducts));
+
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+
         }
+        #endregion
     }
 }

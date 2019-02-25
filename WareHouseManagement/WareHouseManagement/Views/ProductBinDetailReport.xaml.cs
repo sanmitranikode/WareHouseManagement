@@ -16,7 +16,9 @@ namespace WareHouseManagement.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ProductBinDetailReport : ContentPage
 	{
+        #region Declaration
         List<ProductModel> _Model = new List<ProductModel>();
+        #endregion
         public ProductBinDetailReport ()
 		{
 			InitializeComponent ();
@@ -26,6 +28,7 @@ namespace WareHouseManagement.Views
             base.OnAppearing();
             GetProductList();
         }
+        #region Methods
         public async void GetProductList()
         {
             try
@@ -61,6 +64,8 @@ namespace WareHouseManagement.Views
             catch (Exception ex) { Crashes.TrackError(ex); }
 
         }
+        #endregion
+        #region Events
 
         private async void Txt_BarcodeSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -122,5 +127,6 @@ namespace WareHouseManagement.Views
             ((ListView)sender).SelectedItem = null;
 
         }
+        #endregion
     }
 }

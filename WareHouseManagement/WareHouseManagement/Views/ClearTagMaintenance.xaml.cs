@@ -16,6 +16,7 @@ namespace WareHouseManagement.Views
 		{
 			InitializeComponent ();
 		}
+        #region Events
 
         private async void btn_ClrPalletTag_Clicked(object sender, EventArgs e)
         {
@@ -27,5 +28,6 @@ namespace WareHouseManagement.Views
         {
             await Navigation.PushAsync(new ClearPalletAndBinTagPage());
         }
+        #endregion
     }
 }

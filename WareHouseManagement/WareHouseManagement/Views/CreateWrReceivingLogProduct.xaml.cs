@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AppCenter.Crashes;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +17,14 @@ namespace WareHouseManagement.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CreateWrReceivingLogProduct : ContentPage
     {
+        #region Declaration
         bool EditOption = false;
         public List<CustomerViewModel> _Customerlist = new List<CustomerViewModel>();
         public List<VendorModel> _Venderlist = new List<VendorModel>();
         public List<ProductModel> _Productlist = new List<ProductModel>();
         WRReceivingLogModel _wrReceivinglogmodel = new WRReceivingLogModel();
         decimal holdweight;
+        #endregion
         public CreateWrReceivingLogProduct(WRReceivingLogModel wrReceivinglogmodel)
         {
             InitializeComponent();
@@ -38,7 +41,7 @@ namespace WareHouseManagement.Views
            
             GetLotNo();
         }
-
+        #region Methods
         private async void GetLotNo()
         {
             try
@@ -55,32 +58,71 @@ namespace WareHouseManagement.Views
                 }
 
             }
-            catch { }
-           
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+
+
         }
+        private void clearProductData()
+        {
+            txt_product.Text = null;
+            txt_Quantity.Text = null;
+            txt_Weight.Text = null;
+            txt_Cubic.Text = null;
+            txt_ProductId.Text = null;
+            datepicker_Expiry.Date = DateTime.Now;
+
+        }
+        private void ClearAllData()
+        {
+            txt_customer.Text = null;
+            txt_lotNo.Text = null;
+            txt_Container.Text = null;
+            txt_rcvingDate.Date = DateTime.UtcNow;
+            txt_Vendor.Text = null;
+            clearProductData();
+            _wrReceivinglogmodel = new WRReceivingLogModel();
+            _Productlist = new List<ProductModel>(); ;
+            ProductGridlist.ItemsSource = null;
+
+
+        }
+        #endregion
+        #region Events
 
         private void EditWrRecData(WRReceivingLogModel wrReceivinglogmodel)
         {
-            txt_customer.Text = wrReceivinglogmodel.CustomerFullName;
-            txt_lotNo.Text = wrReceivinglogmodel.LotNo;
-            txt_Container.Text = wrReceivinglogmodel.ContainerNo;
-            txt_rcvingDate.Date = wrReceivinglogmodel.ReceivedDate;
-           // txt_Vendor.Text=wrReceivinglogmodel.ve
-                txt_CustomerId.Text = wrReceivinglogmodel.CustomerId.ToString();
-            var detail = wrReceivinglogmodel.wrReceivingProducts.Select(a=>new ProductModel
+            try
             {
-                Id=a.Id,
-                ProductId = a.ProductId,
-                ProductName = a.ProductName,
-                Quantity = a.Quantity,
-                Weight = a.Weight,
-                Cubic = a.Cubic,
-                ExDate = a.ExDate,
-                WRReceivingLogId=a.WRReceivingLogId
+                txt_customer.Text = wrReceivinglogmodel.CustomerFullName;
+                txt_lotNo.Text = wrReceivinglogmodel.LotNo;
+                txt_Container.Text = wrReceivinglogmodel.ContainerNo;
+                txt_rcvingDate.Date = wrReceivinglogmodel.ReceivedDate;
+                // txt_Vendor.Text=wrReceivinglogmodel.ve
+                txt_CustomerId.Text = wrReceivinglogmodel.CustomerId.ToString();
+                var detail = wrReceivinglogmodel.wrReceivingProducts.Select(a => new ProductModel
+                {
+                    Id = a.Id,
+                    ProductId = a.ProductId,
+                    ProductName = a.ProductName,
+                    Quantity = a.Quantity,
+                    Weight = a.Weight,
+                    Cubic = a.Cubic,
+                    ExDate = a.ExDate,
+                    WRReceivingLogId = a.WRReceivingLogId
 
-            }).ToList();
-            _Productlist = detail;
-            ProductGridlist.ItemsSource = _Productlist;
+                }).ToList();
+                _Productlist = detail;
+                ProductGridlist.ItemsSource = _Productlist;
+
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+
         }
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
@@ -90,16 +132,26 @@ namespace WareHouseManagement.Views
 
         private void CustomerList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var item = (CustomerViewModel)e.SelectedItem;
-            if (item != null)
+            try
             {
-                txt_CustomerId.Text = item.Id.ToString();
-                txt_customer.Text = item.CustomerName;
-                ((ListView)sender).SelectedItem = null;
+                var item = (CustomerViewModel)e.SelectedItem;
+                if (item != null)
+                {
+                    txt_CustomerId.Text = item.Id.ToString();
+                    txt_customer.Text = item.CustomerName;
+                    ((ListView)sender).SelectedItem = null;
+
+                }
+
+                popupListViewCustomer.IsVisible = false;
 
             }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
 
-            popupListViewCustomer.IsVisible = false;
+           
         }
 
         private async void Searchcustomer_Tapped(object sender, EventArgs e)
@@ -118,8 +170,12 @@ namespace WareHouseManagement.Views
                 activityIndicator.IsRunning = false;
                 popupListViewCustomer.IsVisible = true;
             }
-            catch { }
-           
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+
+
         }
 
         private void Tapancel_Tapped(object sender, EventArgs e)
@@ -129,14 +185,23 @@ namespace WareHouseManagement.Views
 
         private void listVender_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var item = (VendorModel)e.SelectedItem;
-            if (item != null)
+            try
             {
-                txt_Vendor.Text = item.Name;
-                ((ListView)sender).SelectedItem = null;
+                var item = (VendorModel)e.SelectedItem;
+                if (item != null)
+                {
+                    txt_Vendor.Text = item.Name;
+                    ((ListView)sender).SelectedItem = null;
+                }
+
+                popupListViewVender.IsVisible = false;
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
             }
 
-            popupListViewVender.IsVisible = false;
+          
 
         }
 
@@ -157,8 +222,12 @@ namespace WareHouseManagement.Views
                 popupListViewVender.IsVisible = true;
 
             }
-            catch { }
-           
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+
+
         }
 
         private async void btn_addproduct_Clicked(object sender, EventArgs e)
@@ -204,8 +273,12 @@ namespace WareHouseManagement.Views
                 }
 
             }
-            catch { }
-          
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+
+
 
         }
 
@@ -237,8 +310,12 @@ namespace WareHouseManagement.Views
                 calender.IsVisible = true;
 
             }
-            catch { }
-           
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+
+
         }
 
         private void btn_Viewaddproduct_Clicked(object sender, EventArgs e)
@@ -272,25 +349,14 @@ namespace WareHouseManagement.Views
 
                 }
             }
-            catch
+            catch (Exception ex)
             {
-
+                Crashes.TrackError(ex);
             }
-           
-            
-        }
 
-        private void clearProductData()
-        {
-            txt_product.Text = null;
-            txt_Quantity.Text = null;
-            txt_Weight.Text = null;
-            txt_Cubic.Text = null;
-            txt_ProductId.Text = null;
-            datepicker_Expiry.Date = DateTime.Now;
+
 
         }
-
         private async void DeleteProductitem_Tapped(object sender, EventArgs e)
         {
             try
@@ -319,10 +385,11 @@ namespace WareHouseManagement.Views
 
                         }
                     }
-                    catch
+                    catch (Exception ex)
                     {
-
+                        Crashes.TrackError(ex);
                     }
+
                     popupLoadingView.IsVisible = false;
                     activityIndicator.IsRunning = false;
 
@@ -345,8 +412,12 @@ namespace WareHouseManagement.Views
                 ProductGridlist.ItemsSource = null;
                 ProductGridlist.ItemsSource = _Productlist;
             }
-            catch { }
-            
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+
+
 
         }
 
@@ -466,9 +537,9 @@ namespace WareHouseManagement.Views
 
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                Crashes.TrackError(ex);
             }
 
 
@@ -485,104 +556,115 @@ namespace WareHouseManagement.Views
             GetLotNo();
         }
 
-        private void ClearAllData()
-        {
-            txt_customer.Text = null;
-            txt_lotNo.Text = null;
-            txt_Container.Text = null;
-            txt_rcvingDate.Date = DateTime.UtcNow;
-            txt_Vendor.Text = null;
-            clearProductData();
-            _wrReceivinglogmodel = new WRReceivingLogModel();
-            _Productlist = new List<ProductModel>(); ;
-            ProductGridlist.ItemsSource = null;
 
-
-        }
 
         private async void ProductGridlist_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var itemselect = (ProductModel)e.SelectedItem;
-            if (itemselect != null)
+            try
             {
-                var answer = await DisplayAlert("Action?", "Do You want to Delete?", "Yes", "No");
-                if (answer == true)
+                var itemselect = (ProductModel)e.SelectedItem;
+                if (itemselect != null)
                 {
-                    if (EditOption == true)
+                    var answer = await DisplayAlert("Action?", "Do You want to Delete?", "Yes", "No");
+                    if (answer == true)
                     {
-                        if (itemselect.Id == 0)
+                        if (EditOption == true)
                         {
-                            _Productlist.Remove(itemselect);
+                            if (itemselect.Id == 0)
+                            {
+                                _Productlist.Remove(itemselect);
+
+                            }
+                            else
+                            {
+                                WRReceivingProducts postdata = new WRReceivingProducts();
+                                postdata.Id = itemselect.Id;
+                                postdata.Quantity = itemselect.Quantity;
+                                postdata.WRReceivingLogId = itemselect.WRReceivingLogId;
+
+
+
+                                try
+                                {
+                                    var PostDetails = await new WRRecievingLogService().DeleteWRRecievingLogProduct(postdata, ProductUrl.postdeleteproducts);
+                                    if (PostDetails.Status == 1)
+                                    {
+                                        _Productlist.Remove(itemselect);
+                                        await Application.Current.MainPage.DisplayAlert("Message", PostDetails.Message.ToString(), "OK");
+
+
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    Crashes.TrackError(ex);
+                                }
+
+
+                            }
+                            ProductGridlist.ItemsSource = null;
+                            ProductGridlist.ItemsSource = _Productlist;
+
+
+
+
+
 
                         }
                         else
                         {
-                            WRReceivingProducts postdata = new WRReceivingProducts();
-                            postdata.Id = itemselect.Id;
-                            postdata.Quantity = itemselect.Quantity;
-                            postdata.WRReceivingLogId = itemselect.WRReceivingLogId;
+
+                            // var listitems = (from itm in _Productlist where itm.Id == Convert.ToInt32(dataproduct) select itm).FirstOrDefault<ProductModel>();
+
+                            _Productlist.Remove(itemselect);
+                            ProductGridlist.ItemsSource = null;
+                            ProductGridlist.ItemsSource = _Productlist;
 
 
 
-                            try
-                            {
-                                var PostDetails = await new WRRecievingLogService().DeleteWRRecievingLogProduct(postdata, ProductUrl.postdeleteproducts);
-                                if (PostDetails.Status == 1)
-                                {
-                                    _Productlist.Remove(itemselect);
-                                    await Application.Current.MainPage.DisplayAlert("Message", PostDetails.Message.ToString(), "OK");
-
-
-                                }
-                            }
-                            catch
-                            {
-
-                            }
 
                         }
-                        ProductGridlist.ItemsSource = null;
-                        ProductGridlist.ItemsSource = _Productlist;
-
-
-
-
 
 
                     }
-                    else
-                    {
-
-                        // var listitems = (from itm in _Productlist where itm.Id == Convert.ToInt32(dataproduct) select itm).FirstOrDefault<ProductModel>();
-
-                        _Productlist.Remove(itemselect);
-                        ProductGridlist.ItemsSource = null;
-                        ProductGridlist.ItemsSource = _Productlist;
-
-
-
-
-                    }
-
+                 ((ListView)sender).SelectedItem = null;
 
                 }
-             ((ListView)sender).SelectedItem = null;
-
             }
-           
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+
+
+
         }
 
         private void txt_Quantity_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(txt_Quantity.Text!="" && txt_Quantity.Text != null)
+            try
             {
-                txt_Weight.Text = (Convert.ToDecimal(txt_Weight.Text) * Convert.ToDecimal(txt_Quantity.Text)).ToString();
+                if (txt_Quantity.Text != "" && txt_Quantity.Text != null)
+                {
+                    txt_Weight.Text = (Convert.ToDecimal(txt_Weight.Text) * Convert.ToDecimal(txt_Quantity.Text)).ToString();
+                }
+                else
+                {
+                    txt_Weight.Text = holdweight.ToString();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                txt_Weight.Text = holdweight.ToString();
+                Crashes.TrackError(ex);
             }
-                
+
+
+
         }
+        #endregion
+
+
+
+
     }
 }

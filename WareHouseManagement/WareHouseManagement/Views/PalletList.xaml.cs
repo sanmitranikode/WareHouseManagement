@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AppCenter.Crashes;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,10 @@ namespace WareHouseManagement.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PalletList : ContentPage
     {
+        #region Declaration
         public List<PalletlistViewModel> _palletlist = new List<PalletlistViewModel>();
         public List<BinViewModel> _bintaglist = new List<BinViewModel>();
+        #endregion
 
         public PalletList()
         {
@@ -25,11 +28,15 @@ namespace WareHouseManagement.Views
         }
         protected async override void OnAppearing()
         {
+            activityIndicator.IsRunning = true;
+            popupLoadingView.IsVisible = true;
             base.OnAppearing();
             loaddata();
+            popupLoadingView.IsVisible = false;
+            activityIndicator.IsRunning = false;
 
         }
-
+        #region Declaration
         private async void loaddata()
         {
             try
@@ -43,10 +50,24 @@ namespace WareHouseManagement.Views
                 }
 
             }
-            catch { }
-          
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+
+
 
         }
+        public void clearData()
+        {
+
+            PalletTag.Text = "";
+            BinTag.Text = "";
+            Quantity.Text = "";
+
+        }
+        #endregion
+        #region Events
 
         private void fabBtn_Clicked(object sender, EventArgs e)
         {
@@ -55,12 +76,21 @@ namespace WareHouseManagement.Views
 
         private void StockIn_Tapped(object sender, EventArgs e)
         {
-            var tappedstock = ((TappedEventArgs)e).Parameter;
-            var listitems = (from itm in _palletlist where itm.Tag ==tappedstock.ToString() select itm).FirstOrDefault<PalletlistViewModel>();
-            popupStockInView.IsVisible = true;
-            PalletTag.Text = listitems.Tag;
-            Quantity.Text = listitems.TotalProducts.ToString();
+            try
+            {
+                var tappedstock = ((TappedEventArgs)e).Parameter;
+                var listitems = (from itm in _palletlist where itm.Tag == tappedstock.ToString() select itm).FirstOrDefault<PalletlistViewModel>();
+                popupStockInView.IsVisible = true;
+                PalletTag.Text = listitems.Tag;
+                Quantity.Text = listitems.TotalProducts.ToString();
 
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+
+           
 
 
 
@@ -68,9 +98,18 @@ namespace WareHouseManagement.Views
 
         private void Print_Tapped(object sender, EventArgs e)
         {
-            var tappedprint = ((TappedEventArgs)e).Parameter;
-            var listitems = (from itm in _palletlist where itm.Tag == tappedprint.ToString() select itm).FirstOrDefault<PalletlistViewModel>();
+            try
+            {
+                var tappedprint = ((TappedEventArgs)e).Parameter;
+                var listitems = (from itm in _palletlist where itm.Tag == tappedprint.ToString() select itm).FirstOrDefault<PalletlistViewModel>();
 
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+
+           
 
         }
 
@@ -106,19 +145,14 @@ namespace WareHouseManagement.Views
                 }
             }
             catch (Exception ex)
-            { }
+            {
+                Crashes.TrackError(ex);
+            }
 
             btn_save.IsEnabled = true;
 
         }
-        public void clearData()
-        {
-
-            PalletTag.Text = "";
-            BinTag.Text = "";
-            Quantity.Text = "";
-           
-        }
+    
 
         private async void btn_close_Clicked(object sender, EventArgs e)
         {
@@ -145,25 +179,38 @@ namespace WareHouseManagement.Views
                 btn_binsearch.IsEnabled = true;
 
             }
-            catch { }
-          
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+
         }
 
         private void sampleList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var item = (BinViewModel)e.SelectedItem;
-            if (item != null)
+            try
             {
-                BinTag.Text = item.BinTag;
-                ((ListView)sender).SelectedItem = null;
+                var item = (BinViewModel)e.SelectedItem;
+                if (item != null)
+                {
+                    BinTag.Text = item.BinTag;
+                    ((ListView)sender).SelectedItem = null;
+                }
+
+                popupListView.IsVisible = false;
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
             }
 
-            popupListView.IsVisible = false;
+            
         }
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
             popupListView.IsVisible = false;
         }
+        #endregion
     }
 }

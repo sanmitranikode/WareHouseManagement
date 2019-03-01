@@ -1,4 +1,6 @@
 ﻿using Android.App;
+using Microsoft.AppCenter.Crashes;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WareHouseManagement.PCL.Common;
 using WareHouseManagement.PCL.Helper;
+using WareHouseManagement.PCL.Service;
 using WareHouseManagement.ViewModels;
 using WareHouseManagement.Views;
 using Xamarin.Forms;
@@ -16,12 +19,13 @@ namespace WareHouseManagement
     {
 
         SharedPreference _objShared = new SharedPreference();
-       
+        public static List<ProductModel> ProductListStaticModel { get; set; }
         public MainPage()
         {
             InitializeComponent();
-         
 
+
+            ProductListStaticModel = new List<ProductModel>();
         }
         protected override void OnAppearing()
         {
@@ -29,7 +33,26 @@ namespace WareHouseManagement
           
 
             GlobalConstant.AccessToken = _objShared.LoadApplicationProperty<string>("AccessToken");
-           
+            getProductListOnLoad();
+        }
+        async void getProductListOnLoad()
+        {
+            try
+            {
+
+
+                var getproductdata = await new PalletMaintainanceService().GetPalletLog(GetCustomerAndVender.getproductlist);
+                if (getproductdata.Status == 1)
+                {
+                    ProductListStaticModel = JsonConvert.DeserializeObject<List<ProductModel>>(getproductdata.Response.ToString());
+                   
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
         }
         protected override void OnDisappearing()
         {

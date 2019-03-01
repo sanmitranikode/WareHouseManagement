@@ -25,7 +25,13 @@ namespace WareHouseManagement
         {
             base.OnAppearing();
             try { NavigationPage.SetHasNavigationBar(this, false); } catch { }
+
+          
+
         }
+
+     
+
         async void OnLoginButtonClicked(object sender, EventArgs e)
         {
             activity.IsRunning = true;

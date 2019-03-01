@@ -234,9 +234,10 @@ namespace WareHouseManagement.Views
         {
             
                 popupAddProductView.IsVisible = true;
-            
 
-           
+          
+
+
 
         }
 
@@ -244,15 +245,12 @@ namespace WareHouseManagement.Views
         {
             try
             {
+            
                 if (txt_product.Text != "" && txt_product.Text != null)
                 {
-                    var getproductdata = await new PalletMaintainanceService().GetPalletLog(GetCustomerAndVender.getproductlist + txt_product.Text);
-                    if (getproductdata.Status == 1)
-                    {
-                        var Product = JsonConvert.DeserializeObject<List<ProductModel>>(getproductdata.Response.ToString());
-                        listproduct.ItemsSource = Product;
-                    }
-                    listproduct.IsVisible = true;
+                 var model= MainPage.ProductListStaticModel.Where(a => a.ShortDescription.ToLower().Contains(txt_product.Text.ToLower()) ).ToList();
+                    listproduct.ItemsSource = model;
+                 listproduct.IsVisible = true;
                     txt_Quantity.IsVisible = false;
                     txt_Weight.IsVisible = false;
                     txt_Cubic.IsVisible = false;
